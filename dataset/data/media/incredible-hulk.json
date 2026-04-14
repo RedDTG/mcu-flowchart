@@ -1,0 +1,14 @@
+﻿{
+  "id": "incredible-hulk",
+  "title": "The Incredible Hulk",
+  "release date": "2008-06-13",
+  "phase": 1,
+  "mediatype": "movie",
+  "poster": "/posters/incredible-hulk.jpg",
+  "summary": "Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into whenever he loses his temper. (source: IMDb)",
+  "connections": {
+    "required": [],
+    "optionnal": [],
+    "references": []
+  }
+}
