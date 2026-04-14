@@ -1,0 +1,20 @@
+﻿{
+  "id": "avengers",
+  "title": "The Avengers",
+  "release date": "2012-05-04",
+  "phase": 1,
+  "mediatype": "movie",
+  "poster": "/posters/avengers.jpg",
+  "summary": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity. (source: IMDb)",
+  "connections": {
+    "required": [
+      { "media_id": "iron-man-2" },
+      { "media_id": "thor" },
+      { "media_id": "captain-america-the-first-avenger" },
+      { "media_id": "incredible-hulk" }
+    ],
+    "optionnal": [],
+    "references": []
+  }
+}
+

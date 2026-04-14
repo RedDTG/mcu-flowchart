@@ -1,0 +1,14 @@
+﻿{
+  "id": "captain-america-the-first-avenger",
+  "title": "Captain America: The First Avenger",
+  "release date": "2011-07-22",
+  "phase": 1,
+  "mediatype": "movie",
+  "poster": "/posters/captain-america-the-first-avenger.jpg",
+  "summary": "Steve Rogers devient Captain America durant la Seconde Guerre mondiale.",
+  "connections": {
+    "required": [],
+    "optionnal": [],
+    "references": []
+  }
+}
