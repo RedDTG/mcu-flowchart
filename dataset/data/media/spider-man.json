@@ -1,0 +1,15 @@
+{
+    "id": "spider-man",
+    "title": "Spider-Man",
+    "release_date": "2002-05-03",
+    "mediatype": "movie",
+    "poster": "/posters/spider-man-2002.jpg",
+    "saga": "raimi-trilogy",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "columbia-pictures"
+}

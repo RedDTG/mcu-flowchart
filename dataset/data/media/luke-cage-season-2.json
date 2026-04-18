@@ -1,0 +1,20 @@
+﻿{
+    "id": "luke-cage-season-2",
+    "title": "Luke Cage Season 2",
+    "release_date": "2018-06-22",
+    "end_date": "2018-06-22",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/luke-cage-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "defenders"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

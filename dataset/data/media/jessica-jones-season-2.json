@@ -1,0 +1,20 @@
+﻿{
+    "id": "jessica-jones-season-2",
+    "title": "Jessica Jones Season 2",
+    "release_date": "2018-03-08",
+    "end_date": "2018-03-08",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/jessica-jones-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "defenders"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

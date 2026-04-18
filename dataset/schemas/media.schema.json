@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Marvel Media",
   "type": "object",
@@ -6,8 +6,8 @@
   "required": [
     "id",
     "title",
-    "release date",
-    "phase",
+    "release_date",
+    "universe",
     "summary",
     "mediatype",
     "poster",
@@ -22,13 +22,29 @@
       "type": "string",
       "minLength": 1
     },
-    "release date": {
+    "release_date": {
       "type": "string",
       "format": "date"
     },
-    "phase": {
-      "type": "integer",
-      "minimum": 1
+    "end_date": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "saga": {
+      "type": "string",
+      "minLength": 1
+    },
+    "universe": {
+      "type": "string",
+      "enum": [
+        "mcu",
+        "marvel-television",
+        "fox-marvel-cinematic-universe",
+        "sonys-spider-man-universe",
+        "columbia-pictures",
+        "new-line-cinema",
+        "netflix"
+      ]
     },
     "mediatype": {
       "type": "string",
@@ -47,7 +63,7 @@
       "additionalProperties": false,
       "required": [
         "required",
-        "optionnal",
+        "optional",
         "references"
       ],
       "properties": {
@@ -57,7 +73,7 @@
             "$ref": "#/$defs/connection"
           }
         },
-        "optionnal": {
+        "optional": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/connection"
@@ -76,11 +92,24 @@
     "connection": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "media_id"
+      "oneOf": [
+        {
+          "required": [
+            "media_id"
+          ]
+        },
+        {
+          "required": [
+            "saga_id"
+          ]
+        }
       ],
       "properties": {
         "media_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "saga_id": {
           "type": "string",
           "minLength": 1
         },
@@ -96,3 +125,4 @@
     }
   }
 }
+

@@ -1,0 +1,24 @@
+﻿{
+    "id": "loki-season-2",
+    "title": "Loki (Season 2)",
+    "release_date": "2023-10-05",
+    "end_date": "2023-10-05",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/loki-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "loki-season-1"
+            }
+        ],
+        "optional": [
+            {
+                "media_id": "ant-man-and-the-wasp-quantumania"
+            }
+        ],
+        "references": []
+    },
+    "universe": "mcu"
+}

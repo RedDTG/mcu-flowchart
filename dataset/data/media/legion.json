@@ -1,0 +1,19 @@
+﻿{
+    "id": "legion",
+    "title": "Legion",
+    "release_date": "2017-02-08",
+    "end_date": "2019-08-12",
+    "mediatype": "show",
+    "poster": "/posters/legion.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

@@ -1,0 +1,12 @@
+{
+    "id":  "raimi-trilogy",
+    "name":  "Raimi\u0027s Spider-Man Trilogy",
+    "short_name":  "Raimi\u0027s Trilogy",
+    "order":  1,
+    "start_release_date":  "2002-05-03",
+    "end_release_date":  "2014-05-02",
+    "movie_count":  3,
+    "description":  "The heroic rise and personal sacrifices of a young man who becomes Spider-Man.",
+    "mediatype":  "saga",
+    "poster":  "/posters/raimi-trilogy.jpg"
+}

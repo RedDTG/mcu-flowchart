@@ -1,29 +1,86 @@
-# Web App Placeholder
+# MCU Flowchart - Web Frontend
 
-This folder is reserved for the future frontend application (recommended: Next.js).
+A Next.js application that displays Marvel Cinematic Universe media with a responsive gallery interface.
 
-## Recommended Bootstrap
+## Features
 
-From repository root:
+- **Media Gallery**: Browse all MCU media with poster images
+- **Media Details**: View detailed information including saga, `release_date`, and connections
+- **Responsive Design**: Tailored experience for mobile, tablet, and desktop
+- **Dark Theme**: Optimized UI with Tailwind CSS
 
-```powershell
-npx create-next-app@latest apps/web --ts --eslint --src-dir --app --use-npm
+## Prerequisites
+
+- Node.js v24.14.1 (or compatible version)
+- Backend API running on `http://localhost:8000`
+
+## Getting Started
+
+### 1. Install Dependencies
+
+```bash
+npm install
 ```
 
-Then start the frontend:
+### 2. Generate Poster Images (Optional)
 
-```powershell
-Set-Location apps/web
+If poster SVG files are missing:
+
+```bash
+node generate-posters.js
+```
+
+### 3. Configure API URL
+
+Edit `.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+### 4. Run Development Server
+
+```bash
 npm run dev
 ```
 
-## API Integration Convention
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-- Environment variable: `NEXT_PUBLIC_API_BASE_URL`
-- Recommended local value: `http://127.0.0.1:8000`
-- Main API endpoint to consume first: `GET /api/v1/media` (returns media entries)
+## Project Structure
 
-## Notes
+```
+src/
+├── app/
+│   ├── page.tsx              # Home page with media gallery
+│   ├── media/
+│   │   └── [id]/page.tsx     # Individual media detail page
+│   ├── layout.tsx            # Root layout
+│   └── globals.css           # Global styles
+├── components/
+│   └── MediaGallery.tsx      # Media gallery component
+└── ...
 
-- The backend already exposes OpenAPI docs at `http://127.0.0.1:8000/docs`.
-- Dataset includes `poster` local paths such as `/posters/iron-man.jpg` and media type values (`movie`, `show`, `special`).
+public/
+├── posters/                  # Generated poster images (SVG)
+└── ...
+```
+
+## API Integration
+
+The frontend consumes the following endpoints:
+
+- `GET /api/v1/media` - List all media
+- `GET /api/v1/media/{media_id}` - Get individual media details
+
+## Building for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Linting
+
+```bash
+npm run lint
+```

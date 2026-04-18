@@ -1,0 +1,20 @@
+﻿{
+    "id": "jessica-jones-season-3",
+    "title": "Jessica Jones Season 3",
+    "release_date": "2019-06-14",
+    "end_date": "2019-06-14",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/jessica-jones-season-3.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "jessica-jones-season-2"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

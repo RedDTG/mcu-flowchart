@@ -1,0 +1,20 @@
+﻿{
+    "id": "punisher-season-2",
+    "title": "The Punisher Season 2",
+    "release_date": "2019-01-18",
+    "end_date": "2019-01-18",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/punisher-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "punisher-season-1"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

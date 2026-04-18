@@ -1,0 +1,7 @@
+services:
+  api:
+    image: ${API_IMAGE}
+    container_name: mcu-flowchart-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"

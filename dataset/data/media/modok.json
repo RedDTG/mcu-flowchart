@@ -1,0 +1,15 @@
+﻿{
+    "id": "modok",
+    "title": "M.O.D.O.K.",
+    "release_date": "2021-05-21",
+    "end_date": "2021-05-21",
+    "mediatype": "show",
+    "poster": "/posters/modok.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "marvel-television"
+}

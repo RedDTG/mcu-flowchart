@@ -1,0 +1,12 @@
+{
+    "id":  "infinite-saga",
+    "name":  "The Infinity Saga",
+    "short_name":  "Infinity Saga",
+    "order":  1,
+    "start_release_date":  "2008-05-02",
+    "end_release_date":  "2019-07-02",
+    "movie_count":  23,
+    "description":  "A sweeping story of interconnected heroes facing a cosmic threat as Thanos seeks to reshape the universe using the Infinity Stones.",
+    "mediatype":  "saga",
+    "poster":  "/posters/infinite-saga.jpg"
+}

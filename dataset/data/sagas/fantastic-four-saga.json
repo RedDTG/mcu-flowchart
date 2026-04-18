@@ -1,0 +1,12 @@
+{
+    "id":  "fantastic-four-saga",
+    "name":  "Story\u0027s Fantastic Four",
+    "short_name":  "Story\u0027s Fantastic Four",
+    "order":  5,
+    "start_release_date":  "2005-07-08",
+    "end_release_date":  "2007-06-29",
+    "movie_count":  2,
+    "description":  "The beginnings of a family of superheroes facing the dangers of science and the unknown.",
+    "mediatype":  "saga",
+    "poster":  "/posters/fantastic-four-saga.jpg"
+}

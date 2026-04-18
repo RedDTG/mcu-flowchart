@@ -1,0 +1,15 @@
+{
+  "id": "eternals",
+  "title": "Eternals",
+  "release_date": "2021-11-05",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/eternals.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [],
+    "optional": [],
+    "references": []
+  },
+  "universe": "mcu"
+}

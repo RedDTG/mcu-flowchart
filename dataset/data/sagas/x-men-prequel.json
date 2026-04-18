@@ -1,0 +1,12 @@
+{
+    "id":  "x-men-prequel",
+    "name":  "X-Men Prequel",
+    "short_name":  "X-Men Prequel",
+    "order":  2,
+    "start_release_date":  "2011-06-03",
+    "end_release_date":  "2016-06-07",
+    "movie_count":  4,
+    "description":  "The origins of the X-Men and the ideological split between their founding leaders.",
+    "mediatype":  "saga",
+    "poster":  "/posters/x-men-prequel.jpg"
+}

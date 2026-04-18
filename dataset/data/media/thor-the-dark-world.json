@@ -1,0 +1,19 @@
+{
+    "id": "thor-the-dark-world",
+    "title": "Thor: The Dark World",
+    "release_date": "2013-11-08",
+    "saga": "infinite-saga",
+    "mediatype": "movie",
+    "poster": "/posters/thor-the-dark-world.jpg",
+    "summary": "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster. (source: IMDb)",
+    "connections": {
+        "required": [
+            {
+                "media_id": "avengers"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

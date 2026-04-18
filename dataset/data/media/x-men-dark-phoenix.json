@@ -1,0 +1,23 @@
+﻿{
+    "id": "x-men-dark-phoenix",
+    "title": "X-Men: Dark Phoenix",
+    "release_date": "2019-06-07",
+    "saga": "x-men-prequel",
+    "mediatype": "movie",
+    "poster": "/posters/x-men-dark-phoenix.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "x-men-apocalypse"
+            }
+        ],
+        "optional": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

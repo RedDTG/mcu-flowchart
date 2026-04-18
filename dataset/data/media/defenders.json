@@ -1,0 +1,29 @@
+﻿{
+    "id": "defenders",
+    "title": "The Defenders",
+    "release_date": "2017-08-18",
+    "end_date": "2017-08-18",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/defenders.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "daredevil-season-2"
+            },
+            {
+                "media_id": "jessica-jones-season-1"
+            },
+            {
+                "media_id": "luke-cage-season-1"
+            },
+            {
+                "media_id": "iron-fist-season-1"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

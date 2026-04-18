@@ -1,0 +1,16 @@
+﻿{
+    "id": "cloak-and-dagger",
+    "title": "Cloak \u0026 Dagger",
+    "release_date": "2018-06-07",
+    "end_date": "2019-04-04",
+    "saga": "infinite-saga",
+    "mediatype": "show",
+    "poster": "/posters/cloak-and-dagger.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "marvel-television"
+}

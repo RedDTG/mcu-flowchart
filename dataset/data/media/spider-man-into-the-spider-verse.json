@@ -1,0 +1,19 @@
+{
+    "id": "spider-man-into-the-spider-verse",
+    "title": "Spider-Man: Into the Spider-Verse",
+    "release_date": "2018-12-14",
+    "saga": "animated-spider-verse",
+    "mediatype": "movie",
+    "poster": "/posters/spider-man-into-the-spider-verse.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": [
+            {
+                "media_id": "venom"
+            }
+        ]
+    },
+    "universe": "sonys-spider-man-universe"
+}

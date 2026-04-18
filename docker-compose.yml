@@ -1,0 +1,9 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: mcu-flowchart-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"

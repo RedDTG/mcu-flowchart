@@ -1,0 +1,16 @@
+﻿{
+    "id": "daredevil-season-1",
+    "title": "Daredevil Season 1",
+    "release_date": "2015-04-10",
+    "end_date": "2015-04-10",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/daredevil-season-1.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

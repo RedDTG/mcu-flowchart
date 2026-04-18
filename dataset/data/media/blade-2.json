@@ -1,0 +1,19 @@
+﻿{
+    "id": "blade-2",
+    "title": "Blade II",
+    "release_date": "2002-03-22",
+    "saga": "blade-saga",
+    "mediatype": "movie",
+    "poster": "/posters/blade-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "blade"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "new-line-cinema"
+}

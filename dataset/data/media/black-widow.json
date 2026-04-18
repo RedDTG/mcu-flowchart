@@ -1,0 +1,19 @@
+﻿{
+  "id": "black-widow",
+  "title": "Black Widow",
+  "release_date": "2021-07-09",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/black-widow.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [
+      {
+        "media_id": "avengers-endgame"
+      }
+    ],
+    "optional": [],
+    "references": []
+  },
+  "universe": "mcu"
+}

@@ -1,0 +1,19 @@
+{
+    "id": "spider-man-homecoming",
+    "title": "Spider-Man: Homecoming",
+    "release_date": "2017-07-07",
+    "saga": "infinite-saga",
+    "mediatype": "movie",
+    "poster": "/posters/spider-man-homecoming.jpg",
+    "summary": "Peter Parker tries to stop Adrian \u0027The Vulture\u0027 Toomes from selling weapons made with advanced Chitauri technology while trying to balance his life as an ordinary high school student. (source: IMDb)",
+    "connections": {
+        "required": [
+            {
+                "media_id": "captain-america-civil-war"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

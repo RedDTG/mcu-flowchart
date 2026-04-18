@@ -1,0 +1,19 @@
+﻿{
+    "id": "elektra",
+    "title": "Elektra",
+    "release_date": "2005-01-14",
+    "saga": "fox-daredevil",
+    "mediatype": "movie",
+    "poster": "/posters/elektra.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [
+            {
+                "media_id": "daredevil"
+            }
+        ],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

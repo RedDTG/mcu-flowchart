@@ -1,0 +1,12 @@
+{
+    "id":  "amazing-spider-man-saga",
+    "name":  "The Amazing Spider-Man",
+    "short_name":  "Amazing Spider-Man",
+    "order":  2,
+    "start_release_date":  "2012-07-03",
+    "end_release_date":  "2014-05-02",
+    "movie_count":  2,
+    "description":  "A more modern and intimate retelling of Spider-Man\u0027s origins and choices.",
+    "mediatype":  "saga",
+    "poster":  "/posters/amazing-spider-man-saga.jpg"
+}

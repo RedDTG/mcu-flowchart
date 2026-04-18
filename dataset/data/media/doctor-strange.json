@@ -1,0 +1,15 @@
+{
+    "id": "doctor-strange",
+    "title": "Doctor Strange",
+    "release_date": "2016-11-04",
+    "saga": "infinite-saga",
+    "mediatype": "movie",
+    "poster": "/posters/doctor-strange.jpg",
+    "summary": "While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

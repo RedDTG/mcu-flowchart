@@ -1,0 +1,26 @@
+{
+  "id": "spider-man-no-way-home",
+  "title": "Spider-Man: No Way Home",
+  "release_date": "2021-12-17",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/spider-man-no-way-home.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [
+      {
+        "media_id": "spider-man-homecoming"
+      }
+    ],
+    "optional": [
+      {
+        "saga_id": "raimi-trilogy"
+      },
+      {
+        "saga_id": "amazing-spider-man-saga"
+      }
+    ],
+    "references": []
+  },
+  "universe": "mcu"
+}

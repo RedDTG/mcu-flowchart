@@ -1,0 +1,23 @@
+{
+    "id": "hawkeye",
+    "title": "Hawkeye",
+    "release_date": "2021-11-24",
+    "end_date": "2021-11-24",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/hawkeye.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "the-falcon-and-the-winter-soldier"
+            },
+            {
+                "media_id": "black-widow"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

@@ -1,0 +1,20 @@
+﻿{
+    "id": "she-hulk-attorney-at-law",
+    "title": "She-Hulk: Attorney at Law",
+    "release_date": "2022-08-18",
+    "end_date": "2022-08-18",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/she-hulk-attorney-at-law.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "avengers-endgame"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

@@ -1,0 +1,15 @@
+﻿{
+    "id": "daredevil",
+    "title": "Daredevil",
+    "release_date": "2003-02-14",
+    "saga": "fox-daredevil",
+    "mediatype": "movie",
+    "poster": "/posters/daredevil.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

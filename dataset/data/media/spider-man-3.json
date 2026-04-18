@@ -1,0 +1,19 @@
+{
+    "id": "spider-man-3",
+    "title": "Spider-Man 3",
+    "release_date": "2007-05-04",
+    "mediatype": "movie",
+    "poster": "/posters/spider-man-3-2007.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "spider-man-2"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "columbia-pictures",
+    "saga": "raimi-trilogy"
+}

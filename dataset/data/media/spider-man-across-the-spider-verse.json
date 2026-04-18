@@ -1,0 +1,35 @@
+﻿{
+    "id": "spider-man-across-the-spider-verse",
+    "title": "Spider-Man: Across the Spider-Verse",
+    "release_date": "2023-06-02",
+    "saga": "animated-spider-verse",
+    "mediatype": "movie",
+    "poster": "/posters/spider-man-across-the-spider-verse.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "spider-man-into-the-spider-verse"
+            }
+        ],
+        "optional": [],
+        "references": [
+            {
+                "saga_id": "raimi-trilogy"
+            },
+            {
+                "saga_id": "amazing-spider-man-saga"
+            },
+            {
+                "media_id": "spider-man-homecoming"
+            },
+            {
+                "media_id": "spider-man-far-from-home"
+            },
+            {
+                "media_id": "spider-man-no-way-home"
+            }
+        ]
+    },
+    "universe": "sonys-spider-man-universe"
+}

@@ -1,0 +1,29 @@
+﻿{
+  "id": "captain-america-brave-new-world",
+  "title": "Captain America: Brave New World",
+  "release_date": "2025-02-14",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/captain-america-brave-new-world.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [
+      {
+        "media_id": "the-falcon-and-the-winter-soldier"
+      }
+    ],
+    "optional": [
+      {
+        "media_id": "black-widow"
+      },
+      {
+        "media_id": "she-hulk-attorney-at-law"
+      },
+      {
+        "media_id": "eternals"
+      }
+    ],
+    "references": []
+  },
+  "universe": "mcu"
+}

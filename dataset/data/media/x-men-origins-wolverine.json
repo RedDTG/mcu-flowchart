@@ -1,0 +1,19 @@
+﻿{
+    "id": "x-men-origins-wolverine",
+    "title": "X-Men Origins: Wolverine",
+    "release_date": "2009-05-01",
+    "saga": "wolverine-trilogy",
+    "mediatype": "movie",
+    "poster": "/posters/x-men-origins-wolverine.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

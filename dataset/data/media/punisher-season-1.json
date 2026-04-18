@@ -1,0 +1,20 @@
+﻿{
+    "id": "punisher-season-1",
+    "title": "The Punisher Season 1",
+    "release_date": "2017-11-17",
+    "end_date": "2017-11-17",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/punisher-season-1.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "daredevil-season-2"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

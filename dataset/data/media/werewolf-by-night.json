@@ -1,0 +1,14 @@
+{
+    "id": "werewolf-by-night",
+    "title": "Werewolf by Night",
+    "release_date": "2022-09-30",
+    "mediatype": "special",
+    "poster": "/posters/werewolf-by-night.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

@@ -1,0 +1,18 @@
+﻿{
+    "id": "the-new-mutants",
+    "title": "The New Mutants",
+    "release_date": "2020-08-28",
+    "mediatype": "movie",
+    "poster": "/posters/the-new-mutants.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ]
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

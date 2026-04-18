@@ -1,0 +1,15 @@
+﻿{
+    "id": "venom",
+    "title": "Venom",
+    "release_date": "2018-10-05",
+    "saga": "sonys-spider-man-universe",
+    "mediatype": "movie",
+    "poster": "/posters/venom.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "sonys-spider-man-universe"
+}

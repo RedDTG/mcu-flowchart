@@ -31,3 +31,13 @@ def test_graph_endpoint() -> None:
     assert "nodes" in payload
     assert "edges" in payload
     assert len(payload["nodes"]) >= 1
+
+
+def test_list_sagas_poster_path_is_normalized() -> None:
+    response = client.get("/api/v1/sagas")
+    assert response.status_code == 200
+
+    payload = response.json()
+    assert isinstance(payload, list)
+    assert len(payload) >= 1
+    assert payload[0]["poster"].startswith("/api/v1/posters/")

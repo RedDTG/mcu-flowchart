@@ -1,0 +1,20 @@
+﻿{
+    "id": "what-if-season-1",
+    "title": "What If...? (Season 1)",
+    "release_date": "2021-08-11",
+    "end_date": "2021-08-11",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/what-if-season-1.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "avengers-endgame"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

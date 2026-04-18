@@ -1,0 +1,20 @@
+﻿{
+    "id": "agent-carter",
+    "title": "Agent Carter",
+    "release_date": "2015-01-06",
+    "end_date": "2016-01-19",
+    "saga": "infinite-saga",
+    "mediatype": "show",
+    "poster": "/posters/agent-carter.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [
+            {
+                "media_id": "captain-america-the-first-avenger"
+            }
+        ],
+        "references": []
+    },
+    "universe": "marvel-television"
+}

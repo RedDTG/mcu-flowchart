@@ -1,0 +1,12 @@
+{
+    "id":  "animated-spider-verse",
+    "name":  "Animated Spider-Verse",
+    "short_name":  "Spider-Verse",
+    "order":  2,
+    "start_release_date":  "2018-12-14",
+    "end_release_date":  "2027-06-04",
+    "movie_count":  3,
+    "description":  "A visually innovative adventure bringing together Miles Morales and multiple Spider-Heroes across the multiverse.",
+    "mediatype":  "saga",
+    "poster":  "/posters/animated-spider-verse.jpg"
+}

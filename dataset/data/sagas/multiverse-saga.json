@@ -1,0 +1,12 @@
+{
+    "id":  "multiverse-saga",
+    "name":  "The Multiverse Saga",
+    "short_name":  "Multiverse Saga",
+    "order":  2,
+    "start_release_date":  "2021-07-09",
+    "end_release_date":  null,
+    "movie_count":  15,
+    "description":  "A chaotic exploration of parallel realities where the boundaries of time and universes collapse.",
+    "mediatype":  "saga",
+    "poster":  "/posters/multiverse-saga.jpg"
+}
