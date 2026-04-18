@@ -21,6 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Compute lowercase image owner
+        id: vars
+        run: echo "owner_lc=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -38,8 +42,8 @@ jobs:
           file: apps/api/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/mcu-flowchart-api:latest
-            ghcr.io/${{ github.repository_owner }}/mcu-flowchart-api:${{ github.sha }}
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-api:latest
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-api:${{ github.sha }}
 
   deploy:
     needs: build-and-push
@@ -52,9 +56,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Compute lowercase image owner
+        id: vars
+        run: echo "owner_lc=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
+
       - name: Deploy with Docker Compose on self-hosted runner
         env:
-          API_IMAGE: ghcr.io/${{ github.repository_owner }}/mcu-flowchart-api:latest
+          API_IMAGE: ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-api:latest
           GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
         run: |
           set -e
