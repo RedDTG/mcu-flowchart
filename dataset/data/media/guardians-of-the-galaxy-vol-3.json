@@ -1,0 +1,27 @@
+﻿{
+  "id": "guardians-of-the-galaxy-vol-3",
+  "title": "Guardians of the Galaxy Vol. 3",
+  "release_date": "2023-05-05",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/guardians-of-the-galaxy-vol-3.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [
+      {
+        "media_id": "avengers-endgame"
+      }
+    ],
+    "optional": [
+      {
+        "media_id": "the-guardians-of-the-galaxy-holiday-special"
+      }
+    ],
+    "references": [
+      {
+        "media_id": "thor-love-and-thunder"
+      }
+    ]
+  },
+  "universe": "mcu"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "id": "morbius",
+    "title": "Morbius",
+    "release_date": "2022-04-01",
+    "saga": "sonys-spider-man-universe",
+    "mediatype": "movie",
+    "poster": "/posters/morbius.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": [
+            {
+                "media_id": "spider-man-homecoming"
+            }
+        ]
+    },
+    "universe": "sonys-spider-man-universe"
+}

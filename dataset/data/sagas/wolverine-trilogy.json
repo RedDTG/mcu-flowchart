@@ -1,0 +1,12 @@
+﻿{
+    "id":  "wolverine-trilogy",
+    "name":  "Wolverine Trilogy",
+    "short_name":  "Wolverine",
+    "order":  3,
+    "start_release_date":  "2009-05-01",
+    "end_release_date":  "2017-03-03",
+    "movie_count":  3,
+    "description":  "Le voyage solitaire et tourmenté d'un mutant immortel en quête d'identité et de rédemption.",
+    "mediatype":  "saga",
+    "poster":  "/posters/wolverine-trilogy.jpg"
+}

@@ -1,0 +1,12 @@
+{
+    "id":  "x-men-original-trilogy",
+    "name":  "X-Men Original Trilogy",
+    "short_name":  "X-Men",
+    "order":  1,
+    "start_release_date":  "2000-07-14",
+    "end_release_date":  "2006-05-31",
+    "movie_count":  3,
+    "description":  "The fight of mutants for survival and acceptance in a world that fears them.",
+    "mediatype":  "saga",
+    "poster":  "/posters/x-men-original-trilogy.jpg"
+}

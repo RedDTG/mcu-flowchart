@@ -1,0 +1,16 @@
+﻿{
+    "id": "runaways",
+    "title": "Runaways",
+    "release_date": "2017-11-21",
+    "end_date": "2019-12-13",
+    "saga": "infinite-saga",
+    "mediatype": "show",
+    "poster": "/posters/runaways.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "marvel-television"
+}

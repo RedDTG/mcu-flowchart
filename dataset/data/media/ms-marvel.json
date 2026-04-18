@@ -1,0 +1,20 @@
+﻿{
+    "id": "ms-marvel",
+    "title": "Ms. Marvel",
+    "release_date": "2022-06-08",
+    "end_date": "2022-06-08",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/ms-marvel.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "avengers-endgame"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

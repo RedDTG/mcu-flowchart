@@ -1,4 +1,4 @@
-# API - Marvel Media Graph (FastAPI)
+﻿# API - Marvel Media Graph (FastAPI)
 
 Python API backed by versioned JSON files (one title per file), with schema validation and reference integrity checks.
 
@@ -32,14 +32,14 @@ Each file in `../../dataset/data/media/*.json` follows this structure:
 {
   "id": "string",
   "title": "string",
-  "release date": "2008-05-02",
-  "phase": 1,
+  "release_date": "2008-05-02",
+  "saga": "infinite-saga",
   "mediatype": "movie",
   "poster": "/posters/iron-man.jpg",
   "summary": "string",
   "connections": {
     "required": [{ "media_id": "string" }],
-    "optionnal": [{ "media_id": "string" }],
+    "optional": [{ "media_id": "string" }],
     "references": [{ "media_id": "string" }]
   }
 }
@@ -47,7 +47,7 @@ Each file in `../../dataset/data/media/*.json` follows this structure:
 
 Rules:
 
-- `release date` must use ISO format (`YYYY-MM-DD`)
+- `release_date` must use ISO format (`YYYY-MM-DD`)
 - `mediatype` must be one of: `movie`, `show`, `special`
 - `poster` is stored as a local path (for example `/posters/<media-id>.jpg`)
 - Connection object supports optional `reason` and `importance` fields
@@ -84,3 +84,4 @@ Run from repository root:
 ```powershell
 python scripts\smoke_api.py
 ```
+

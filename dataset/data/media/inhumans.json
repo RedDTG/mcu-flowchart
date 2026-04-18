@@ -1,0 +1,16 @@
+﻿{
+    "id": "inhumans",
+    "title": "Inhumans",
+    "release_date": "2017-09-29",
+    "end_date": "2017-09-29",
+    "saga": "infinite-saga",
+    "mediatype": "show",
+    "poster": "/posters/inhumans.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "marvel-television"
+}

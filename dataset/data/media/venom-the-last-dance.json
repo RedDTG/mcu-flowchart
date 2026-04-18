@@ -1,0 +1,19 @@
+﻿{
+    "id": "venom-the-last-dance",
+    "title": "Venom: The Last Dance",
+    "release_date": "2024-10-25",
+    "saga": "sonys-spider-man-universe",
+    "mediatype": "movie",
+    "poster": "/posters/venom-the-last-dance.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "venom-let-there-be-carnage"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "sonys-spider-man-universe"
+}

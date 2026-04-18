@@ -1,0 +1,12 @@
+{
+    "id":  "deadpool-saga",
+    "name":  "Deadpool Saga",
+    "short_name":  "Deadpool",
+    "order":  4,
+    "start_release_date":  "2016-02-12",
+    "end_release_date":  "2018-05-18",
+    "movie_count":  2,
+    "description":  "The wild and ultra-violent adventures of an anti-hero who constantly breaks the fourth wall.",
+    "mediatype":  "saga",
+    "poster":  "/posters/deadpool-saga.jpg"
+}

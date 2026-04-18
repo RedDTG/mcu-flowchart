@@ -1,0 +1,23 @@
+﻿{
+    "id": "daredevil-season-3",
+    "title": "Daredevil Season 3",
+    "release_date": "2018-10-19",
+    "end_date": "2018-10-19",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/daredevil-season-3.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "daredevil-season-2"
+            },
+            {
+                "media_id": "defenders"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

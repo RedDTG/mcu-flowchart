@@ -1,0 +1,19 @@
+﻿{
+    "id": "deadpool",
+    "title": "Deadpool",
+    "release_date": "2016-02-12",
+    "saga": "deadpool-saga",
+    "mediatype": "movie",
+    "poster": "/posters/deadpool.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ]
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

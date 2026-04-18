@@ -1,0 +1,12 @@
+{
+    "id":  "fox-daredevil",
+    "name":  "Fox\u0027s Daredevil Universe",
+    "short_name":  "Fox\u0027s Daredevil",
+    "order":  6,
+    "start_release_date":  "2003-02-14",
+    "end_release_date":  "2005-01-14",
+    "movie_count":  2,
+    "description":  "The journey of a blind lawyer turned vigilante in a dark and grounded world.",
+    "mediatype":  "saga",
+    "poster":  "/posters/fox-daredevil.jpg"
+}

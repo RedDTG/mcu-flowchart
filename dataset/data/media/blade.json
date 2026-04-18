@@ -1,0 +1,15 @@
+﻿{
+    "id": "blade",
+    "title": "Blade",
+    "release_date": "1998-08-21",
+    "saga": "blade-saga",
+    "mediatype": "movie",
+    "poster": "/posters/blade.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "new-line-cinema"
+}

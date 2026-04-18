@@ -1,0 +1,19 @@
+﻿{
+    "id": "fantastic-four-rise-of-the-silver-surfer",
+    "title": "Fantastic Four: Rise of the Silver Surfer",
+    "release_date": "2007-06-15",
+    "saga": "fantastic-four-saga",
+    "mediatype": "movie",
+    "poster": "/posters/fantastic-four-rise-of-the-silver-surfer.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "fantastic-four-2005"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

@@ -1,0 +1,24 @@
+﻿{
+    "id": "daredevil-born-again",
+    "title": "Daredevil: Born Again (Season 1)",
+    "release_date": "2025-03-04",
+    "end_date": "2025-03-04",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/daredevil-born-again.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "daredevil-season-3"
+            }
+        ],
+        "optional": [
+            {
+                "media_id": "echo"
+            }
+        ],
+        "references": []
+    },
+    "universe": "mcu"
+}

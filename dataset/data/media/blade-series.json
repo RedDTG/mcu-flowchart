@@ -1,0 +1,20 @@
+{
+    "id": "blade-series",
+    "title": "Blade: The Series",
+    "release_date": "2006-06-28",
+    "end_date": "2006-09-13",
+    "saga": "blade-saga",
+    "mediatype": "show",
+    "poster": "/posters/blade-series.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [ 
+            {
+                "media_id": "blade-trinity"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "new-line-cinema"
+}

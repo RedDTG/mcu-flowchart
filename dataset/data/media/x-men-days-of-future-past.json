@@ -1,0 +1,23 @@
+﻿{
+    "id": "x-men-days-of-future-past",
+    "title": "X-Men: Days of Future Past",
+    "release_date": "2014-05-23",
+    "saga": "x-men-prequel",
+    "mediatype": "movie",
+    "poster": "/posters/x-men-days-of-future-past.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "x-men-first-class"
+            }
+        ],
+        "optional": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

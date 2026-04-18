@@ -1,0 +1,15 @@
+{
+    "id": "guardians-of-the-galaxy",
+    "title": "Guardians of the Galaxy",
+    "release_date": "2014-08-01",
+    "saga": "infinite-saga",
+    "mediatype": "movie",
+    "poster": "/posters/guardians-of-the-galaxy.jpg",
+    "summary": "A group of intergalactic criminals must pull together to stop a fanatical warrior with plans to purge the universe. (source: IMDb)",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

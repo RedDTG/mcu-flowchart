@@ -1,0 +1,19 @@
+{
+    "id": "x-men-first-class",
+    "title": "X-Men: First Class",
+    "release_date": "2011-06-03",
+    "saga": "x-men-prequel",
+    "mediatype": "movie",
+    "poster": "/posters/x-men-first-class.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

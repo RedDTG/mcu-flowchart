@@ -1,0 +1,16 @@
+﻿{
+    "id": "luke-cage-season-1",
+    "title": "Luke Cage Season 1",
+    "release_date": "2016-09-30",
+    "end_date": "2016-09-30",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/luke-cage-season-1.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

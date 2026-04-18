@@ -1,0 +1,16 @@
+﻿{
+    "id": "jessica-jones-season-1",
+    "title": "Jessica Jones Season 1",
+    "release_date": "2015-11-20",
+    "end_date": "2015-11-20",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/jessica-jones-season-1.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

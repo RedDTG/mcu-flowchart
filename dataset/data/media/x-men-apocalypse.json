@@ -1,0 +1,19 @@
+﻿{
+    "id": "x-men-apocalypse",
+    "title": "X-Men: Apocalypse",
+    "release_date": "2016-05-27",
+    "saga": "x-men-prequel",
+    "mediatype": "movie",
+    "poster": "/posters/x-men-apocalypse.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "x-men-days-of-future-past"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

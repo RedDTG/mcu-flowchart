@@ -1,0 +1,21 @@
+{
+    "id":  "the-guardians-of-the-galaxy-holiday-special",
+    "title":  "The Guardians of the Galaxy Holiday Special",
+    "release_date":  "2022-11-25",
+    "saga":  "multiverse-saga",
+    "mediatype":  "special",
+    "poster":  "/posters/the-guardians-of-the-galaxy-holiday-special.jpg",
+    "summary":  "TODO",
+    "connections":  {
+                        "required":  [
+
+                                     ],
+                        "optional":  [
+
+                                     ],
+                        "references":  [
+
+                                       ]
+                    },
+    "universe":  "mcu"
+}

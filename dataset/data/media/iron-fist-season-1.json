@@ -1,0 +1,16 @@
+﻿{
+    "id": "iron-fist-season-1",
+    "title": "Iron Fist Season 1",
+    "release_date": "2017-03-17",
+    "end_date": "2017-03-17",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/iron-fist-season-1.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

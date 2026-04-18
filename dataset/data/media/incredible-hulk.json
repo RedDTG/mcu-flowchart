@@ -1,14 +1,15 @@
-﻿{
-  "id": "incredible-hulk",
-  "title": "The Incredible Hulk",
-  "release date": "2008-06-13",
-  "phase": 1,
-  "mediatype": "movie",
-  "poster": "/posters/incredible-hulk.jpg",
-  "summary": "Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into whenever he loses his temper. (source: IMDb)",
-  "connections": {
-    "required": [],
-    "optionnal": [],
-    "references": []
-  }
+{
+    "id": "incredible-hulk",
+    "title": "The Incredible Hulk",
+    "release_date": "2008-06-13",
+    "saga": "infinite-saga",
+    "mediatype": "movie",
+    "poster": "/posters/incredible-hulk.jpg",
+    "summary": "Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into whenever he loses his temper. (source: IMDb)",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
 }

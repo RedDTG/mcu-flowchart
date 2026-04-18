@@ -1,0 +1,22 @@
+﻿{
+    "id": "deadpool-2",
+    "title": "Deadpool 2",
+    "release_date": "2018-05-18",
+    "saga": "deadpool-saga",
+    "mediatype": "movie",
+    "poster": "/posters/deadpool-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "deadpool"
+            },
+            {
+                "saga_id": "fantastic-four-saga"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

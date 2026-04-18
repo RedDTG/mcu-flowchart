@@ -1,0 +1,19 @@
+﻿{
+  "id": "shang-chi-and-the-legend-of-the-ten-rings",
+  "title": "Shang-Chi and the Legend of the Ten Rings",
+  "release_date": "2021-09-03",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/shang-chi-and-the-legend-of-the-ten-rings.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [],
+    "optional": [],
+    "references": [
+      {
+        "media_id": "avengers-endgame"
+      }
+    ]
+  },
+  "universe": "mcu"
+}

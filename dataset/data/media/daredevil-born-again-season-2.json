@@ -1,0 +1,20 @@
+﻿{
+    "id": "daredevil-born-again-season-2",
+    "title": "Daredevil: Born Again Season 2",
+    "release_date": "2026-03-24",
+    "end_date": "2026-05-05",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/daredevil-born-again-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "daredevil-born-again"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

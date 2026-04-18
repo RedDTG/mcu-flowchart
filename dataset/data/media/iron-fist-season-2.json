@@ -1,0 +1,20 @@
+﻿{
+    "id": "iron-fist-season-2",
+    "title": "Iron Fist Season 2",
+    "release_date": "2018-09-07",
+    "end_date": "2018-09-07",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/iron-fist-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "defenders"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

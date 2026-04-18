@@ -1,15 +1,15 @@
-﻿{
-  "id": "iron-man",
-  "title": "Iron Man",
-  "release date": "2008-05-02",
-  "phase": 1,
-  "mediatype": "movie",
-  "poster": "/posters/iron-man.jpg",
-  "summary": "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil. (source: IMDb)",
-  "connections": {
-    "required": [],
-    "optionnal": [],
-    "references": []
-  }
+{
+    "id": "iron-man",
+    "title": "Iron Man",
+    "release_date": "2008-05-02",
+    "saga": "infinite-saga",
+    "mediatype": "movie",
+    "poster": "/posters/iron-man.jpg",
+    "summary": "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil. (source: IMDb)",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
 }
-

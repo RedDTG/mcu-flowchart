@@ -1,0 +1,26 @@
+﻿{
+    "id": "logan",
+    "title": "Logan",
+    "release_date": "2017-03-03",
+    "saga": "wolverine-trilogy",
+    "mediatype": "movie",
+    "poster": "/posters/logan.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ],
+        "references": [
+            {
+                "media_id": "x-men-origins-wolverine"
+            },
+            {
+                "media_id": "the-wolverine"
+            }
+        ]
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

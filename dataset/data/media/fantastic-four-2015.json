@@ -1,0 +1,14 @@
+﻿{
+    "id": "fantastic-four-2015",
+    "title": "Fantastic Four",
+    "release_date": "2015-08-07",
+    "mediatype": "movie",
+    "poster": "/posters/fantastic-four-2015.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

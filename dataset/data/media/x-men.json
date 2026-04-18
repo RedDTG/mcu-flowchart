@@ -1,0 +1,15 @@
+﻿{
+    "id": "x-men",
+    "title": "X-Men",
+    "release_date": "2000-07-14",
+    "saga": "x-men-original-trilogy",
+    "mediatype": "movie",
+    "poster": "/posters/x-men.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

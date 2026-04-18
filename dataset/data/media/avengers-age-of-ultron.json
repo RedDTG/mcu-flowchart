@@ -1,0 +1,25 @@
+{
+    "id": "avengers-age-of-ultron",
+    "title": "Avengers: Age of Ultron",
+    "release_date": "2015-05-01",
+    "saga": "infinite-saga",
+    "mediatype": "movie",
+    "poster": "/posters/avengers-age-of-ultron.jpg",
+    "summary": "When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it\u0027s up to Earth\u0027s mightiest heroes to stop the villainous Ultron from enacting his terrible plan. (source: IMDb)",
+    "connections": {
+        "required": [
+            {
+                "media_id": "iron-man-3"
+            },
+            {
+                "media_id": "thor-the-dark-world"
+            },
+            {
+                "media_id": "captain-america-the-winter-soldier"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

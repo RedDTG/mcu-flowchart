@@ -1,0 +1,19 @@
+{
+    "id": "the-amazing-spider-man-2",
+    "title": "The Amazing Spider-Man 2",
+    "release_date": "2014-05-02",
+    "mediatype": "movie",
+    "poster": "/posters/the-amazing-spider-man-2-2014.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "the-amazing-spider-man"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "columbia-pictures",
+    "saga": "amazing-spider-man-saga"
+}

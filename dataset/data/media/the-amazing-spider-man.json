@@ -1,0 +1,15 @@
+{
+    "id": "the-amazing-spider-man",
+    "title": "The Amazing Spider-Man",
+    "release_date": "2012-07-03",
+    "mediatype": "movie",
+    "poster": "/posters/the-amazing-spider-man-2012.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "columbia-pictures",
+    "saga": "amazing-spider-man-saga"
+}

@@ -1,0 +1,15 @@
+﻿{
+    "id": "hitmonkey",
+    "title": "Hit-Monkey",
+    "release_date": "2021-11-17",
+    "end_date": "2024-07-15",
+    "mediatype": "show",
+    "poster": "/posters/hitmonkey.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "marvel-television"
+}

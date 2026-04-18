@@ -1,0 +1,15 @@
+{
+  "id": "avengers-doomsday",
+  "title": "Avengers: Doomsday",
+  "release_date": "2026-12-18",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/avengers-doomsday.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [],
+    "optional": [],
+    "references": []
+  },
+  "universe": "mcu"
+}

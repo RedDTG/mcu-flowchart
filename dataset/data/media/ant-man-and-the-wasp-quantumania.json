@@ -1,0 +1,19 @@
+{
+  "id": "ant-man-and-the-wasp-quantumania",
+  "title": "Ant-Man and the Wasp: Quantumania",
+  "release_date": "2023-02-17",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/ant-man-and-the-wasp-quantumania.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [
+      {
+        "media_id": "loki-season-1"
+      }
+    ],
+    "optional": [],
+    "references": []
+  },
+  "universe": "mcu"
+}

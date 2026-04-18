@@ -1,0 +1,12 @@
+{
+    "id":  "sonys-spider-man-universe",
+    "name":  "Sony\u0027s Spider-Man Universe",
+    "short_name":  "SSU",
+    "order":  1,
+    "start_release_date":  "2018-10-05",
+    "end_release_date":  "2024-12-13",
+    "movie_count":  6,
+    "description":  "A universe focused on villains and anti-heroes connected to Spider-Man.",
+    "mediatype":  "saga",
+    "poster":  "/posters/sonys-spider-man-universe.jpg"
+}

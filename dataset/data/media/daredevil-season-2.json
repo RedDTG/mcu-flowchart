@@ -1,0 +1,20 @@
+﻿{
+    "id": "daredevil-season-2",
+    "title": "Daredevil Season 2",
+    "release_date": "2016-03-18",
+    "end_date": "2016-03-18",
+    "saga": "defenders-saga",
+    "mediatype": "show",
+    "poster": "/posters/daredevil-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "daredevil-season-1"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "netflix"
+}

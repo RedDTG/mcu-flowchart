@@ -1,0 +1,19 @@
+﻿{
+  "id": "black-panther-wakanda-forever",
+  "title": "Black Panther: Wakanda Forever",
+  "release_date": "2022-11-11",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/black-panther-wakanda-forever.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [
+      {
+        "media_id": "avengers-endgame"
+      }
+    ],
+    "optional": [],
+    "references": []
+  },
+  "universe": "mcu"
+}

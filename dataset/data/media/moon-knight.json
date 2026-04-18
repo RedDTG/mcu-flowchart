@@ -1,0 +1,15 @@
+﻿{
+    "id": "moon-knight",
+    "title": "Moon Knight",
+    "release_date": "2022-03-30",
+    "end_date": "2022-03-30",
+    "mediatype": "show",
+    "poster": "/posters/moon-knight.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

@@ -1,0 +1,26 @@
+﻿{
+  "id": "thunderbolts",
+  "title": "Thunderbolts*",
+  "release_date": "2025-05-02",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/thunderbolts.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [
+      {
+        "media_id": "black-widow"
+      },
+      {
+        "media_id": "the-falcon-and-the-winter-soldier"
+      }
+    ],
+    "optional": [
+      {
+        "media_id": "captain-america-brave-new-world"
+      }
+    ],
+    "references": []
+  },
+  "universe": "mcu"
+}

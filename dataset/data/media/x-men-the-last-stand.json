@@ -1,0 +1,19 @@
+﻿{
+    "id": "x-men-the-last-stand",
+    "title": "X-Men: The Last Stand",
+    "release_date": "2006-05-26",
+    "saga": "x-men-original-trilogy",
+    "mediatype": "movie",
+    "poster": "/posters/x-men-the-last-stand.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "x2"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

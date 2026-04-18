@@ -1,0 +1,20 @@
+﻿{
+    "id": "what-if-season-3",
+    "title": "What If...? Season 3",
+    "release_date": "2024-12-22",
+    "end_date": "2024-12-29",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/what-if-season-3.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "what-if-season-2"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

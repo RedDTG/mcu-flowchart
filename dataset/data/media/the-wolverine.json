@@ -1,0 +1,23 @@
+﻿{
+    "id": "the-wolverine",
+    "title": "The Wolverine",
+    "release_date": "2013-07-26",
+    "saga": "wolverine-trilogy",
+    "mediatype": "movie",
+    "poster": "/posters/the-wolverine.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "x-men-origins-wolverine"
+            }
+        ],
+        "optional": [
+            {
+                "saga_id": "x-men-original-trilogy"
+            }
+        ],
+        "references": []
+    },
+    "universe": "fox-marvel-cinematic-universe"
+}

@@ -1,4 +1,4 @@
-# Dataset Documentation
+﻿# Dataset Documentation
 
 This folder contains the shared MCU media dataset used by the API (and future frontend).
 
@@ -17,12 +17,12 @@ Each JSON file in `data/media/*.json` must include:
 
 - `id`: unique identifier (string)
 - `title`: media title (string)
-- `release date`: ISO date format (`YYYY-MM-DD`)
-- `phase`: MCU phase (integer >= 1)
+- `release_date`: ISO date format (`YYYY-MM-DD`)
+- `saga`: saga name (`Infinite Saga` or `Multiverse Saga`)
 - `mediatype`: media kind, one of `movie`, `show`, `special`
 - `poster`: poster path (example: `/posters/iron-man.jpg`)
 - `summary`: non-empty description
-- `connections`: object with `required`, `optionnal`, and `references` arrays
+- `connections`: object with `required`, `optional`, and `references` arrays
 
 Connection items require:
 

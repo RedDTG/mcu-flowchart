@@ -1,0 +1,19 @@
+﻿{
+  "id": "the-fantastic-four-first-steps",
+  "title": "The Fantastic Four: First Steps",
+  "release_date": "2025-07-25",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/the-fantastic-four-first-steps.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [],
+    "optional": [],
+    "references": [
+      {
+        "saga_id": "fantastic-four-saga"
+      }
+    ]
+  },
+  "universe": "mcu"
+}

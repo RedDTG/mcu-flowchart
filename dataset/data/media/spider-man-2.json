@@ -1,0 +1,19 @@
+{
+    "id": "spider-man-2",
+    "title": "Spider-Man 2",
+    "release_date": "2004-06-30",
+    "mediatype": "movie",
+    "poster": "/posters/spider-man-2-2004.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "spider-man"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "columbia-pictures",
+    "saga": "raimi-trilogy"
+}

@@ -1,0 +1,12 @@
+{
+    "id":  "defenders-saga",
+    "name":  "The Defenders Saga",
+    "short_name":  "The Defenders",
+    "order":  1,
+    "start_release_date":  "2015-04-10",
+    "end_release_date":  "2019-01-18",
+    "movie_count":  13,
+    "description":  "An alliance of street-level heroes protecting New York from criminal and mystical threats.",
+    "mediatype":  "saga",
+    "poster":  "/posters/defenders-saga.jpg"
+}

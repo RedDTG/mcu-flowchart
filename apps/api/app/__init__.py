@@ -1,0 +1,79 @@
+﻿from datetime import date
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field
+
+UniverseId = Literal[
+    "mcu",
+    "marvel-television",
+    "fox-marvel-cinematic-universe",
+    "sonys-spider-man-universe",
+    "columbia-pictures",
+    "new-line-cinema",
+    "netflix",
+]
+
+
+class BaseApiModel(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+
+class MediaLink(BaseApiModel):
+    media_id: str = Field(min_length=1)
+
+
+class MediaConnections(BaseApiModel):
+    required: list[MediaLink] = Field(default_factory=list)
+    optional: list[MediaLink] = Field(default_factory=list)
+    references: list[MediaLink] = Field(default_factory=list)
+
+
+class Media(BaseApiModel):
+    id: str = Field(min_length=1)
+    title: str = Field(min_length=1)
+    release_date: date
+    end_date: date | None = None
+    saga: str | None = None
+    universe: UniverseId
+    mediatype: Literal["movie", "show", "special"]
+    poster: str = Field(min_length=1)  # Can be URL or local path
+    summary: str = Field(min_length=1)
+    connections: MediaConnections
+
+
+class MediaNode(BaseApiModel):
+    id: str
+    title: str
+    release_date: date
+    saga: str | None = None
+    universe: UniverseId
+    mediatype: Literal["movie", "show", "special"]
+    poster: str
+
+
+class Universe(BaseApiModel):
+    id: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    short_name: str = Field(min_length=1)
+    order: int = Field(ge=1)
+    color: str = Field(pattern=r"^#[0-9A-Fa-f]{6}$")
+
+
+class Saga(BaseApiModel):
+    id: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    short_name: str = Field(min_length=1)
+    order: int = Field(ge=1)
+    description: str = Field(min_length=1)
+
+
+class GraphEdge(BaseApiModel):
+    source: str
+    target: str
+    type: str
+
+
+class GraphResponse(BaseApiModel):
+    nodes: list[MediaNode]
+    edges: list[GraphEdge]
+

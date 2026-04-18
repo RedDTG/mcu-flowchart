@@ -1,0 +1,20 @@
+﻿{
+    "id": "what-if-season-2",
+    "title": "What If...? (Season 2)",
+    "release_date": "2023-12-22",
+    "end_date": "2023-12-22",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/what-if-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "what-if-season-1"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

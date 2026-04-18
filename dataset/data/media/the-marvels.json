@@ -1,0 +1,22 @@
+﻿{
+  "id": "the-marvels",
+  "title": "The Marvels",
+  "release_date": "2023-11-10",
+  "saga": "multiverse-saga",
+  "mediatype": "movie",
+  "poster": "/posters/the-marvels.jpg",
+  "summary": "TODO",
+  "connections": {
+    "required": [
+      {
+        "media_id": "ms-marvel"
+      },
+      {
+        "media_id": "wandavision"
+      }
+    ],
+    "optional": [],
+    "references": []
+  },
+  "universe": "mcu"
+}

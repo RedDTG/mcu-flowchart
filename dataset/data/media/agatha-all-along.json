@@ -1,0 +1,23 @@
+{
+    "id": "agatha-all-along",
+    "title": "Agatha All Along",
+    "release_date": "2024-09-18",
+    "end_date": "2024-09-18",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/agatha-all-along.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "doctor-strange-in-the-multiverse-of-madness"
+            },
+            {
+                "media_id": "wandavision"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

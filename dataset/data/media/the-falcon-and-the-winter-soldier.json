@@ -1,0 +1,20 @@
+﻿{
+    "id": "the-falcon-and-the-winter-soldier",
+    "title": "The Falcon and the Winter Soldier",
+    "release_date": "2021-03-19",
+    "end_date": "2021-03-19",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/the-falcon-and-the-winter-soldier.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "avengers-endgame"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

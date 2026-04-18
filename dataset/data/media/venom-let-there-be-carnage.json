@@ -1,0 +1,19 @@
+﻿{
+    "id": "venom-let-there-be-carnage",
+    "title": "Venom: Let There Be Carnage",
+    "release_date": "2021-10-01",
+    "saga": "sonys-spider-man-universe",
+    "mediatype": "movie",
+    "poster": "/posters/venom-let-there-be-carnage.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "venom"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "sonys-spider-man-universe"
+}

@@ -1,0 +1,16 @@
+﻿{
+    "id": "helstrom",
+    "title": "Helstrom",
+    "release_date": "2020-10-16",
+    "end_date": "2020-10-16",
+    "saga": "infinite-saga",
+    "mediatype": "show",
+    "poster": "/posters/helstrom.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "marvel-television"
+}

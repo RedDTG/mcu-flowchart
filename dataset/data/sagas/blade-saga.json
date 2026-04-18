@@ -1,0 +1,12 @@
+{
+    "id":  "blade-saga",
+    "name":  "Blade Saga",
+    "short_name":  "Blade",
+    "order":  1,
+    "start_release_date":  "1998-08-21",
+    "end_release_date":  "2004-11-24",
+    "movie_count":  3,
+    "description":  "The dark struggle of a half-human, half-vampire hunter against supernatural forces.",
+    "mediatype":  "saga",
+    "poster":  "/posters/blade-saga.jpg"
+}

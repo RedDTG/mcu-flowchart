@@ -1,0 +1,20 @@
+﻿{
+    "id": "loki-season-1",
+    "title": "Loki (Season 1)",
+    "release_date": "2021-06-09",
+    "end_date": "2021-06-09",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/loki-season-1.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "avengers-endgame"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

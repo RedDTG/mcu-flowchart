@@ -1,0 +1,20 @@
+﻿{
+    "id": "i-am-groot-season-2",
+    "title": "I Am Groot (Season 2)",
+    "release_date": "2023-09-06",
+    "end_date": "2023-09-06",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/i-am-groot-season-2.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "i-am-groot-season-1"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

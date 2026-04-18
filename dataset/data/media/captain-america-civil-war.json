@@ -1,0 +1,22 @@
+{
+    "id": "captain-america-civil-war",
+    "title": "Captain America: Civil War",
+    "release_date": "2016-05-06",
+    "saga": "infinite-saga",
+    "mediatype": "movie",
+    "poster": "/posters/captain-america-civil-war.jpg",
+    "summary": "Political involvement in the Avengers\u0027 affairs causes a rift between Captain America and Iron Man. (source: IMDb)",
+    "connections": {
+        "required": [
+            {
+                "media_id": "ant-man"
+            },
+            {
+                "media_id": "avengers-age-of-ultron"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

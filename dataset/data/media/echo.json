@@ -1,0 +1,20 @@
+﻿{
+    "id": "echo",
+    "title": "Echo",
+    "release_date": "2024-01-09",
+    "end_date": "2024-01-09",
+    "saga": "multiverse-saga",
+    "mediatype": "show",
+    "poster": "/posters/echo.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "hawkeye"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

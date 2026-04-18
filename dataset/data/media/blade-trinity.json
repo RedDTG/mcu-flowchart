@@ -1,0 +1,19 @@
+﻿{
+    "id": "blade-trinity",
+    "title": "Blade: Trinity",
+    "release_date": "2004-12-10",
+    "saga": "blade-saga",
+    "mediatype": "movie",
+    "poster": "/posters/blade-trinity.jpg",
+    "summary": "TODO",
+    "connections": {
+        "required": [
+            {
+                "media_id": "blade-2"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "new-line-cinema"
+}
