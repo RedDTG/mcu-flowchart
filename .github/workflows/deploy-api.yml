@@ -63,11 +63,11 @@ jobs:
       - name: Deploy with Docker Compose on self-hosted runner
         env:
           API_IMAGE: ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-api:latest
-          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
           cd "$GITHUB_WORKSPACE"
-          echo "$GHCR_TOKEN" | docker login ghcr.io -u "${{ github.repository_owner }}" --password-stdin
+          echo "$GITHUB_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
           docker compose -f docker-compose.server.yml pull
           docker compose -f docker-compose.server.yml up -d
           docker image prune -f
