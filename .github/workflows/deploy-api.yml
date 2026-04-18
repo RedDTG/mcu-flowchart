@@ -66,9 +66,7 @@ jobs:
           GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
         run: |
           set -e
-          sudo mkdir -p /opt/mcu-flowchart-api
-          sudo cp docker-compose.server.yml /opt/mcu-flowchart-api/docker-compose.server.yml
-          cd /opt/mcu-flowchart-api
+          cd "$GITHUB_WORKSPACE"
           echo "$GHCR_TOKEN" | docker login ghcr.io -u "${{ github.repository_owner }}" --password-stdin
           docker compose -f docker-compose.server.yml pull
           docker compose -f docker-compose.server.yml up -d
