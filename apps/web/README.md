@@ -12,7 +12,7 @@ A Next.js application that displays Marvel Cinematic Universe media with a respo
 ## Prerequisites
 
 - Node.js v24.14.1 (or compatible version)
-- Backend API running on `http://localhost:8001`
+- Backend API running on `http://localhost:8001` in local dev, or proxied internally in Docker
 
 ## Getting Started
 
@@ -35,8 +35,10 @@ node generate-posters.js
 Edit `.env.local`:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:8001
+API_INTERNAL_URL=http://127.0.0.1:8001
 ```
+
+The app calls `/api/*` and `next.config.ts` rewrites those requests to the backend.
 
 ### 4. Run Development Server
 
@@ -78,6 +80,8 @@ The frontend consumes the following endpoints:
 npm run build
 npm start
 ```
+
+When running in Docker, the image uses the internal API service name via `API_INTERNAL_URL`.
 
 ## Linting
 

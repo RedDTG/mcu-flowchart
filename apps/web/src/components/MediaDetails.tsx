@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppNavbar } from "./AppNavbar";
+import { apiV1Path, resolvePosterUrl } from "../lib/api";
 
 type ConnectionType = "required" | "optional" | "references";
 type ConnectionLink = { media_id: string; saga_id?: never } | { saga_id: string; media_id?: never };
@@ -297,7 +298,6 @@ function RelatedCarousel({
 }
 
 export function MediaDetails({ mediaId }: { mediaId: string }) {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
   const [media, setMedia] = useState<Media | null>(null);
   const [allMedia, setAllMedia] = useState<Media[]>([]);
   const [universeMetadata, setUniverseMetadata] = useState<Record<string, UniverseMetadata>>({});
@@ -305,22 +305,14 @@ export function MediaDetails({ mediaId }: { mediaId: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const resolvePosterUrl = (poster: string): string => {
-    if (poster.startsWith("http://") || poster.startsWith("https://")) {
-      return poster;
-    }
-    const normalizedPoster = poster.startsWith("/") ? poster : `/${poster}`;
-    return `${apiUrl}${normalizedPoster}`;
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [mediaResponse, allMediaResponse, universesResponse, sagasResponse] = await Promise.all([
-          fetch(`${apiUrl}/api/v1/media/${mediaId}`),
-          fetch(`${apiUrl}/api/v1/media`),
-          fetch(`${apiUrl}/api/v1/universes`),
-          fetch(`${apiUrl}/api/v1/sagas`),
+          fetch(apiV1Path(`/media/${mediaId}`)),
+          fetch(apiV1Path("/media")),
+          fetch(apiV1Path("/universes")),
+          fetch(apiV1Path("/sagas")),
         ]);
 
         if (!mediaResponse.ok) {
@@ -357,7 +349,7 @@ export function MediaDetails({ mediaId }: { mediaId: string }) {
       } catch (err) {
         const message =
           err instanceof TypeError
-            ? `Unable to reach API at ${apiUrl}. Start backend and check CORS settings.`
+            ? "Unable to reach the API proxy. Start the backend and check the Docker/rewrites setup."
             : err instanceof Error
               ? err.message
               : "Unexpected error while loading media.";
@@ -368,7 +360,7 @@ export function MediaDetails({ mediaId }: { mediaId: string }) {
     };
 
     fetchData();
-  }, [apiUrl, mediaId]);
+  }, [mediaId]);
 
   const mediaIndex = useMemo(() => {
     return new Map(allMedia.map((item) => [item.id, item]));

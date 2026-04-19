@@ -1,13 +1,13 @@
 ﻿# MCU Flowchart Monorepo
 
-This repository contains a FastAPI backend and a shared MCU media dataset designed for a future frontend.
+This repository contains a FastAPI backend, a Next.js frontend, and a shared MCU media dataset.
 
 ## Repository Structure
 
 ```text
 apps/
   api/        # FastAPI backend
-  web/        # Frontend placeholder and setup notes
+  web/        # Next.js frontend
 dataset/
   data/
     media/    # One JSON file per media title
@@ -51,6 +51,8 @@ docker compose up --build -d
 
 API will be available at `http://localhost:8001`.
 
+The frontend runs in its own container at `http://localhost:3001` and proxies `/api/*` requests to the backend.
+
 Stop services:
 
 ```powershell
@@ -61,22 +63,18 @@ docker compose down
 
 This repository includes `.github/workflows/deploy-api.yml` to:
 
-1. Build/push API image to GHCR (`ghcr.io/<owner>/mcu-flowchart-api:latest`)
-2. Copy `docker-compose.server.yml` to your server
-3. Pull/restart with Docker Compose over SSH
+1. Build/push API and web images to GHCR
+2. Deploy both services with `docker-compose.server.yml`
+3. Pull/restart with Docker Compose on the self-hosted runner
 
 Required GitHub repository secrets:
 
-- `SERVER_HOST`
-- `SERVER_USER`
-- `SERVER_SSH_KEY`
-- `SERVER_PORT` (optional)
-- `GHCR_TOKEN` (PAT with at least `read:packages`)
+- `GITHUB_TOKEN` is used automatically for GHCR auth
 
 Server prerequisites:
 
 - Docker + Docker Compose installed
-- writable path `/opt/mcu-flowchart-api`
+- self-hosted runner with Docker access
 
 ## Quick Start (Frontend)
 

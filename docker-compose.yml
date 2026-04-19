@@ -7,3 +7,16 @@ services:
     restart: unless-stopped
     ports:
       - "8001:8001"
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        API_INTERNAL_URL: http://api:8001
+    container_name: mcu-flowchart-web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "3001:3001"

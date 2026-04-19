@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { apiV1Path } from "../lib/api";
 
 interface SearchMedia {
   id: string;
@@ -65,7 +66,6 @@ function useDebouncedValue(value: string, delayMs: number) {
 }
 
 export function AppNavbar() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
   const pathname = usePathname();
   const router = useRouter();
 
@@ -82,7 +82,7 @@ export function AppNavbar() {
     const fetchMedia = async () => {
       setIsSearchLoading(true);
       try {
-        const response = await fetch(`${apiUrl}/api/v1/media`);
+        const response = await fetch(apiV1Path("/media"));
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
         }
@@ -97,7 +97,7 @@ export function AppNavbar() {
     };
 
     fetchMedia();
-  }, [apiUrl]);
+  }, []);
 
   const resolveResults = (query: string) => {
     const normalizedQuery = query.trim().toLowerCase();

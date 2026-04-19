@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppNavbar } from "./AppNavbar";
+import { apiV1Path, resolvePosterUrl } from "../lib/api";
 
 interface Media {
   id: string;
@@ -85,7 +86,6 @@ function getMediaTypeStyles(mediatype: Media["mediatype"]) {
 }
 
 export function AllMediaPage() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
   const [media, setMedia] = useState<Media[]>([]);
   const [universeMetadata, setUniverseMetadata] = useState<Record<string, UniverseMetadata>>({});
   const [sagaMetadata, setSagaMetadata] = useState<Record<string, SagaMetadata>>({});
@@ -94,21 +94,13 @@ export function AllMediaPage() {
   const [selectedUniverse, setSelectedUniverse] = useState<string | null>(null);
   const pendingScrollTargetRef = useRef<string | null>(null);
 
-  const resolvePosterUrl = (poster: string): string => {
-    if (poster.startsWith("http://") || poster.startsWith("https://")) {
-      return poster;
-    }
-    const normalizedPoster = poster.startsWith("/") ? poster : `/${poster}`;
-    return `${apiUrl}${normalizedPoster}`;
-  };
-
   useEffect(() => {
     const fetchMedia = async () => {
       try {
         const [mediaResponse, universesResponse, sagasResponse] = await Promise.all([
-          fetch(`${apiUrl}/api/v1/media`),
-          fetch(`${apiUrl}/api/v1/universes`),
-          fetch(`${apiUrl}/api/v1/sagas`),
+          fetch(apiV1Path("/media")),
+          fetch(apiV1Path("/universes")),
+          fetch(apiV1Path("/sagas")),
         ]);
 
         if (!mediaResponse.ok) {
@@ -137,7 +129,7 @@ export function AllMediaPage() {
       } catch (err) {
         const message =
           err instanceof TypeError
-            ? `Unable to reach API at ${apiUrl}. Start the backend and check CORS settings.`
+            ? "Unable to reach the API proxy. Start the backend and check the Docker/rewrites setup."
             : err instanceof Error
               ? err.message
               : "Failed to fetch media";
@@ -148,7 +140,7 @@ export function AllMediaPage() {
     };
 
     fetchMedia();
-  }, [apiUrl]);
+  }, []);
 
   const universeOptions = useMemo<UniverseOption[]>(() => {
     const grouped = new Map<string, number>();
