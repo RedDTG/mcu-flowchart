@@ -17,6 +17,18 @@ export function resolvePosterUrl(poster: string): string {
     return poster;
   }
 
+  if (poster.startsWith("/api/v1/posters/")) {
+    return poster;
+  }
+
+  if (poster.startsWith("/posters/")) {
+    return `${API_PREFIX}${poster}`;
+  }
+
   const normalizedPoster = poster.startsWith("/") ? poster : `/${poster}`;
+  if (normalizedPoster.startsWith("/api/v1/")) {
+    return normalizedPoster;
+  }
+
   return `${API_PREFIX}${normalizedPoster}`;
 }
