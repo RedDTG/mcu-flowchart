@@ -4,9 +4,13 @@ on:
   push:
     branches: ["main"]
     paths:
+      - "apps/web/**"
       - "apps/api/**"
       - "dataset/**"
+      - "docker-compose.yml"
       - "docker-compose.server.yml"
+      - "apps/web/Dockerfile"
+      - "apps/web/next.config.ts"
       - "apps/api/Dockerfile"
       - ".github/workflows/deploy-api.yml"
 
@@ -45,6 +49,18 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-api:latest
             ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-api:${{ github.sha }}
 
+      - name: Build and push Web image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/web/Dockerfile
+          push: true
+          build-args: |
+            API_INTERNAL_URL=http://api:8001
+          tags: |
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-web:latest
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-web:${{ github.sha }}
+
   deploy:
     needs: build-and-push
     runs-on: [self-hosted, linux, x64]
@@ -63,6 +79,7 @@ jobs:
       - name: Deploy with Docker Compose on self-hosted runner
         env:
           API_IMAGE: ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-api:latest
+          WEB_IMAGE: ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-web:latest
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e

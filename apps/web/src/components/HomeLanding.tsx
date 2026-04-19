@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppNavbar } from "./AppNavbar";
+import { apiV1Path, resolvePosterUrl } from "../lib/api";
 
 interface Media {
   id: string;
@@ -121,26 +122,16 @@ function MediaCarousel({
   id,
   title,
   items,
-  apiUrl,
   universeMetadata,
   sagaMetadata,
 }: {
   id: string;
   title: string;
   items: Media[];
-  apiUrl: string;
   universeMetadata: Record<string, UniverseMetadata>;
   sagaMetadata: Record<string, SagaMetadata>;
 }) {
   const carouselRef = useRef<HTMLDivElement | null>(null);
-
-  const resolvePosterUrl = (poster: string): string => {
-    if (poster.startsWith("http://") || poster.startsWith("https://")) {
-      return poster;
-    }
-    const normalizedPoster = poster.startsWith("/") ? poster : `/${poster}`;
-    return `${apiUrl}${normalizedPoster}`;
-  };
 
   const scrollByCards = (direction: "left" | "right") => {
     const container = carouselRef.current;
@@ -234,15 +225,7 @@ function MediaCarousel({
   );
 }
 
-function FeaturedMediaSection({ items, apiUrl }: { items: FeaturedMedia[]; apiUrl: string }) {
-  const resolvePosterUrl = (poster: string): string => {
-    if (poster.startsWith("http://") || poster.startsWith("https://")) {
-      return poster;
-    }
-    const normalizedPoster = poster.startsWith("/") ? poster : `/${poster}`;
-    return `${apiUrl}${normalizedPoster}`;
-  };
-
+function FeaturedMediaSection({ items }: { items: FeaturedMedia[] }) {
   return (
     <section className="space-y-5 scroll-mt-24 md:scroll-mt-28">
       <div>
@@ -305,7 +288,6 @@ function FeaturedMediaSection({ items, apiUrl }: { items: FeaturedMedia[]; apiUr
 }
 
 export function HomeLanding() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
   const [media, setMedia] = useState<Media[]>([]);
   const [universeMetadata, setUniverseMetadata] = useState<Record<string, UniverseMetadata>>({});
   const [sagaMetadata, setSagaMetadata] = useState<Record<string, SagaMetadata>>({});
@@ -316,9 +298,9 @@ export function HomeLanding() {
     const fetchMedia = async () => {
       try {
         const [mediaResponse, universesResponse, sagasResponse] = await Promise.all([
-          fetch(`${apiUrl}/api/v1/media`),
-          fetch(`${apiUrl}/api/v1/universes`),
-          fetch(`${apiUrl}/api/v1/sagas`),
+          fetch(apiV1Path("/media")),
+          fetch(apiV1Path("/universes")),
+          fetch(apiV1Path("/sagas")),
         ]);
 
         if (!mediaResponse.ok) {
@@ -352,7 +334,7 @@ export function HomeLanding() {
       } catch (err) {
         const message =
           err instanceof TypeError
-            ? `Unable to reach the API at ${apiUrl}`
+            ? "Unable to reach the API proxy. Start the backend and check the Docker/rewrites setup."
             : err instanceof Error
               ? err.message
               : "Unexpected error";
@@ -363,7 +345,7 @@ export function HomeLanding() {
     };
 
     fetchMedia();
-  }, [apiUrl]);
+  }, []);
 
   const latestMovies = useMemo(() => {
     return media
@@ -511,13 +493,12 @@ export function HomeLanding() {
 
         {!loading && !error && (
           <div className="space-y-10">
-            {featuredReleases.length > 0 && <FeaturedMediaSection items={featuredReleases} apiUrl={apiUrl} />}
+            {featuredReleases.length > 0 && <FeaturedMediaSection items={featuredReleases} />}
 
             <MediaCarousel
               id="latest-movies"
               title="Latest movies"
               items={latestMovies}
-              apiUrl={apiUrl}
               universeMetadata={universeMetadata}
               sagaMetadata={sagaMetadata}
             />
@@ -526,7 +507,6 @@ export function HomeLanding() {
               id="latest-series"
               title="Latest shows"
               items={latestSeries}
-              apiUrl={apiUrl}
               universeMetadata={universeMetadata}
               sagaMetadata={sagaMetadata}
             />
