@@ -305,7 +305,7 @@ function FeaturedMediaSection({ items, apiUrl }: { items: FeaturedMedia[]; apiUr
 }
 
 export function HomeLanding() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
   const [media, setMedia] = useState<Media[]>([]);
   const [universeMetadata, setUniverseMetadata] = useState<Record<string, UniverseMetadata>>({});
   const [sagaMetadata, setSagaMetadata] = useState<Record<string, SagaMetadata>>({});
