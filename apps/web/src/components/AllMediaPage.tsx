@@ -85,7 +85,7 @@ function getMediaTypeStyles(mediatype: Media["mediatype"]) {
 }
 
 export function AllMediaPage() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
   const [media, setMedia] = useState<Media[]>([]);
   const [universeMetadata, setUniverseMetadata] = useState<Record<string, UniverseMetadata>>({});
   const [sagaMetadata, setSagaMetadata] = useState<Record<string, SagaMetadata>>({});

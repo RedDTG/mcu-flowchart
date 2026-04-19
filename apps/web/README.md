@@ -12,7 +12,7 @@ A Next.js application that displays Marvel Cinematic Universe media with a respo
 ## Prerequisites
 
 - Node.js v24.14.1 (or compatible version)
-- Backend API running on `http://localhost:8000`
+- Backend API running on `http://localhost:8001`
 
 ## Getting Started
 
@@ -35,7 +35,7 @@ node generate-posters.js
 Edit `.env.local`:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_API_URL=http://localhost:8001
 ```
 
 ### 4. Run Development Server
@@ -44,7 +44,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Open [http://localhost:3001](http://localhost:3001) to view the application.
 
 ## Project Structure
 

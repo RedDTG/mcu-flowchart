@@ -69,7 +69,7 @@ python ..\..\scripts\validate_data.py
 python run.py
 ```
 
-Swagger/OpenAPI UI: `http://127.0.0.1:8000/docs`
+Swagger/OpenAPI UI: `http://127.0.0.1:8001/docs`
 
 ## Tests
 

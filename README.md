@@ -38,7 +38,7 @@ python ..\..\scripts\validate_data.py
 python run.py
 ```
 
-API docs are available at `http://127.0.0.1:8000/docs`.
+API docs are available at `http://127.0.0.1:8001/docs`.
 
 ## Docker Compose (API)
 
@@ -49,7 +49,7 @@ Set-Location c:\Users\antoine.deyris\Documents\mcu-flowchart
 docker compose up --build -d
 ```
 
-API will be available at `http://localhost:8000`.
+API will be available at `http://localhost:8001`.
 
 Stop services:
 
@@ -86,9 +86,9 @@ Set-Location apps/web
 .\..\..\.tools\nodejs\node-v24.14.1-win-x64\npm.cmd run dev
 ```
 
-Frontend is available at `http://localhost:3000`.
+Frontend is available at `http://localhost:3001`.
 
-**Note:** Frontend requires backend API running on `http://localhost:8000`.
+**Note:** Frontend requires backend API running on `http://localhost:8001`.
 
 ## Running Both Services
 
@@ -106,7 +106,7 @@ Set-Location apps/web
 .\..\..\.tools\nodejs\node-v24.14.1-win-x64\npm.cmd run dev
 ```
 
-Then navigate to `http://localhost:3000` to view the application.
+Then navigate to `http://localhost:3001` to view the application.
 
 ## Validation and Tests
 

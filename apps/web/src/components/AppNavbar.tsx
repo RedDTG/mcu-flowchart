@@ -65,7 +65,7 @@ function useDebouncedValue(value: string, delayMs: number) {
 }
 
 export function AppNavbar() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
   const pathname = usePathname();
   const router = useRouter();
 

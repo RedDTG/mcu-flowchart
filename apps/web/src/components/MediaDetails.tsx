@@ -297,7 +297,7 @@ function RelatedCarousel({
 }
 
 export function MediaDetails({ mediaId }: { mediaId: string }) {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
   const [media, setMedia] = useState<Media | null>(null);
   const [allMedia, setAllMedia] = useState<Media[]>([]);
   const [universeMetadata, setUniverseMetadata] = useState<Record<string, UniverseMetadata>>({});

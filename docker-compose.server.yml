@@ -4,4 +4,4 @@ services:
     container_name: mcu-flowchart-api
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "8001:8001"
