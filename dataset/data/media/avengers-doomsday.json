@@ -7,7 +7,41 @@
   "poster": "/posters/avengers-doomsday.jpg",
   "summary": "TODO",
   "connections": {
-    "required": [],
+    "required": [
+      {
+        "media_id": "captain-america-brave-new-world"
+      },
+      {
+        "media_id": "thunderbolts"
+      },
+      {
+        "media_id": "black-panther-wakanda-forever"
+      },
+      {
+        "media_id": "loki-season-2"
+      },
+      {
+        "media_id": "the-fantastic-four-first-steps"
+      },
+      {
+        "media_id": "thor-love-and-thunder"
+      },
+      {
+        "media_id": "ant-man-and-the-wasp-quantumania"
+      },
+      {
+        "media_id": "shang-chi-and-the-legend-of-the-ten-rings"
+      },
+      {
+        "media_id": "deadpool-and-wolverine"
+      },
+      {
+        "media_id": "doctor-strange-in-the-multiverse-of-madness"
+      },
+      {
+        "saga_id": "x-men-original-trilogy"
+      }
+    ],
     "optional": [],
     "references": []
   },

@@ -21,6 +21,9 @@
     "optional": [
       {
         "saga_id": "fantastic-four-saga"
+      },
+      {
+        "media_id": "loki-season-2"
       }
     ],
     "references": [

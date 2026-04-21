@@ -155,11 +155,22 @@ def get_graph() -> GraphResponse:
         for entry in media_entries
     ]
     edges: list[GraphEdge] = []
-    media_ids_by_saga: dict[str, list[str]] = {}
+    latest_media_id_by_saga: dict[str, str] = {}
+    latest_media_by_saga: dict[str, Media] = {}
 
     for entry in media_entries:
         if entry.saga:
-            media_ids_by_saga.setdefault(entry.saga, []).append(entry.id)
+            current_latest = latest_media_by_saga.get(entry.saga)
+            if not current_latest or (entry.release_date, entry.id) > (
+                current_latest.release_date,
+                current_latest.id,
+            ):
+                latest_media_by_saga[entry.saga] = entry
+
+    latest_media_id_by_saga = {
+        saga_id: media_entry.id
+        for saga_id, media_entry in latest_media_by_saga.items()
+    }
 
     def edge_targets(source_id: str, links: list) -> list[str]:
         targets: list[str] = []
@@ -170,11 +181,9 @@ def get_graph() -> GraphResponse:
                 continue
 
             if link.saga_id:
-                targets.extend(
-                    target_id
-                    for target_id in media_ids_by_saga.get(link.saga_id, [])
-                    if target_id != source_id
-                )
+                target_id = latest_media_id_by_saga.get(link.saga_id)
+                if target_id and target_id != source_id:
+                    targets.append(target_id)
 
         return list(dict.fromkeys(targets))
 

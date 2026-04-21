@@ -10,9 +10,6 @@
         "required": [
             {
                 "media_id": "deadpool"
-            },
-            {
-                "saga_id": "fantastic-four-saga"
             }
         ],
         "optional": [],
