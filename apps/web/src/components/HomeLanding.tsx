@@ -231,13 +231,13 @@ function FeaturedMediaSection({ items }: { items: FeaturedMedia[] }) {
       <div>
         <h2 className="text-xl font-bold text-white sm:text-2xl">Upcoming and airing</h2>
       </div>
-      <div className="grid grid-cols-1 gap-4 pb-2 pt-2 sm:gap-5 lg:grid-cols-2">
+      <div className="flex flex-wrap justify-center gap-4 pb-2 pt-2 sm:gap-5">
         {items.map((item) => {
           const mediaTypeStyles = getMediaTypeStyles(item.mediatype);
           const featuredBadgeClass = getFeaturedBadgeClass(item.badge);
 
           return (
-            <Link key={item.id} href={`/media/${item.id}`} className="group block min-w-0">
+            <Link key={item.id} href={`/media/${item.id}`} className="group block min-w-0 w-full lg:w-[calc(50%-0.625rem)]">
               <article className={`h-full w-full overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 transition duration-300 group-hover:-translate-y-1 ${mediaTypeStyles.hoverBorderClass}`}>
                 <div className="flex h-full flex-col sm:flex-row">
                   <div className="relative h-52 w-full shrink-0 bg-zinc-800 sm:h-auto sm:w-45 xl:w-50">
@@ -376,8 +376,8 @@ export function HomeLanding() {
         const releaseDate = getReleaseDate(item);
         const endDate = getEndDate(item);
 
-        const isReleasedMovie =
-          item.mediatype === "movie" && releaseDate <= today && releaseDate >= oneMonthAgo;
+        const isReleasedMedia =
+          releaseDate <= today && releaseDate >= oneMonthAgo
 
         const isAiringShow =
           item.mediatype === "show" && releaseDate <= today && Boolean(endDate && endDate >= today);
@@ -393,7 +393,7 @@ export function HomeLanding() {
           badge = "airing";
         } else if (isUpcomingMovie || isUpcomingShow) {
           badge = "upcoming";
-        } else if (isReleasedMovie) {
+        } else if (isReleasedMedia) {
           badge = "released";
         }
 
@@ -464,17 +464,17 @@ export function HomeLanding() {
                 See the Watching Map
               </Link> */}
               <Link
-                href="/all-media"
+                href="/flowchart"
                 className="rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-500"
               >
-                Explore the Multiverse
+                Use the Flowchart
               </Link>
-              {/* <Link
-                href=""
+              <Link
+                href="/all-media"
                 className="rounded-full border border-red-500/60 px-5 py-2 text-sm font-semibold text-red-200 transition hover:border-red-400 hover:text-white"
               >
-                Watch Guide
-              </Link> */}
+                Explore every saga
+              </Link>
             </div>
           </div>
         </section>

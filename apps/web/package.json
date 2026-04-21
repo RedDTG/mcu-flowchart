@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -H 0.0.0.0 -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "eslint"
   },
   "dependencies": {
+    "@xyflow/react": "^12.10.2",
     "next": "16.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"

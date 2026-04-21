@@ -48,6 +48,12 @@ npm run dev
 
 Open [http://localhost:3001](http://localhost:3001) to view the application.
 
+For LAN access (same network), the dev script already binds to `0.0.0.0`, so you can also open:
+
+- `http://<your-local-ip>:3001`
+
+If HMR (hot reload) WebSocket still fails, avoid an HTTP reverse proxy in front of Next dev, or ensure WebSocket upgrade headers are forwarded for `/_next/webpack-hmr`.
+
 ## Project Structure
 
 ```

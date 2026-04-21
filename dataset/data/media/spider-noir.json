@@ -1,0 +1,20 @@
+{
+    "id": "spider-noir",
+    "title": "Spider-Noir",
+    "release_date": "2026-05-27",
+    "end_date": "2026-05-27",
+    "mediatype": "show",
+    "poster": "/posters/spider-noir.jpg",
+    "saga": "animated-spider-verse",
+    "summary": "An aging and down on his luck private investigator in 1930s New York is forced to grapple with his past life as the city's one and only superhero. (source: IMDb)",
+    "connections": {
+        "required": [],
+        "optional": [
+            {
+                "media_id": "spider-man-into-the-spider-verse"
+            }
+        ],
+        "references": []
+    },
+    "universe": "sonys-spider-man-universe"
+}

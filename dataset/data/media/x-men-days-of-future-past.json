@@ -12,11 +12,7 @@
                 "media_id": "x-men-first-class"
             }
         ],
-        "optional": [
-            {
-                "saga_id": "x-men-original-trilogy"
-            }
-        ],
+        "optional": [],
         "references": []
     },
     "universe": "fox-marvel-cinematic-universe"
