@@ -552,7 +552,7 @@ export function MediaDetails({ mediaId }: { mediaId: string }) {
               <div className="flex items-center gap-3 rounded-2xl border border-dashed border-zinc-700 bg-zinc-950/60 p-5 text-sm text-zinc-400">
                 <div>
                   <p className="font-semibold text-zinc-200">No connected stories yet</p>
-                  <p className="mt-0.5">This title doesn't have related entries in the dataset right now.</p>
+                  <p className="mt-0.5">This title doesn&apos;t have related entries in the dataset right now.</p>
                 </div>
               </div>
             )}
