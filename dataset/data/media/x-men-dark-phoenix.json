@@ -13,9 +13,7 @@
             }
         ],
         "optional": [
-            {
-                "saga_id": "x-men-original-trilogy"
-            }
+
         ],
         "references": []
     },

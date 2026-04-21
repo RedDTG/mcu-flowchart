@@ -14,6 +14,7 @@ interface SearchMedia {
 
 const pageLinks = [
   { href: "/", label: "Home" },
+  { href: "/flowchart", label: "Flowchart" },
   { href: "/all-media", label: "Explore" },
   // { href: "/watching-map", label: "Watching Map" },
   // { href: "/watching-order", label: "Watching Order" },

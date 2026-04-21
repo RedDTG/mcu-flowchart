@@ -10,9 +10,6 @@
     "connections": {
         "required": [
             {
-                "media_id": "daredevil-season-2"
-            },
-            {
                 "media_id": "defenders"
             }
         ],
