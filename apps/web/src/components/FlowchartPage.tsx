@@ -338,11 +338,6 @@ function UniverseGroupNode({ data }: NodeProps<Node<UniverseGroupNodeData>>) {
   );
 }
 
-const nodeTypes = {
-  mediaNode: MediaFlowNode,
-  universeGroup: UniverseGroupNode,
-};
-
 function buildUniverseIndex(universes: UniverseMetadata[], nodes: GraphNode[]) {
   const usedUniverses = new Set(nodes.map((node) => node.universe));
   const orderedUniverses = universes
@@ -643,6 +638,13 @@ export function FlowchartPage() {
   const [sagas, setSagas] = useState<SagaMetadata[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const nodeTypes = useMemo(
+    () => ({
+      mediaNode: MediaFlowNode,
+      universeGroup: UniverseGroupNode,
+    }),
+    [],
+  );
 
   useEffect(() => {
     const loadGraph = async () => {
@@ -723,7 +725,7 @@ export function FlowchartPage() {
                 nodes={flowState.nodes}
                 edges={flowState.edges}
                 nodeTypes={nodeTypes}
-                defaultViewport={{ x: 500, y: 80, zoom: 0.2 }}
+                defaultViewport={{ x: 500, y: 200, zoom: 0.5 }}
                 minZoom={0.05}
                 maxZoom={1.35}
                 defaultEdgeOptions={{ type: "simplebezier" }}

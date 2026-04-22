@@ -1,0 +1,66 @@
+name: "Content Error Report"
+description: "Report incorrect metadata, missing media, or broken links between entries"
+title: "[Content Error]: "
+labels: ["content"]
+assignees: []
+
+body:
+
+* type: dropdown
+  id: issue_type
+  attributes:
+  label: Type of issue
+  description: What kind of problem are you reporting?
+  options:
+  - Metadata error
+  - Missing media
+  - Incorrect link between entries
+  - Other
+  validations:
+  required: true
+
+* type: input
+  id: title
+  attributes:
+  label: Title of the work
+  description: Name of the movie or series
+  placeholder: e.g. Avengers: Endgame
+  validations:
+  required: true
+
+* type: textarea
+  id: description
+  attributes:
+  label: Description of the issue
+  description: Clearly explain what is wrong
+  placeholder: |
+  Example:
+  - Release date is incorrect
+  - A media is missing
+  - A link between two media is wrong (e.g. a movie is linked to the wrong series)
+  validations:
+  required: true
+
+* type: textarea
+  id: expected
+  attributes:
+  label: Expected behavior / correct information
+  description: What should be shown instead?
+  validations:
+  required: true
+
+* type: textarea
+  id: sources
+  attributes:
+  label: Sources (optional)
+  description: Provide reliable sources supporting the correction
+
+* type: checkboxes
+  id: terms
+  attributes:
+  label: Confirmation
+  options:
+  - label: I have checked that this issue has not already been reported
+  required: true
+  - label: I have provided accurate and verifiable information
+  required: true

@@ -16,8 +16,8 @@ const pageLinks = [
   { href: "/", label: "Home" },
   { href: "/flowchart", label: "Flowchart" },
   { href: "/all-media", label: "Explore" },
+  { href: "/watching-order", label: "Watching Order" },
   // { href: "/watching-map", label: "Watching Map" },
-  // { href: "/watching-order", label: "Watching Order" },
 ] as const;
 
 function getMediaTypeTextClass(mediatype: SearchMedia["mediatype"]) {
