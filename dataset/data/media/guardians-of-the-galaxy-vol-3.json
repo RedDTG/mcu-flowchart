@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/guardians-of-the-galaxy-vol-3.jpg",
-  "summary": "TODO",
+  "summary": "Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own - a mission that could mean the end of the Guardians if not successful. (source: IMDb)",
   "connections": {
     "required": [
       {

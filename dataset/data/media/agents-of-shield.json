@@ -6,12 +6,16 @@
     "saga": "infinite-saga",
     "mediatype": "show",
     "poster": "/posters/agents-of-shield.jpg",
-    "summary": "TODO",
+    "summary": "The missions of the Strategic Homeland Intervention, Enforcement and Logistics Division. (source: IMDb)\n\nNote: This show is quite a mess for watching order since every episode takes place at a different time along the entire Infinity Saga. If you don't want to take the risk to spoil yourself, we recommand you to watch it all after Avengers: Endgame.",
     "connections": {
-        "required": [],
-        "optional": [
+        "required": [
             {
                 "media_id": "iron-man-3"
+            }
+        ],
+        "optional": [
+            {
+                "saga_id": "infinite-saga"
             }
         ],
         "references": []

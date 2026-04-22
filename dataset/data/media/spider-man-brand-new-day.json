@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/spider-man-brand-new-day.jpg",
-  "summary": "TODO",
+  "summary": "A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges. (source: IMDb)",
   "connections": {
     "required": [
       {

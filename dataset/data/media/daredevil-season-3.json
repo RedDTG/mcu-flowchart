@@ -6,7 +6,7 @@
     "saga": "defenders-saga",
     "mediatype": "show",
     "poster": "/posters/daredevil-season-3.jpg",
-    "summary": "TODO",
+    "summary": "A blind lawyer by day, vigilante by night. Matt Murdock fights the crime of New York as Daredevil. (source: IMDb)",
     "connections": {
         "required": [
             {

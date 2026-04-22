@@ -6,7 +6,7 @@
     "saga": "blade-saga",
     "mediatype": "show",
     "poster": "/posters/blade-series.jpg",
-    "summary": "TODO",
+    "summary": "The adventures of the half human/vampire hunter. (source: IMDb)",
     "connections": {
         "required": [ 
             {

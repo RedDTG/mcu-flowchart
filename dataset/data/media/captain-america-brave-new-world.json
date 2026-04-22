@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/captain-america-brave-new-world.jpg",
-  "summary": "TODO",
+  "summary": "Sam Wilson, the new Captain America, finds himself in the middle of an international incident and must discover the motive behind a nefarious global plan. (source: IMDb)",
   "connections": {
     "required": [
       {
