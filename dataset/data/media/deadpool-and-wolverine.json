@@ -8,22 +8,23 @@
   "summary": "TODO",
   "connections": {
     "required": [
-      {
-        "media_id": "logan"
-      },
+
       {
         "media_id": "deadpool-2"
       },
       {
-        "saga_id": "x-men-original-trilogy"
-      }
+        "media_id": "loki-season-2"
+      }      
     ],
     "optional": [
       {
         "saga_id": "fantastic-four-saga"
       },
       {
-        "media_id": "loki-season-2"
+        "saga_id": "x-men-original-trilogy"
+      },
+      {
+        "media_id": "logan"
       }
     ],
     "references": [
