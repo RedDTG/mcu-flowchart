@@ -5,7 +5,7 @@
     "saga": "sonys-spider-man-universe",
     "mediatype": "movie",
     "poster": "/posters/venom-the-last-dance.jpg",
-    "summary": "TODO",
+    "summary": "Eddie Brock and Venom must make a devastating decision as they're pursued by a mysterious military man and alien monsters from Venom's home world. (source: IMDb)",
     "connections": {
         "required": [
             {

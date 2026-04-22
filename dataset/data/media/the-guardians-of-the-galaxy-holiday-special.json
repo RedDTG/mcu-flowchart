@@ -1,21 +1,15 @@
 {
-    "id":  "the-guardians-of-the-galaxy-holiday-special",
-    "title":  "The Guardians of the Galaxy Holiday Special",
-    "release_date":  "2022-11-25",
-    "saga":  "multiverse-saga",
-    "mediatype":  "special",
-    "poster":  "/posters/the-guardians-of-the-galaxy-holiday-special.jpg",
-    "summary":  "TODO",
-    "connections":  {
-                        "required":  [
-
-                                     ],
-                        "optional":  [
-
-                                     ],
-                        "references":  [
-
-                                       ]
-                    },
-    "universe":  "mcu"
+    "id": "the-guardians-of-the-galaxy-holiday-special",
+    "title": "The Guardians of the Galaxy Holiday Special",
+    "release_date": "2022-11-25",
+    "saga": "multiverse-saga",
+    "mediatype": "special",
+    "poster": "/posters/the-guardians-of-the-galaxy-holiday-special.jpg",
+    "summary": "Star-Lord, Drax, Rocket, Mantis, and Groot engage in some spirited shenanigans in an all-new original special created for Disney+. (source: IMDb)",
+    "connections": {
+        "required": [],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
 }

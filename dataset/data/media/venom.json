@@ -5,7 +5,7 @@
     "saga": "sonys-spider-man-universe",
     "mediatype": "movie",
     "poster": "/posters/venom.jpg",
-    "summary": "TODO",
+    "summary": "A failed reporter is bonded to an alien entity, one of many symbiotes who have invaded Earth. But the being takes a liking to Earth and decides to protect it. (source: IMDb)",
     "connections": {
         "required": [],
         "optional": [],
