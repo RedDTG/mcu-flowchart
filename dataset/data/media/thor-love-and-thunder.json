@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/thor-love-and-thunder.jpg",
-  "summary": "TODO",
+  "summary": "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct. (source: IMDb)",
   "connections": {
     "required": [
       {

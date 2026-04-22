@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/thunderbolts.jpg",
-  "summary": "TODO",
+  "summary": "After finding themselves ensnared in a death trap, an unconventional team of antiheroes must go on a dangerous mission that will force them to confront the darkest corners of their pasts. (source: IMDb)",
   "connections": {
     "required": [
       {

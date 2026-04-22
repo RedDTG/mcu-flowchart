@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/the-marvels.jpg",
-  "summary": "TODO",
+  "summary": "Carol Danvers gets her powers entangled with those of Kamala Khan and Monica Rambeau, forcing them to work together to save the universe. (source: IMDb)",
   "connections": {
     "required": [
       {

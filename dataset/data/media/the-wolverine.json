@@ -5,7 +5,7 @@
     "saga": "wolverine-trilogy",
     "mediatype": "movie",
     "poster": "/posters/the-wolverine.jpg",
-    "summary": "TODO",
+    "summary": "Wolverine comes to Japan to meet an old friend whose life he saved years ago, and gets embroiled in a conspiracy involving yakuza and mutants. (source: IMDb)",
     "connections": {
         "required": [
             {

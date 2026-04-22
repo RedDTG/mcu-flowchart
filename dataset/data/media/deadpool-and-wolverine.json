@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/deadpool-and-wolverine.jpg",
-  "summary": "TODO",
+  "summary": "Deadpool is offered a place in the Marvel Cinematic Universe by the Time Variance Authority, but instead recruits a variant of Wolverine to save his universe from extinction. (source: IMDb)",
   "connections": {
     "required": [
       {

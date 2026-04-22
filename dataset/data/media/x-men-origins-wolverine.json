@@ -5,7 +5,7 @@
     "saga": "wolverine-trilogy",
     "mediatype": "movie",
     "poster": "/posters/x-men-origins-wolverine.jpg",
-    "summary": "TODO",
+    "summary": "The early years of James Logan, featuring his rivalry with his brother Victor Creed, his service in the special forces team Weapon X, and his experimentation into the metal-lined mutant Wolverine. (source: IMDb)",
     "connections": {
         "required": [],
         "optional": [

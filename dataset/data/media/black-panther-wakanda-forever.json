@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/black-panther-wakanda-forever.jpg",
-  "summary": "TODO",
+  "summary": "The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa. (source: IMDb)",
   "connections": {
     "required": [
       {

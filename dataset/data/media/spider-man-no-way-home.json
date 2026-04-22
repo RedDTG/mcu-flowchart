@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/spider-man-no-way-home.jpg",
-  "summary": "TODO",
+  "summary": "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear. (source: IMDb)",
   "connections": {
     "required": [
       {

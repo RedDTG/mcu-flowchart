@@ -6,7 +6,7 @@
     "saga": "multiverse-saga",
     "mediatype": "show",
     "poster": "/posters/ironheart.jpg",
-    "summary": "TODO",
+    "summary": "Genius teenage inventor Riri Williams creates the most advanced suit of armor since Iron Man. (source: IMDb)",
     "connections": {
         "required": [
             {
