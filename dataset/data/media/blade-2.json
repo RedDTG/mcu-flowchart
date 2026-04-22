@@ -5,7 +5,7 @@
     "saga": "blade-saga",
     "mediatype": "movie",
     "poster": "/posters/blade-2.jpg",
-    "summary": "TODO",
+    "summary": "Blade forms an uneasy alliance with the vampire council in order to combat the Reapers, who are feeding on vampires. (source: IMDb)",
     "connections": {
         "required": [
             {

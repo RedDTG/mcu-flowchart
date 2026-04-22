@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/eternals.jpg",
-  "summary": "TODO",
+  "summary": "The saga of the Eternals, a race of immortal beings who lived on Earth and shaped its history and civilizations. (source: IMDb)",
   "connections": {
     "required": [],
     "optional": [],

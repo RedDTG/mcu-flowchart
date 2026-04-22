@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/black-widow.jpg",
-  "summary": "TODO",
+  "summary": "Natasha Romanoff confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises. (source: IMDb)",
   "connections": {
     "required": [
       {

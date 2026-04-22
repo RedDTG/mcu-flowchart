@@ -5,7 +5,7 @@
     "saga": "wolverine-trilogy",
     "mediatype": "movie",
     "poster": "/posters/logan.jpg",
-    "summary": "TODO",
+    "summary": "In a future where mutants are nearly extinct, an elderly and weary Logan leads a quiet life. But when Laura, a mutant child pursued by scientists, comes to him for help, he must get her to safety. (source: IMDb)",
     "connections": {
         "required": [],
         "optional": [

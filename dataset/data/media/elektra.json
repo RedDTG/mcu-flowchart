@@ -5,7 +5,7 @@
     "saga": "fox-daredevil",
     "mediatype": "movie",
     "poster": "/posters/elektra.jpg",
-    "summary": "TODO",
+    "summary": "An assassin's change of heart leads her into a war against an evil crime syndicate. (source: IMDb)",
     "connections": {
         "required": [],
         "optional": [

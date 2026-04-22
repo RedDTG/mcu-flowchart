@@ -5,7 +5,7 @@
     "saga": "x-men-prequel",
     "mediatype": "movie",
     "poster": "/posters/x-men-apocalypse.jpg",
-    "summary": "TODO",
+    "summary": "In the 1980s, the X-Men must defeat an ancient all-powerful mutant, En Sabah Nur, who intends to thrive by bringing destruction to the world. (source: IMDb)",
     "connections": {
         "required": [
             {

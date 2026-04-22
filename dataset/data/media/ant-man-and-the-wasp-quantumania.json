@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/ant-man-and-the-wasp-quantumania.jpg",
-  "summary": "TODO",
+  "summary": "Scott Lang and Hope Van Dyne are dragged into the Quantum Realm, along with Hope's parents and Scott's daughter Cassie. Together they must find a way to escape, but what secrets is Hope's mother hiding? And who is the mysterious Kang? (source: IMDb)",
   "connections": {
     "required": [
       {

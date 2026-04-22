@@ -5,7 +5,7 @@
   "saga": "multiverse-saga",
   "mediatype": "movie",
   "poster": "/posters/avengers-doomsday.jpg",
-  "summary": "TODO",
+  "summary": "Plot under wraps. (source: IMDb)",
   "connections": {
     "required": [
       {

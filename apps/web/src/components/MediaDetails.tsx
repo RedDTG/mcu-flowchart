@@ -530,7 +530,7 @@ export function MediaDetails({ mediaId }: { mediaId: string }) {
                   </Link>
                 </div>
 
-                <p className="mx-auto max-w-3xl leading-relaxed text-zinc-300 sm:mx-0">{media.summary}</p>
+                <p className="mx-auto max-w-3xl leading-relaxed whitespace-pre-line text-zinc-300 sm:mx-0">{media.summary}</p>
               </div>
             </div>
           </section>

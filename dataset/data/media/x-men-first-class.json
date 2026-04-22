@@ -5,7 +5,7 @@
     "saga": "x-men-prequel",
     "mediatype": "movie",
     "poster": "/posters/x-men-first-class.jpg",
-    "summary": "TODO",
+    "summary": "In the 1960s, superpowered humans Charles Xavier and Erik Lensherr work together to find others like them, but Erik's vengeful pursuit of an ambitious mutant who ruined his life causes a schism to divide them. (source: IMDb)",
     "connections": {
         "required": [],
         "optional": [
