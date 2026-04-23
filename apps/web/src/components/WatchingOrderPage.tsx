@@ -46,30 +46,32 @@ const faqItems: FaqItem[] = [
 
 export function WatchingOrderPage() {
   const renderAnswer = (answer: string) => {
-    const exploreWord = "Explore";
-    const parts = answer.split(exploreWord);
-
-    if (parts.length === 1) {
-      return answer;
-    }
-
-    return parts.map((part, index) => (
-      <span key={`${part}-${index}`}>
-        {part}
-        {index < parts.length - 1 ? (
-          <Link href="/all-media" className="font-semibold text-red-300 underline decoration-red-400/70 underline-offset-2 hover:text-red-200">
-            {exploreWord}
+    return answer.split(/(Explore|Release order)/g).map((part, index) => {
+      if (part === "Explore") {
+        return (
+          <Link key={`${part}-${index}`} href="/all-media" className="font-semibold text-red-300 underline decoration-red-400/70 underline-offset-2 hover:text-red-200">
+            {part}
           </Link>
-        ) : null}
-      </span>
-    ));
+        );
+      }
+
+      if (part === "Release order") {
+        return (
+          <strong key={`${part}-${index}`} className="font-bold text-white">
+            {part}
+          </strong>
+        );
+      }
+
+      return <span key={`${part}-${index}`}>{part}</span>;
+    });
   };
 
   return (
     <div className="min-h-screen bg-linear-to-b from-black via-zinc-950 to-black text-zinc-100">
       <AppNavbar />
 
-      <main className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-10">
+      <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:py-8">
         <section className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-8 md:p-12">
           <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-red-600/20 blur-3xl" />
           <div className="pointer-events-none absolute -left-24 -bottom-24 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl" />
