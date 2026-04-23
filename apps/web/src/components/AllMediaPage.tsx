@@ -264,12 +264,17 @@ export function AllMediaPage() {
       <AppNavbar />
 
       <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:py-8">
-        <section className="mb-6 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-red-400 sm:text-left">The Complete Marvel Collection</p>
-          <h1 className="mt-3 text-center text-3xl font-black leading-tight text-white sm:text-left sm:text-4xl md:text-5xl">
-            A multiverse of stories awaits
-          </h1>
-          <p className="mx-auto mt-4 max-w-3xl text-center text-zinc-300 sm:mx-0 sm:text-left">Explore every Marvel sagas across worlds and universes</p>
+        <section className="relative mb-6 overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-8 md:p-12">
+          <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-red-600/20 blur-3xl" />
+          <div className="pointer-events-none absolute -left-24 -bottom-24 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl" />
+
+          <div className="relative z-10 mx-auto max-w-3xl space-y-4 text-center sm:mx-0 sm:text-left">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-400">The Complete Marvel Collection</p>
+            <h1 className="text-3xl font-black leading-tight text-white sm:text-4xl md:text-5xl">
+              A multiverse of stories awaits.
+            </h1>
+            <p className="text-zinc-300">Explore every Marvel sagas across worlds and universes</p>
+          </div>
 
           <div className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start">
             {universeOptions.map((option) => {
