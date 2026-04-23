@@ -2,7 +2,7 @@ name: Deploy API with Docker Compose
 
 on:
   push:
-    branches: ["main"]
+    branches: ["stable"]
     paths:
       - "apps/web/**"
       - "apps/api/**"
