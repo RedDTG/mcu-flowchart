@@ -27,10 +27,15 @@ body {
 
 html[data-theme="dark"] {
   color-scheme: dark;
+  --themed-icon-color: #ffffff;
+  --themed-control-icon-color: #000000;
 }
 
 html[data-theme="light"] {
   color-scheme: light;
+  --themed-icon-color: #000000;
+  --themed-control-icon-color: #ffffff;
+
 }
 
 html[data-theme="light"] body {
@@ -43,4 +48,26 @@ html[data-theme="light"] iframe,
 html[data-theme="light"] svg,
 html[data-theme="light"] [data-no-theme-invert="true"] {
   filter: invert(1) hue-rotate(180deg);
+}
+
+.nav-icon-btn {
+  color: var(--themed-icon-color) !important;
+}
+
+.workflow-controls button {
+  color: var(--themed-control-icon-color) !important;
+}
+
+.workflow-controls button svg,
+.workflow-controls button path {
+  stroke: var(--themed-control-icon-color) !important;
+  fill: var(--themed-control-icon-color) !important;
+}
+
+html[data-theme="light"] .media-type-badge {
+  color: #000000 !important;
+}
+
+html[data-theme="light"] .featured-card-overlay {
+  display: none !important;
 }
