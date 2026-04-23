@@ -208,7 +208,7 @@ export function AppNavbar() {
             <button
               type="button"
               onClick={toggleTheme}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-800"
+              className="nav-icon-btn flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 transition hover:border-zinc-500 hover:bg-zinc-800"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? <SunIcon /> : <MoonIcon />}
@@ -216,7 +216,7 @@ export function AppNavbar() {
             <button
               type="button"
               onClick={() => setIsMobileSearchOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-800"
+              className="nav-icon-btn flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 transition hover:border-zinc-500 hover:bg-zinc-800"
               aria-label="Open search"
             >
               <SearchIcon />
@@ -243,7 +243,7 @@ export function AppNavbar() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-800"
+            className="nav-icon-btn flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 transition hover:border-zinc-500 hover:bg-zinc-800"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
@@ -257,7 +257,7 @@ export function AppNavbar() {
                 setDesktopQuery("");
               }
             }}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-800"
+            className="nav-icon-btn flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/80 transition hover:border-zinc-500 hover:bg-zinc-800"
             aria-label="Toggle search"
           >
             <SearchIcon />

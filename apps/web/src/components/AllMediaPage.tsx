@@ -64,7 +64,7 @@ function formatMediaTypeLabel(mediatype: Media["mediatype"]) {
 function getMediaTypeStyles(mediatype: Media["mediatype"]) {
   if (mediatype === "show") {
     return {
-      badgeClass: "bg-blue-500/50 text-blue-100",
+      badgeClass: "media-type-badge bg-blue-500/50 text-blue-100",
       hoverBorderClass: "group-hover:border-blue-500/60",
       hoverDividerClass: "group-hover:border-blue-400/90",
     };
@@ -72,14 +72,14 @@ function getMediaTypeStyles(mediatype: Media["mediatype"]) {
 
   if (mediatype === "special") {
     return {
-      badgeClass: "bg-green-500/50 text-green-100",
+      badgeClass: "media-type-badge bg-green-500/50 text-green-100",
       hoverBorderClass: "group-hover:border-green-500/60",
       hoverDividerClass: "group-hover:border-green-400/90",
     };
   }
 
   return {
-    badgeClass: "bg-red-500/50 text-red-100",
+    badgeClass: "media-type-badge bg-red-500/50 text-red-100",
     hoverBorderClass: "group-hover:border-red-500/60",
     hoverDividerClass: "group-hover:border-red-400/90",
   };
