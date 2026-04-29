@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, memo } from "react";
 import {
   Background,
   BackgroundVariant,
@@ -15,6 +15,7 @@ import {
   Panel,
   Position,
   ReactFlow,
+  useStore,
 } from "@xyflow/react";
 import { AppNavbar } from "./AppNavbar";
 import { apiV1Path, resolvePosterUrl } from "../lib/api";
@@ -150,24 +151,41 @@ function getMediaTypePillClass(mediatype: MediaType) {
   return "bg-rose-500/15 text-rose-100 border-rose-400/30";
 }
 
+const hexToRgbaCache: Record<string, string> = {};
+const polygonPathCache: Record<string, string> = {};
+
 function hexToRgba(hexColor: string, alpha: number) {
+  const key = `${hexColor}:${alpha}`;
+  if (hexToRgbaCache[key] !== undefined) {
+    return hexToRgbaCache[key];
+  }
+
   const sanitized = hexColor.replace("#", "");
   const value = Number.parseInt(sanitized, 16);
 
   if (Number.isNaN(value) || sanitized.length !== 6) {
-    return `rgba(255, 255, 255, ${alpha})`;
+    const result = `rgba(255, 255, 255, ${alpha})`;
+    hexToRgbaCache[key] = result;
+    return result;
   }
 
   const red = (value >> 16) & 255;
   const green = (value >> 8) & 255;
   const blue = value & 255;
 
-  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+  const result = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+  hexToRgbaCache[key] = result;
+  return result;
 }
 
 function buildRoundedPolygonPath(points: Array<{ x: number; y: number }>, radius: number) {
   if (points.length < 3) {
     return "";
+  }
+
+  const cacheKey = `${points.map((p) => `${p.x},${p.y}`).join("|")}:${radius}`;
+  if (polygonPathCache[cacheKey] !== undefined) {
+    return polygonPathCache[cacheKey];
   }
 
   const segments: string[] = [];
@@ -210,10 +228,27 @@ function buildRoundedPolygonPath(points: Array<{ x: number; y: number }>, radius
   }
 
   segments.push("Z");
-  return segments.join(" ");
+  const result = segments.join(" ");
+  polygonPathCache[cacheKey] = result;
+  return result;
 }
 
-function MediaFlowNode({ data, selected }: NodeProps<Node<MediaNodeData>>) {
+const MediaFlowNode = memo(function MediaFlowNode({ data, selected }: NodeProps<Node<MediaNodeData>>) {
+  const zoom = useStore((state) => state.transform[2]);
+  const isLowZoom = zoom < 0.2;
+
+  if (isLowZoom) {
+    return (
+      <div
+        className={`h-full w-full rounded-lg border transition duration-200 ${selected ? "border-white/60" : "border-white/10"}`}
+        style={{
+          backgroundColor: hexToRgba(data.universeColor, 0.3),
+          boxShadow: `0 0 0 1px ${hexToRgba(data.universeColor, 0.38)}`,
+        }}
+      />
+    );
+  }
+
   return (
     <article
       className={`group h-full w-full overflow-hidden rounded-2xl border bg-zinc-950/95 shadow-[0_16px_40px_rgba(0,0,0,0.3)] transition duration-200 ${selected ? "border-white/60" : "border-white/10"}`}
@@ -252,9 +287,9 @@ function MediaFlowNode({ data, selected }: NodeProps<Node<MediaNodeData>>) {
       </Link>
     </article>
   );
-}
+});
 
-function UniverseGroupNode({ data }: NodeProps<Node<UniverseGroupNodeData>>) {
+const UniverseGroupNode = memo(function UniverseGroupNode({ data }: NodeProps<Node<UniverseGroupNodeData>>) {
   const isPolygonZone = Boolean(data.polygonPoints);
 
   return (
@@ -336,7 +371,7 @@ function UniverseGroupNode({ data }: NodeProps<Node<UniverseGroupNodeData>>) {
       </div>
     </article>
   );
-}
+});
 
 function buildUniverseIndex(universes: UniverseMetadata[], nodes: GraphNode[]) {
   const usedUniverses = new Set(nodes.map((node) => node.universe));
@@ -722,17 +757,18 @@ export function FlowchartPage() {
           {!loading && !error && flowState && (
             <div className="h-full w-full">
               <ReactFlow
-                nodes={flowState.nodes}
-                edges={flowState.edges}
-                nodeTypes={nodeTypes}
-                defaultViewport={{ x: 500, y: 200, zoom: 0.5 }}
-                minZoom={0.05}
-                maxZoom={1.35}
-                defaultEdgeOptions={{ type: "simplebezier" }}
-                proOptions={{ hideAttribution: true }}
-                nodesDraggable={false}
-                nodesConnectable={false}
-              >
+                 nodes={flowState.nodes}
+                 edges={flowState.edges}
+                 nodeTypes={nodeTypes}
+                 defaultViewport={{ x: 500, y: 200, zoom: 0.5 }}
+                 minZoom={0.05}
+                 maxZoom={1.35}
+                 defaultEdgeOptions={{ type: "simplebezier" }}
+                 proOptions={{ hideAttribution: true }}
+                 nodesDraggable={false}
+                 nodesConnectable={false}
+                 elementsSelectable={false}
+               >
                 <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="rgba(255, 255, 255, 0.08)" />
                 <Controls
                   position="bottom-right"
