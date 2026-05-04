@@ -1,51 +1,67 @@
-﻿# Dataset Documentation
+# Dataset Documentation
 
-This folder contains the shared MCU media dataset used by the API (and future frontend).
+This directory contains the shared metadata used by the API and frontend.
 
 ## Structure
 
 ```text
 data/
-  movies/     # JSON media records (historical folder name kept for compatibility)
-posters/      # Local poster files referenced by `poster`
-schemas/      # JSON schema definitions
+  media/       # One JSON record per title
+  posters/     # Poster assets referenced by media and saga metadata
+  sagas/       # Saga metadata
+  universes/   # Universe metadata
+schemas/       # JSON Schema definitions
 ```
 
-## Media Record Spec
+## Media Records
 
-Each JSON file in `data/media/*.json` must include:
+Each file in `data/media/*.json` must include:
 
-- `id`: unique identifier (string)
-- `title`: media title (string)
-- `release_date`: ISO date format (`YYYY-MM-DD`)
-- `saga`: saga name (`Infinite Saga` or `Multiverse Saga`)
-- `mediatype`: media kind, one of `movie`, `show`, `special`
-- `poster`: poster path (example: `/posters/iron-man.jpg`)
-- `summary`: non-empty description
-- `connections`: object with `required`, `optional`, and `references` arrays
+- `id`: stable unique identifier;
+- `title`: media title;
+- `release_date`: ISO date format, `YYYY-MM-DD`;
+- `universe`: universe id defined in `schemas/media.schema.json`;
+- `mediatype`: `movie`, `show`, or `special`;
+- `poster`: repository URL path, usually `/posters/<id>.jpg`;
+- `summary`: non-empty description;
+- `connections`: object with `required`, `optional`, and `references` arrays.
 
-Connection items require:
+Optional media fields include:
 
-- `media_id`: target media identifier
+- `end_date`: ISO date or `null`, useful for shows;
+- `saga`: saga id;
+- `phase`: integer or `null`.
 
-Optional connection fields:
+## Connections
 
-- `reason`: text explanation
-- `importance`: number between `0` and `1`
+Connection items must target either:
 
-## Poster Naming Convention
+- `media_id`: another media entry;
+- `saga_id`: a saga, resolved by the API to the latest title in that saga.
 
-- Keep poster files in `dataset/posters/`
-- Use the media id as filename when possible
-- Recommended format: `<id>.jpg`
-- Keep `poster` values as repository-relative URL paths (example: `/posters/<id>.jpg`)
+They may also include:
+
+- `reason`: short explanation shown to contributors and maintainers;
+- `importance`: number between `0` and `1`.
+
+Use relation groups consistently:
+
+- `required`: important context for understanding the story;
+- `optional`: useful but skippable context;
+- `references`: callbacks, cameos, easter eggs, or lighter continuity links.
+
+## Posters
+
+- Store poster files in `data/posters/`.
+- Prefer `<id>.jpg` when possible.
+- Keep metadata paths as public URL paths, for example `/posters/iron-man.jpg`.
 
 ## Validation
 
-Run from repository root:
+Run from the repository root:
 
-```powershell
-python scripts\validate_data.py
+```bash
+python scripts/validate_data.py
 ```
 
-This checks schema compliance and reference integrity.
+The validator checks schema compliance and reference integrity.
