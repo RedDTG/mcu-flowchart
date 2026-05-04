@@ -2,6 +2,8 @@
     "id": "werewolf-by-night",
     "title": "Werewolf by Night",
     "release_date": "2022-09-30",
+    "saga": "multiverse-saga",
+    "phase": 4,
     "mediatype": "special",
     "poster": "/posters/werewolf-by-night.jpg",
     "summary": "Follows a lycanthrope superhero who fights evil using the abilities given to him by a curse brought on by his bloodline. (source: IMDb)",

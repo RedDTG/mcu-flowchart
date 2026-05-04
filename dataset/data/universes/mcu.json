@@ -3,5 +3,6 @@
   "name": "Marvel Cinematic Universe",
   "short_name": "MCU",
   "order": 1,
-  "color": "#ef4444"
+  "color": "#ef4444",
+  "phases": [1, 2, 3, 4, 5, 6]
 }
