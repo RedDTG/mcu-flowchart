@@ -68,7 +68,7 @@ function formatMediaTypeLabel(mediatype: Media["mediatype"]) {
 function getMediaTypeStyles(mediatype: Media["mediatype"]) {
   if (mediatype === "show") {
     return {
-      badgeClass: "bg-blue-500/50 text-blue-100",
+      badgeClass: "media-type-badge bg-blue-500/50 text-blue-100",
       hoverBorderClass: "group-hover:border-blue-500/60",
       hoverDividerClass: "group-hover:border-blue-400/90",
     };
@@ -76,14 +76,14 @@ function getMediaTypeStyles(mediatype: Media["mediatype"]) {
 
   if (mediatype === "special") {
     return {
-      badgeClass: "bg-green-500/50 text-green-100",
+      badgeClass: "media-type-badge bg-green-500/50 text-green-100",
       hoverBorderClass: "group-hover:border-green-500/60",
       hoverDividerClass: "group-hover:border-green-400/90",
     };
   }
 
   return {
-    badgeClass: "bg-red-500/50 text-red-100",
+    badgeClass: "media-type-badge bg-red-500/50 text-red-100",
     hoverBorderClass: "group-hover:border-red-500/60",
     hoverDividerClass: "group-hover:border-red-400/90",
   };
@@ -237,7 +237,7 @@ function FeaturedMediaSection({ items }: { items: FeaturedMedia[] }) {
           const featuredBadgeClass = getFeaturedBadgeClass(item.badge);
 
           return (
-            <Link key={item.id} href={`/media/${item.id}`} className="group block min-w-0 w-full lg:w-[calc(50%-0.625rem)]">
+            <Link key={item.id} href={`/media/${item.id}`} className="group block h-136 min-w-0 w-full sm:h-65 lg:w-[calc(50%-0.625rem)]">
               <article className={`h-full w-full overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 transition duration-300 group-hover:-translate-y-1 ${mediaTypeStyles.hoverBorderClass}`}>
                 <div className="flex h-full flex-col sm:flex-row">
                   <div className="relative h-52 w-full shrink-0 bg-zinc-800 sm:h-auto sm:w-45 xl:w-50">
@@ -249,7 +249,7 @@ function FeaturedMediaSection({ items }: { items: FeaturedMedia[] }) {
                       sizes="(max-width: 640px) 100vw, (max-width: 1280px) 180px, 200px"
                       unoptimized
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent sm:bg-linear-to-r" />
+                    <div className="featured-card-overlay absolute inset-0 bg-linear-to-t from-black/30 via-black/5 to-transparent sm:bg-linear-to-r" />
                   </div>
 
                   <div className="min-w-0 flex-1 flex flex-col justify-between gap-4 p-4 sm:p-6 xl:p-8">

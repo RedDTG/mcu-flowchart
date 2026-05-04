@@ -11,6 +11,7 @@ interface Media {
   title: string;
   release_date: string;
   saga?: string | null;
+  phase?: number | null;
   universe: string;
   mediatype: "movie" | "show" | "special";
   poster: string;
@@ -31,6 +32,11 @@ interface SagaGroup {
   items: Media[];
   order: number;
   description?: string;
+}
+
+interface PhaseGroup {
+  phase: number;
+  items: Media[];
 }
 
 interface UniverseMetadata {
@@ -64,7 +70,7 @@ function formatMediaTypeLabel(mediatype: Media["mediatype"]) {
 function getMediaTypeStyles(mediatype: Media["mediatype"]) {
   if (mediatype === "show") {
     return {
-      badgeClass: "bg-blue-500/50 text-blue-100",
+      badgeClass: "media-type-badge bg-blue-500/50 text-blue-100",
       hoverBorderClass: "group-hover:border-blue-500/60",
       hoverDividerClass: "group-hover:border-blue-400/90",
     };
@@ -72,17 +78,93 @@ function getMediaTypeStyles(mediatype: Media["mediatype"]) {
 
   if (mediatype === "special") {
     return {
-      badgeClass: "bg-green-500/50 text-green-100",
+      badgeClass: "media-type-badge bg-green-500/50 text-green-100",
       hoverBorderClass: "group-hover:border-green-500/60",
       hoverDividerClass: "group-hover:border-green-400/90",
     };
   }
 
   return {
-    badgeClass: "bg-red-500/50 text-red-100",
+    badgeClass: "media-type-badge bg-red-500/50 text-red-100",
     hoverBorderClass: "group-hover:border-red-500/60",
     hoverDividerClass: "group-hover:border-red-400/90",
   };
+}
+
+function MediaCard({
+  item,
+  index,
+  showIndex,
+  sagaMetadata,
+}: {
+  item: Media;
+  index: number;
+  showIndex: boolean;
+  sagaMetadata: Record<string, SagaMetadata>;
+}) {
+  const mediaTypeStyles = getMediaTypeStyles(item.mediatype);
+
+  return (
+    <Link
+      key={item.id}
+      href={`/media/${item.id}`}
+      className="group mx-auto w-full max-w-36 sm:max-w-32"
+    >
+      <article className={`relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/70 transition-transform duration-200 group-hover:-translate-y-0.5 ${mediaTypeStyles.hoverBorderClass}`}>
+        <div className="relative aspect-2/3 bg-zinc-800">
+          <Image
+            src={resolvePosterUrl(item.poster)}
+            alt={item.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 24vw, 120px"
+            unoptimized
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent" />
+          <span className={`absolute left-1.5 top-1.5 rounded-full px-1.5 py-0.5 text-[9px] font-semibold tracking-wide transition-opacity duration-300 group-hover:opacity-0 ${mediaTypeStyles.badgeClass}`}>
+            {formatMediaTypeLabel(item.mediatype)}
+          </span>
+        </div>
+
+        <div className="absolute inset-x-0 bottom-0 p-2 pt-7">
+          <div className={`border-b border-zinc-600/90 pb-1 transition-colors duration-300 ${mediaTypeStyles.hoverDividerClass}`}>
+            <h3 className="line-clamp-2 text-[11px] font-semibold leading-tight text-white">
+              {showIndex ? `${index + 1}. ${item.title}` : item.title}
+            </h3>
+          </div>
+          <div className="mt-1 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-14 group-hover:opacity-100">
+            <p className="text-[10px] text-zinc-300">
+              {new Date(item.release_date).getFullYear()}
+              {item.saga && sagaMetadata[item.saga]?.short_name ? ` • ${sagaMetadata[item.saga].short_name}` : ""}
+            </p>
+          </div>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
+function groupMediaByPhase(items: Media[]) {
+  const grouped = new Map<number, Media[]>();
+
+  for (const item of items) {
+    if (typeof item.phase !== "number") {
+      continue;
+    }
+
+    const current = grouped.get(item.phase) ?? [];
+    current.push(item);
+    grouped.set(item.phase, current);
+  }
+
+  return [...grouped.entries()]
+    .map(([phase, phaseItems]): PhaseGroup => ({
+      phase,
+      items: [...phaseItems].sort(
+        (left, right) => new Date(left.release_date).getTime() - new Date(right.release_date).getTime(),
+      ),
+    }))
+    .sort((left, right) => left.phase - right.phase);
 }
 
 export function AllMediaPage() {
@@ -321,67 +403,79 @@ export function AllMediaPage() {
         )}
 
         {!loading && !error && (
-          <div className="space-y-8">
-            {sagaGroups.map((group) => (
-              <section
-                key={group.key}
-                id={selectedUniverse ? `${selectedUniverse}__${group.key}` : undefined}
-                className="space-y-3 scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32"
-              >
-                <div className="flex flex-col flex-wrap items-center justify-center gap-3 py-4 sm:gap-4 sm:py-5">
+          selectedUniverse === "mcu" ? (
+            <div className="space-y-10">
+              {sagaGroups.map((sagaGroup) => (
+                <section
+                  key={sagaGroup.key}
+                  id={selectedUniverse ? `${selectedUniverse}__${sagaGroup.key}` : undefined}
+                  className="space-y-5 scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32"
+                >
+                  <div className="flex flex-col flex-wrap items-center justify-center gap-3 py-4 sm:gap-4 sm:py-5">
+                    <h2 className="text-center text-2xl font-bold text-white sm:text-3xl">{sagaGroup.title}</h2>
+                    <p className="text-center text-sm text-zinc-400 sm:text-base">
+                      {sagaGroup.description}
+                    </p>
+                  </div>
+
+                  <div className="space-y-5">
+                    {groupMediaByPhase(sagaGroup.items).map((phaseGroup) => (
+                      <section key={phaseGroup.phase} className="space-y-3">
+                        <div className="flex items-center gap-2 text-center">
+                          <div className="h-px flex-1 bg-zinc-800/80" />
+                          <h3 className="shrink-0 rounded-full border border-zinc-800 bg-zinc-950/70 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                            Phase {phaseGroup.phase}
+                          </h3>
+                          <div className="h-px flex-1 bg-zinc-800/80" />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
+                          {phaseGroup.items.map((item, index) => (
+                            <MediaCard
+                              key={item.id}
+                              item={item}
+                              index={index}
+                              showIndex
+                              sagaMetadata={sagaMetadata}
+                            />
+                          ))}
+                        </div>
+                      </section>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-8">
+              {sagaGroups.map((group) => (
+                <section
+                  key={group.key}
+                  id={selectedUniverse ? `${selectedUniverse}__${group.key}` : undefined}
+                  className="space-y-3 scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32"
+                >
+                  <div className="flex flex-col flex-wrap items-center justify-center gap-3 py-4 sm:gap-4 sm:py-5">
                     <h2 className="text-center text-2xl font-bold text-white sm:text-3xl">{group.title}</h2>
                     <p className="text-center text-sm text-zinc-400 sm:text-base">
                       {group.description}
                     </p>
-                </div>
+                  </div>
 
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
-                  {group.items.map((item, index) => {
-                    const mediaTypeStyles = getMediaTypeStyles(item.mediatype);
-
-                    return (
-                      <Link
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
+                    {group.items.map((item, index) => (
+                      <MediaCard
                         key={item.id}
-                        href={`/media/${item.id}`}
-                        className="group mx-auto w-full max-w-36 sm:max-w-32"
-                      >
-                        <article className={`relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/70 transition-transform duration-200 group-hover:-translate-y-0.5 ${mediaTypeStyles.hoverBorderClass}`}>
-                          <div className="relative aspect-2/3 bg-zinc-800">
-                            <Image
-                              src={resolvePosterUrl(item.poster)}
-                              alt={item.title}
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 640px) 45vw, (max-width: 1024px) 24vw, 120px"
-                              unoptimized
-                            />
-                            <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent" />
-                            <span className={`absolute left-1.5 top-1.5 rounded-full px-1.5 py-0.5 text-[9px] font-semibold tracking-wide transition-opacity duration-300 group-hover:opacity-0 ${mediaTypeStyles.badgeClass}`}>
-                              {formatMediaTypeLabel(item.mediatype)}
-                            </span>
-                          </div>
-
-                          <div className="absolute inset-x-0 bottom-0 p-2 pt-7">
-                            <div className={`border-b border-zinc-600/90 pb-1 transition-colors duration-300 ${mediaTypeStyles.hoverDividerClass}`}>
-                              <h3 className="line-clamp-2 text-[11px] font-semibold leading-tight text-white">
-                                {group.key === "unassigned-saga" ? item.title : `${index + 1}. ${item.title}`}
-                              </h3>
-                            </div>
-                            <div className="mt-1 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-14 group-hover:opacity-100">
-                              <p className="text-[10px] text-zinc-300">
-                                {new Date(item.release_date).getFullYear()}
-                                {item.saga && sagaMetadata[item.saga]?.short_name ? ` • ${sagaMetadata[item.saga].short_name}` : ""}
-                              </p>
-                            </div>
-                          </div>
-                        </article>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
-          </div>
+                        item={item}
+                        index={index}
+                        showIndex={group.key !== "unassigned-saga"}
+                        sagaMetadata={sagaMetadata}
+                      />
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          )
         )}
       </main>
     </div>

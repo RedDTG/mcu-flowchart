@@ -183,7 +183,7 @@ function RelatedCarousel({
   };
 
   return (
-    <div className="rounded-2xl border border-zinc-800/80 bg-zinc-950/40 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-sm">
+    <div className="rounded-2xl border border-zinc-800/80 bg-zinc-950/40 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.22)]">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
