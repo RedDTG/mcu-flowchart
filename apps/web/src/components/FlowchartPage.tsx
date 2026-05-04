@@ -770,7 +770,7 @@ export function FlowchartPage() {
       } catch (fetchError) {
         const message =
           fetchError instanceof TypeError
-            ? "Impossible de joindre l’API. Vérifie que le backend tourne sur `http://localhost:8001`."
+            ? "Impossible de joindre l’API. Vérifie que le backend est démarré et accessible."
             : fetchError instanceof Error
               ? fetchError.message
               : "Échec du chargement du flowchart";

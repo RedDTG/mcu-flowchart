@@ -1,96 +1,56 @@
-# MCU Flowchart - Web Frontend
+# MCU Flowchart Web
 
-A Next.js application that displays Marvel Cinematic Universe media with a responsive gallery interface.
+Next.js frontend for browsing Marvel media metadata, relation graphs, and watching-order guidance.
 
 ## Features
 
-- **Media Gallery**: Browse all MCU media with poster images
-- **Media Details**: View detailed information including saga, `release_date`, and connections
-- **Responsive Design**: Tailored experience for mobile, tablet, and desktop
-- **Dark Theme**: Optimized UI with Tailwind CSS
+- Responsive media browsing with poster artwork.
+- Media detail pages with required, optional, and reference connections.
+- Flowchart view powered by the API graph endpoint.
+- Watching-order FAQ focused on release-order discovery.
+- Dark UI built with Tailwind CSS.
 
-## Prerequisites
+## Requirements
 
-- Node.js v24.14.1 (or compatible version)
-- Backend API running on `http://localhost:8001` in local dev, or proxied internally in Docker
+- Node.js 24+
+- API running locally on `http://localhost:8001`, or Docker Compose proxying the service internally
 
-## Getting Started
-
-### 1. Install Dependencies
+## Setup
 
 ```bash
 npm install
+cp .env.example .env.local
+npm run dev
 ```
 
-### 2. Generate Poster Images (Optional)
+Open `http://localhost:3001`.
 
-If poster SVG files are missing:
+The app calls `/api/*`; `next.config.ts` rewrites those requests to the backend configured by `API_INTERNAL_URL`.
 
-```bash
-node generate-posters.js
-```
-
-### 3. Configure API URL
-
-Edit `.env.local`:
+## Environment
 
 ```env
 API_INTERNAL_URL=http://127.0.0.1:8001
 ```
 
-The app calls `/api/*` and `next.config.ts` rewrites those requests to the backend.
+## Scripts
 
-### 4. Run Development Server
+- `npm run dev`: start the development server on port `3001`.
+- `npm run lint`: run ESLint.
+- `npm run build`: create a production build.
+- `npm start`: serve the production build on port `3001`.
 
-```bash
-npm run dev
-```
+## API Usage
 
-Open [http://localhost:3001](http://localhost:3001) to view the application.
+The frontend consumes:
 
-For LAN access (same network), the dev script already binds to `0.0.0.0`, so you can also open:
+- `GET /api/v1/media`
+- `GET /api/v1/media/{media_id}`
+- `GET /api/v1/universes`
+- `GET /api/v1/sagas`
+- `GET /api/v1/graph`
+- `GET /api/v1/posters/{file}`
 
-- `http://<your-local-ip>:3001`
+## Docker
 
-If HMR (hot reload) WebSocket still fails, avoid an HTTP reverse proxy in front of Next dev, or ensure WebSocket upgrade headers are forwarded for `/_next/webpack-hmr`.
-
-## Project Structure
-
-```
-src/
-├── app/
-│   ├── page.tsx              # Home page with media gallery
-│   ├── media/
-│   │   └── [id]/page.tsx     # Individual media detail page
-│   ├── layout.tsx            # Root layout
-│   └── globals.css           # Global styles
-├── components/
-│   └── MediaGallery.tsx      # Media gallery component
-└── ...
-
-public/
-├── posters/                  # Generated poster images (SVG)
-└── ...
-```
-
-## API Integration
-
-The frontend consumes the following endpoints:
-
-- `GET /api/v1/media` - List all media
-- `GET /api/v1/media/{media_id}` - Get individual media details
-
-## Building for Production
-
-```bash
-npm run build
-npm start
-```
-
-When running in Docker, the image uses the internal API service name via `API_INTERNAL_URL`.
-
-## Linting
-
-```bash
-npm run lint
-```
+The Docker image uses `API_INTERNAL_URL` at build time so the frontend can target the API service name in Compose, usually `http://api:8001`.

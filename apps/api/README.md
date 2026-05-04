@@ -1,87 +1,65 @@
-﻿# API - Marvel Media Graph (FastAPI)
+# API - Marvel Media Graph
 
-Python API backed by versioned JSON files (one title per file), with schema validation and reference integrity checks.
+FastAPI service backed by versioned JSON files from the shared dataset. It validates media metadata, serves poster assets, and exposes list, detail, universe, saga, and graph endpoints for the web app.
 
-## Local Structure
+## Structure
 
 ```text
 app/
-  main.py
-  models.py
-  data_loader.py
-tests/
-  test_api.py
-  test_validation.py
-run.py
+  main.py          # FastAPI routes and static poster mounts
+  models.py        # Pydantic response models
+  data_loader.py   # Dataset loading and validation helpers
+tests/             # API and validation tests
+run.py             # Local development entrypoint
 requirements.txt
 ```
 
-Shared resources from monorepo root:
+Shared resources are read from the repository root:
 
-- `../../dataset/data/media/*.json`
-- `../../dataset/schemas/media.schema.json`
-- `../../dataset/posters/`
-- `../../scripts/validate_data.py`
-- `../../scripts/smoke_api.py`
+- `dataset/data/media/*.json`
+- `dataset/data/posters/`
+- `dataset/data/sagas/*.json`
+- `dataset/data/universes/*.json`
+- `dataset/schemas/media.schema.json`
 
-## Data Contract (Media)
+## Install And Run
 
-Each file in `../../dataset/data/media/*.json` follows this structure:
-
-```json
-{
-  "id": "string",
-  "title": "string",
-  "release_date": "2008-05-02",
-  "saga": "infinite-saga",
-  "mediatype": "movie",
-  "poster": "/posters/iron-man.jpg",
-  "summary": "string",
-  "connections": {
-    "required": [{ "media_id": "string" }],
-    "optional": [{ "media_id": "string" }],
-    "references": [{ "media_id": "string" }]
-  }
-}
-```
-
-Rules:
-
-- `release_date` must use ISO format (`YYYY-MM-DD`)
-- `mediatype` must be one of: `movie`, `show`, `special`
-- `poster` is stored as a local path (for example `/posters/<media-id>.jpg`)
-- Connection object supports optional `reason` and `importance` fields
-
-## Endpoints
-
-- `GET /` : API health message
-- `GET /api/v1/media` : list all media entries
-- `GET /api/v1/media/{media_id}` : get one media entry by id
-- `GET /api/v1/graph` : graph payload (`nodes` + `edges`)
-
-## Install and Run
-
-```powershell
+```bash
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+source .venv/bin/activate
 python -m pip install -r requirements.txt
-python ..\..\scripts\validate_data.py
+python ../../scripts/validate_data.py
 python run.py
 ```
 
-Swagger/OpenAPI UI: `http://127.0.0.1:8001/docs`
+On Windows PowerShell, activate the virtual environment with:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+The OpenAPI UI is available at `http://127.0.0.1:8001/docs`.
+
+## Endpoints
+
+- `GET /`: health message
+- `GET /api/v1/media`: list all media entries
+- `GET /api/v1/media/{media_id}`: get one media entry by id
+- `GET /api/v1/universes`: list universe metadata
+- `GET /api/v1/sagas`: list saga metadata
+- `GET /api/v1/graph`: graph payload with `nodes` and `edges`
+- `GET /api/v1/posters/{file}`: poster assets
 
 ## Tests
 
-```powershell
+```bash
 python -m pytest -q
 ```
 
-## Smoke Test (Optional)
+## Smoke Test
 
-Run from repository root:
+Run from the repository root:
 
-```powershell
-python scripts\smoke_api.py
+```bash
+python scripts/smoke_api.py
 ```
-
