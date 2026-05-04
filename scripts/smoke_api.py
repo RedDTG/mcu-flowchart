@@ -36,7 +36,7 @@ def fetch_json(url: str) -> dict | list:
 
 
 def main() -> int:
-    config = uvicorn.Config(app, host=HOST, port=PORT, log_level="warning")
+    config = uvicorn.Config(app, host=HOST, port=PORT, log_level="warning", loop="asyncio")
     server = uvicorn.Server(config)
     thread = threading.Thread(target=server.run, daemon=True)
     thread.start()

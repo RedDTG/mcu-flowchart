@@ -3,6 +3,8 @@
     "title": "Moon Knight",
     "release_date": "2022-03-30",
     "end_date": "2022-03-30",
+    "saga": "multiverse-saga",
+    "phase": 4,
     "mediatype": "show",
     "poster": "/posters/moon-knight.jpg",
     "summary": "Steven Grant discovers he's been granted the powers of an Egyptian moon god. But he soon finds out that these newfound powers can be both a blessing and a curse to his troubled life. (source: IMDb)",
