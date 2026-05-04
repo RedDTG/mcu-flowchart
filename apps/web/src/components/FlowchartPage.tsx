@@ -267,7 +267,7 @@ function buildRoundedPolygonPath(points: Array<{ x: number; y: number }>, radius
 
 const MediaFlowNode = memo(function MediaFlowNode({ data, selected }: NodeProps<Node<MediaNodeData>>) {
   const zoom = useStore((state) => state.transform[2]);
-  const isLowZoom = zoom < 0.2;
+  const isLowZoom = zoom < 0.3;
 
   if (isLowZoom) {
     return (
