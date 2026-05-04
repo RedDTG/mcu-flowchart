@@ -38,9 +38,9 @@ const faqItems: FaqItem[] = [
       "Well again, it depends on how much you want to invest in the universe. We'll recommend you to watch the shows that features your favorites characters or plotlines since they are not that long (around 8 episodes each). Still, if you don't really care and are okay with missing some parts of the context, you can skip them and just watch the movies but be aware that you might not understand some important part of the plot or character development. ",
   },
   {
-    question: "One media is missing or there is a mistake / I disagree with one or more of the relations between medias, how can I report that?",
+    question: "One title is missing, a relation looks wrong, or I disagree with the metadata. How can I help?",
     answer:
-      "This universe is massive, and we certainly don't have perfect knowledge of everything. If you see something missing or wrong, please report it to us by opening an issue on the GitHub repository that you can find below on the footer of this website.",
+      "This universe is massive, and the metadata is meant to improve over time. If you see something missing or wrong, open an issue or pull request on the GitHub repository linked in the footer. For relation changes, please explain why the connection should be required, optional, or a reference so reviewers can understand the watching context.",
   }
 ];
 
@@ -78,9 +78,9 @@ export function WatchingOrderPage() {
 
           <div className="relative z-10 mx-auto max-w-3xl space-y-4 text-center sm:mx-0 sm:text-left">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-400">Watching order and Q&A</p>
-            <h1 className="text-3xl font-black leading-tight text-white sm:text-4xl md:text-5xl">Now, that's the real question.</h1>
+            <h1 className="text-3xl font-black leading-tight text-white sm:text-4xl md:text-5xl">Now, that&apos;s the real question.</h1>
             <p className="text-zinc-300">
-              Every Marvel fan, from complete beginners to hardcore nerds has asked themselves this question : what is the best order to watch Marvel movies and series ? And since every website seems to have its own opinion, it can be very confusing. So here we'll answer all your questions.
+              Every Marvel fan, from complete beginners to hardcore nerds has asked themselves this question : what is the best order to watch Marvel movies and series ? And since every website seems to have its own opinion, it can be very confusing. So here we&apos;ll answer all your questions.
             </p>
           </div>
         </section>
