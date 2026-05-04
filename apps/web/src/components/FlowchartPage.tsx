@@ -799,7 +799,7 @@ export function FlowchartPage() {
                   className="workflow-controls bg-white/95 shadow-xl [&_button]:border-zinc-300 [&_button]:bg-white [&_button:hover]:bg-zinc-100"
                 />
                 <Panel position="top-left">
-                  <div className="max-h-[42vh] overflow-auto rounded-2xl border border-zinc-800 bg-zinc-950/90 px-3 py-2 text-xs text-zinc-200 shadow-xl backdrop-blur">
+                  <div className="max-h-[42vh] overflow-auto rounded-2xl border border-zinc-800 bg-zinc-950/90 px-3 py-2 text-xs text-zinc-200 shadow-xl">
                     <p className="font-semibold uppercase tracking-[0.24em] text-zinc-400">Relations</p>
                     <div className="mt-2 space-y-1.5">
                       {Object.entries(edgeStyles).map(([type, config]) => (

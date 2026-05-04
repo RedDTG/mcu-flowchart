@@ -49,6 +49,7 @@ class Media(BaseApiModel):
     release_date: date
     end_date: date | None = None
     saga: str | None = None
+    phase: int | None = None
     universe: UniverseId
     mediatype: Literal["movie", "show", "special"]
     poster: str = Field(min_length=1)  # Can be URL or local path
@@ -72,6 +73,7 @@ class Universe(BaseApiModel):
     short_name: str = Field(min_length=1)
     order: int = Field(ge=1)
     color: str = Field(pattern=r"^#[0-9A-Fa-f]{6}$")
+    phases: list[int] | None = None
 
 
 class Saga(BaseApiModel):

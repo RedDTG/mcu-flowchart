@@ -196,7 +196,7 @@ export function AppNavbar() {
 
   return (
     <>
-    <header className="sticky top-0 z-40 border-b border-zinc-800/80 bg-black/75 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-zinc-800/80 bg-black/75">
       <nav className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-3 px-4 py-4 md:grid-cols-[1fr_auto_1fr] md:gap-4">
         <div className="flex items-center justify-between md:justify-self-start">
           <Link href="/" className="text-lg font-black tracking-tight text-white">
@@ -304,7 +304,7 @@ export function AppNavbar() {
     </header>
 
       {isMobileSearchOpen && (
-        <div className="fixed inset-0 z-90 bg-black/80 backdrop-blur-sm md:hidden">
+        <div className="fixed inset-0 z-90 bg-black/80 md:hidden">
           <div className="mx-auto flex h-dvh w-full max-w-3xl flex-col px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))]">
             <div className="mb-4 flex items-center justify-between">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">Search</p>
