@@ -23,6 +23,7 @@ import flowchartUniverseZones from "@/lib/flowchartUniverseZones.json";
 
 type MediaType = "movie" | "show" | "special";
 type ConnectionType = "required" | "optional" | "references";
+type ThemeMode = "dark" | "light";
 
 interface GraphNode {
   id: string;
@@ -103,11 +104,42 @@ const UNIVERSE_TITLE_MARGIN = 14;
 const UNIVERSE_TITLE_MIN_SAFE_WIDTH = 720;
 const UNIVERSE_ZONE_CORNER_RADIUS = 50;
 
-const EDGE_STYLES: Record<ConnectionType, { color: string; label: string }> = {
-  required: { color: "#f87171", label: "Required" },
-  optional: { color: "#facc15", label: "Optional" },
-  references: { color: "#60a5fa", label: "Reference" },
+const EDGE_STYLES_BY_THEME: Record<ThemeMode, Record<ConnectionType, { color: string; label: string }>> = {
+  dark: {
+    required: { color: "#f87171", label: "Required" },
+    optional: { color: "#FFE945", label: "Optional" },
+    references: { color: "#60a5fa", label: "Reference" },
+  },
+  light: {
+    required: { color: "#dc2626", label: "Required" },
+    optional: { color: "#D6C200", label: "Optional" },
+    references: { color: "#1d4ed8", label: "Reference" },
+  },
 };
+
+function getEdgeOpacity(connectionType: ConnectionType, theme: ThemeMode) {
+  if (theme === "light") {
+    if (connectionType === "required") {
+      return 0.92;
+    }
+
+    if (connectionType === "optional") {
+      return 0.95;
+    }
+
+    return 0.8;
+  }
+
+  if (connectionType === "required") {
+    return 0.9;
+  }
+
+  if (connectionType === "optional") {
+    return 0.62;
+  }
+
+  return 0.5;
+}
 
 const FIXED_NODE_POSITIONS = flowchartFixedPositions as Record<string, { x: number; y: number }>;
 const UNIVERSE_ZONE_OVERRIDES = flowchartUniverseZones as Record<string, UniverseZoneOverride>;
@@ -356,7 +388,13 @@ function buildUniverseIndex(universes: UniverseMetadata[], nodes: GraphNode[]) {
   return [...orderedUniverses, ...unknownUniverses];
 }
 
-function buildFlowElements(graph: GraphResponse, universes: UniverseMetadata[], sagas: SagaMetadata[]) {
+function buildFlowElements(
+  graph: GraphResponse,
+  universes: UniverseMetadata[],
+  sagas: SagaMetadata[],
+  edgeStyles: Record<ConnectionType, { color: string; label: string }>,
+  theme: ThemeMode,
+) {
   const universeById = Object.fromEntries(universes.map((universe) => [universe.id, universe])) as Record<
     string,
     UniverseMetadata
@@ -592,8 +630,8 @@ function buildFlowElements(graph: GraphResponse, universes: UniverseMetadata[], 
     }
 
     seenEdges.add(edgeKey);
-    const style = EDGE_STYLES[edge.type];
-    const opacity = edge.type === "required" ? 0.9 : edge.type === "optional" ? 0.62 : 0.5;
+    const style = edgeStyles[edge.type];
+    const opacity = getEdgeOpacity(edge.type, theme);
     const strokeWidth = edge.type === "required" ? 3.2 : 2.6;
     const strokeDasharray = edge.type === "references" ? "8 6" : undefined;
 
@@ -638,6 +676,7 @@ export function FlowchartPage() {
   const [sagas, setSagas] = useState<SagaMetadata[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [theme, setTheme] = useState<ThemeMode>("dark");
   const nodeTypes = useMemo(
     () => ({
       mediaNode: MediaFlowNode,
@@ -645,6 +684,24 @@ export function FlowchartPage() {
     }),
     [],
   );
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const resolveTheme = () => (root.dataset.theme === "light" ? "light" : "dark");
+
+    setTheme(resolveTheme());
+
+    const observer = new MutationObserver(() => {
+      setTheme(resolveTheme());
+    });
+
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const loadGraph = async () => {
@@ -691,13 +748,15 @@ export function FlowchartPage() {
     loadGraph();
   }, []);
 
+  const edgeStyles = useMemo(() => EDGE_STYLES_BY_THEME[theme], [theme]);
+
   const flowState = useMemo(() => {
     if (!graph) {
       return null;
     }
 
-    return buildFlowElements(graph, universes, sagas);
-  }, [graph, sagas, universes]);
+    return buildFlowElements(graph, universes, sagas, edgeStyles, theme);
+  }, [edgeStyles, graph, sagas, theme, universes]);
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-linear-to-b from-zinc-800 via-zinc-800 to-zinc-800 text-white">
@@ -737,19 +796,19 @@ export function FlowchartPage() {
                 <Controls
                   position="bottom-right"
                   showInteractive={false}
-                  className="bg-white/95 shadow-xl [&_button]:border-zinc-300 [&_button]:bg-white [&_button]:text-black [&_button:hover]:bg-zinc-100 [&_button:hover]:text-black [&_button_svg]:fill-black! [&_button_svg]:stroke-black! [&_button_path]:fill-black! [&_button_path]:stroke-black!"
+                  className="workflow-controls bg-white/95 shadow-xl [&_button]:border-zinc-300 [&_button]:bg-white [&_button:hover]:bg-zinc-100"
                 />
                 <Panel position="top-left">
-                  <div className="max-h-[42vh] overflow-auto rounded-2xl border border-zinc-800 bg-zinc-950/90 px-3 py-2 text-xs text-zinc-200 shadow-xl backdrop-blur">
+                  <div className="max-h-[42vh] overflow-auto rounded-2xl border border-zinc-800 bg-zinc-950/90 px-3 py-2 text-xs text-zinc-200 shadow-xl">
                     <p className="font-semibold uppercase tracking-[0.24em] text-zinc-400">Relations</p>
                     <div className="mt-2 space-y-1.5">
-                      {Object.entries(EDGE_STYLES).map(([type, config]) => (
+                      {Object.entries(edgeStyles).map(([type, config]) => (
                         <div key={type} className="flex items-center gap-2 text-zinc-200">
                           <span
                             className="h-0.5 w-5 rounded-full"
                             style={{
                               backgroundColor: config.color,
-                              opacity: type === "required" ? 0.9 : type === "optional" ? 0.62 : 0.5,
+                              opacity: getEdgeOpacity(type as ConnectionType, theme),
                             }}
                           />
                           <span className="truncate">{config.label}</span>
