@@ -13,7 +13,11 @@
                 "media_id": "punisher-season-1"
             }
         ],
-        "optional": [],
+        "optional": [
+            {
+                "media_id": "daredevil-season-3"
+            }
+        ],
         "references": []
     },
     "universe": "netflix"

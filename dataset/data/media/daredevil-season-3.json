@@ -13,7 +13,11 @@
                 "media_id": "defenders"
             }
         ],
-        "optional": [],
+        "optional": [
+            {
+                "media_id": "iron-fist-season-2"
+            }
+        ],
         "references": []
     },
     "universe": "netflix"
