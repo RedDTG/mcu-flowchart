@@ -6,8 +6,10 @@ import { useEffect, useMemo, useState, memo } from "react";
 import {
   Background,
   BackgroundVariant,
+  BaseEdge,
   Controls,
   Edge,
+  EdgeProps,
   Handle,
   MarkerType,
   Node,
@@ -15,10 +17,13 @@ import {
   Panel,
   Position,
   ReactFlow,
+  useReactFlow,
   useStore,
+  useUpdateNodeInternals,
 } from "@xyflow/react";
 import { AppNavbar } from "./AppNavbar";
 import { apiV1Path, resolvePosterUrl } from "../lib/api";
+import flowchartFixedEdgeRoutes from "@/lib/flowchartFixedEdgeRoutes.json";
 import flowchartFixedPositions from "@/lib/flowchartFixedPositions.json";
 import flowchartUniverseZones from "@/lib/flowchartUniverseZones.json";
 
@@ -91,6 +96,24 @@ interface UniverseZoneOverride {
   corners: Array<{ x: number; y: number }> | null;
 }
 
+interface EdgeRoutePoint {
+  x: number;
+  y: number;
+}
+
+interface EdgeRouteOverride {
+  points: EdgeRoutePoint[];
+}
+
+interface FlowEdgeData extends Record<string, unknown> {
+  routePoints?: EdgeRoutePoint[];
+}
+
+interface NodeInternalsRefreshProps {
+  nodeIds: string[];
+  theme: ThemeMode;
+}
+
 const UNIVERSE_GAP = 660;
 const NODE_COLUMN_GAP = 26;
 const NODE_ROW_GAP = 26;
@@ -104,6 +127,7 @@ const UNIVERSE_GROUP_PADDING_Y = 44;
 const UNIVERSE_TITLE_MARGIN = 14;
 const UNIVERSE_TITLE_MIN_SAFE_WIDTH = 720;
 const UNIVERSE_ZONE_CORNER_RADIUS = 50;
+const FIXED_EDGE_CORNER_RADIUS = 120;
 
 const EDGE_STYLES_BY_THEME: Record<ThemeMode, Record<ConnectionType, { color: string; label: string }>> = {
   dark: {
@@ -143,9 +167,24 @@ function getEdgeOpacity(connectionType: ConnectionType, theme: ThemeMode) {
 }
 
 const FIXED_NODE_POSITIONS = flowchartFixedPositions as Record<string, { x: number; y: number }>;
+const FIXED_EDGE_ROUTES = flowchartFixedEdgeRoutes as Record<string, EdgeRouteOverride>;
 const UNIVERSE_ZONE_OVERRIDES = flowchartUniverseZones as Record<string, UniverseZoneOverride>;
 
 const FALLBACK_UNIVERSE_COLORS = ["#ef4444", "#8b5cf6", "#06b6d4", "#f59e0b", "#22c55e", "#ec4899", "#14b8a6"];
+
+function getFixedEdgeRouteKey(connectionType: ConnectionType, source: string, target: string) {
+  return `${connectionType}:${source}->${target}`;
+}
+
+function getFixedEdgeRoute(connectionType: ConnectionType, source: string, target: string) {
+  const route = FIXED_EDGE_ROUTES[getFixedEdgeRouteKey(connectionType, source, target)];
+
+  if (!route?.points?.every((point) => Number.isFinite(point.x) && Number.isFinite(point.y))) {
+    return undefined;
+  }
+
+  return route.points;
+}
 
 function formatDateLabel(dateValue: string) {
   return new Date(dateValue).toLocaleDateString("en-US", {
@@ -265,6 +304,83 @@ function buildRoundedPolygonPath(points: Array<{ x: number; y: number }>, radius
   return result;
 }
 
+function buildFixedEdgePath(sourceX: number, sourceY: number, targetX: number, targetY: number, routePoints: EdgeRoutePoint[]) {
+  const points = [{ x: sourceX, y: sourceY }, ...routePoints, { x: targetX, y: targetY }];
+  const segments = [`M ${sourceX} ${sourceY}`];
+
+  for (let index = 1; index < points.length; index += 1) {
+    const current = points[index];
+
+    if (index === points.length - 1) {
+      segments.push(`L ${current.x} ${current.y}`);
+      continue;
+    }
+
+    const previous = points[index - 1];
+    const next = points[index + 1];
+    const incomingX = current.x - previous.x;
+    const incomingY = current.y - previous.y;
+    const outgoingX = next.x - current.x;
+    const outgoingY = next.y - current.y;
+    const incomingLength = Math.hypot(incomingX, incomingY);
+    const outgoingLength = Math.hypot(outgoingX, outgoingY);
+
+    if (incomingLength < 0.0001 || outgoingLength < 0.0001) {
+      segments.push(`L ${current.x} ${current.y}`);
+      continue;
+    }
+
+    const radius = Math.min(FIXED_EDGE_CORNER_RADIUS, incomingLength / 2, outgoingLength / 2);
+    const cornerStartX = current.x - (incomingX / incomingLength) * radius;
+    const cornerStartY = current.y - (incomingY / incomingLength) * radius;
+    const cornerEndX = current.x + (outgoingX / outgoingLength) * radius;
+    const cornerEndY = current.y + (outgoingY / outgoingLength) * radius;
+
+    segments.push(`L ${cornerStartX} ${cornerStartY}`);
+    segments.push(`Q ${current.x} ${current.y} ${cornerEndX} ${cornerEndY}`);
+  }
+
+  return segments.join(" ");
+}
+
+const FixedRouteEdge = memo(function FixedRouteEdge({
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+  data,
+  markerEnd,
+  style,
+}: EdgeProps<Edge<FlowEdgeData>>) {
+  const routePoints = data?.routePoints ?? [];
+  const path = buildFixedEdgePath(sourceX, sourceY, targetX, targetY, routePoints);
+
+  return <BaseEdge path={path} markerEnd={markerEnd} style={style} />;
+});
+
+function NodeInternalsRefresh({ nodeIds, theme }: NodeInternalsRefreshProps) {
+  const { getViewport, setViewport } = useReactFlow();
+  const updateNodeInternals = useUpdateNodeInternals();
+
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      updateNodeInternals(nodeIds);
+
+      window.requestAnimationFrame(() => {
+        const viewport = getViewport();
+
+        void setViewport({ ...viewport, x: viewport.x + 0.001 }, { duration: 0 }).then(() => {
+          void setViewport(viewport, { duration: 0 });
+        });
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [getViewport, nodeIds, setViewport, theme, updateNodeInternals]);
+
+  return null;
+}
+
 const MediaFlowNode = memo(function MediaFlowNode({ data, selected }: NodeProps<Node<MediaNodeData>>) {
   const zoom = useStore((state) => state.transform[2]);
   const isLowZoom = zoom < 0.3;
@@ -272,12 +388,15 @@ const MediaFlowNode = memo(function MediaFlowNode({ data, selected }: NodeProps<
   if (isLowZoom) {
     return (
       <div
-        className={`h-full w-full rounded-lg border transition duration-200 ${selected ? "border-white/60" : "border-white/10"}`}
+        className={`relative h-full w-full rounded-lg border transition duration-200 ${selected ? "border-white/60" : "border-white/10"}`}
         style={{
           backgroundColor: hexToRgba(data.universeColor, 0.3),
           boxShadow: `0 0 0 1px ${hexToRgba(data.universeColor, 0.38)}`,
         }}
-      />
+      >
+        <Handle type="target" position={Position.Top} className="h-2! w-2! border-0! bg-transparent! opacity-0!" />
+        <Handle type="source" position={Position.Bottom} className="h-2! w-2! border-0! bg-transparent! opacity-0!" />
+      </div>
     );
   }
 
@@ -404,6 +523,15 @@ const UniverseGroupNode = memo(function UniverseGroupNode({ data }: NodeProps<No
     </article>
   );
 });
+
+const FLOW_NODE_TYPES = {
+  mediaNode: MediaFlowNode,
+  universeGroup: UniverseGroupNode,
+};
+
+const FLOW_EDGE_TYPES = {
+  fixedRoute: FixedRouteEdge,
+};
 
 function buildUniverseIndex(universes: UniverseMetadata[], nodes: GraphNode[]) {
   const usedUniverses = new Set(nodes.map((node) => node.universe));
@@ -654,7 +782,7 @@ function buildFlowElements(
 
   const seenEdges = new Set<string>();
 
-  const layoutedEdges: Edge[] = graph.edges.flatMap((edge) => {
+  const layoutedEdges: Edge<FlowEdgeData>[] = graph.edges.flatMap((edge) => {
     if (edge.source === edge.target) {
       return [];
     }
@@ -669,13 +797,17 @@ function buildFlowElements(
     const opacity = getEdgeOpacity(edge.type, theme);
     const strokeWidth = edge.type === "required" ? 3.2 : 2.6;
     const strokeDasharray = edge.type === "references" ? "8 6" : undefined;
+    const source = edge.target;
+    const target = edge.source;
+    const routePoints = getFixedEdgeRoute(edge.type, source, target);
 
     return [{
       id: `${edge.type}-${edge.source}-${edge.target}`,
-      source: edge.target,
-      target: edge.source,
-      type: "simplebezier",
+      source,
+      target,
+      type: routePoints ? "fixedRoute" : "simplebezier",
       animated: false,
+      data: routePoints ? { routePoints } : undefined,
       style: {
         stroke: style.color,
         strokeWidth,
@@ -712,13 +844,14 @@ export function FlowchartPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [theme, setTheme] = useState<ThemeMode>("dark");
-  const nodeTypes = useMemo(
-    () => ({
-      mediaNode: MediaFlowNode,
-      universeGroup: UniverseGroupNode,
-    }),
-    [],
-  );
+
+  useEffect(() => {
+    document.body.classList.add("flowchart-route");
+
+    return () => {
+      document.body.classList.remove("flowchart-route");
+    };
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -792,6 +925,7 @@ export function FlowchartPage() {
 
     return buildFlowElements(graph, universes, sagas, edgeStyles, theme);
   }, [edgeStyles, graph, sagas, theme, universes]);
+  const graphNodeIds = useMemo(() => graph?.nodes.map((node) => node.id) ?? [], [graph]);
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-linear-to-b from-zinc-800 via-zinc-800 to-zinc-800 text-white">
@@ -818,7 +952,8 @@ export function FlowchartPage() {
               <ReactFlow
                  nodes={flowState.nodes}
                  edges={flowState.edges}
-                 nodeTypes={nodeTypes}
+                 nodeTypes={FLOW_NODE_TYPES}
+                 edgeTypes={FLOW_EDGE_TYPES}
                  defaultViewport={{ x: 500, y: 200, zoom: 0.5 }}
                  minZoom={0.05}
                  maxZoom={1.35}
@@ -828,6 +963,7 @@ export function FlowchartPage() {
                  nodesConnectable={false}
                  elementsSelectable={false}
                >
+                <NodeInternalsRefresh nodeIds={graphNodeIds} theme={theme} />
                 <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="rgba(255, 255, 255, 0.08)" />
                 <Controls
                   position="bottom-right"
