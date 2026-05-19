@@ -192,8 +192,8 @@
         "y": 3700
     },
     "agatha-all-along": {
-        "x": -1650,
-        "y": 3700
+        "x": -1800,
+        "y": 3550
     },
     "what-if-season-3": {
         "x": 750,
@@ -205,7 +205,7 @@
     },
     "daredevil-born-again": {
         "x": -900,
-        "y": 3900
+        "y": 4000
     },
     "thunderbolts": {
         "x": -600,
@@ -221,11 +221,11 @@
     },
     "daredevil-born-again-season-2": {
         "x": -900,
-        "y": 4100
+        "y": 4200
     },
     "spider-man-brand-new-day": {
         "x": -2100,
-        "y": 3700
+        "y": 4000
     },
     "avengers-doomsday": {
         "x": 450,
@@ -244,23 +244,23 @@
         "y": 1200
     },
     "agent-carter": {
-        "x": 2000,
-        "y": 1200
+        "x": 1700,
+        "y": 950
     },
     "inhumans": {
         "x": 2300,
         "y": 1200
     },
     "runaways": {
-        "x": 2300,
+        "x": 2000,
         "y": 1400
     },
     "cloak-and-dagger": {
-        "x": 2600,
+        "x": 2000,
         "y": 1200
     },
     "helstrom": {
-        "x": 2000,
+        "x": 2300,
         "y": 1400
     },
     "slingshot": {
@@ -269,19 +269,19 @@
     },
     "modok": {
         "x": 2600,
-        "y": 1400
+        "y": 1200
     },
     "hitmonkey": {
-        "x": 2900,
-        "y": 1200
+        "x": 2600,
+        "y": 1400
     },
     "daredevil-season-1": {
         "x": -3100,
-        "y": 2000
+        "y": 1900
     },
     "jessica-jones-season-1": {
         "x": -3700,
-        "y": 2000
+        "y": 1900
     },
     "daredevil-season-2": {
         "x": -3100,
@@ -289,11 +289,11 @@
     },
     "luke-cage-season-1": {
         "x": -3400,
-        "y": 2000
+        "y": 2200
     },
     "iron-fist-season-1": {
         "x": -4000,
-        "y": 2000
+        "y": 1900
     },
     "defenders": {
         "x": -3550,
@@ -301,31 +301,31 @@
     },
     "punisher-season-1": {
         "x": -2800,
-        "y": 2500
+        "y": 2800
     },
     "jessica-jones-season-2": {
-        "x": -3700,
-        "y": 2800
-    },
-    "luke-cage-season-2": {
-        "x": -3400,
-        "y": 2800
-    },
-    "iron-fist-season-2": {
         "x": -4000,
         "y": 2800
     },
-    "daredevil-season-3": {
-        "x": -3100,
+    "luke-cage-season-2": {
+        "x": -3700,
         "y": 2800
     },
+    "iron-fist-season-2": {
+        "x": -3500,
+        "y": 3100
+    },
+    "daredevil-season-3": {
+        "x": -3100,
+        "y": 3400
+    },
     "punisher-season-2": {
-        "x": -2800,
-        "y": 2700
+        "x": -2900,
+        "y": 3800
     },
     "jessica-jones-season-3": {
-        "x": -3700,
-        "y": 3000
+        "x": -4000,
+        "y": 3100
     },
     "x-men": {
         "x": 3900,
@@ -356,24 +356,24 @@
         "y": 3100
     },
     "x-men-origins-wolverine": {
-        "x": 4200,
+        "x": 3600,
         "y": 2500
     },
     "the-wolverine": {
-        "x": 4200,
+        "x": 3600,
         "y": 2700
     },
     "logan": {
         "x": 3900,
-        "y": 3000
+        "y": 3100
     },
     "deadpool": {
-        "x": 3600,
-        "y": 2500
+        "x": 4200,
+        "y": 2900
     },
     "deadpool-2": {
-        "x": 3600,
-        "y": 2700
+        "x": 4200,
+        "y": 3100
     },
     "fantastic-four-2005": {
         "x": 3000,
