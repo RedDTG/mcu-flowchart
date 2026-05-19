@@ -15,7 +15,14 @@
             }
         ],
         "optional": [],
-        "references": []
+        "references": [
+            {
+                "media_id": "daredevil-season-3"
+            },
+            {
+                "media_id": "shang-chi-and-the-legend-of-the-ten-rings"
+            }
+        ]
     },
     "universe": "mcu"
 }
