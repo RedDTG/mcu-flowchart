@@ -13,7 +13,11 @@
                 "media_id": "defenders"
             }
         ],
-        "optional": [],
+        "optional": [
+            {
+                "media_id": "luke-cage-season-2"
+            }
+        ],
         "references": []
     },
     "universe": "netflix"

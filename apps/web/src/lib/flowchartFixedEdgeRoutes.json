@@ -1,0 +1,66 @@
+{
+    "references:daredevil-season-3->she-hulk-attorney-at-law": {
+        "points": [
+            {
+                "x": -2900,
+                "y": 3600
+            },
+            {
+                "x": -2400,
+                "y": 3600
+            },
+            {
+                "x": -2325,
+                "y": 2450
+            },
+            {
+                "x": -400,
+                "y": 2450
+            }
+        ]
+    },
+    "references:shang-chi-and-the-legend-of-the-ten-rings->she-hulk-attorney-at-law": {
+        "points": [
+            {
+                "x": 1175,
+                "y": 2900
+            },
+            {
+                "x": 1025,
+                "y": 2900
+            },
+            {
+                "x": 1025,
+                "y": 2625
+            },
+            {
+                "x": -100,
+                "y": 2625
+            }
+        ]
+    },
+    "required:x-men-the-last-stand->avengers-doomsday": {
+        "points": [
+            {
+                "x": 4000,
+                "y": 2900
+            },
+            {
+                "x": 2800,
+                "y": 3800
+            },
+            {
+                "x": 1000,
+                "y": 4150
+            },
+            {
+                "x": 700,
+                "y": 4250
+            },
+            {
+                "x": 580,
+                "y": 4350
+            }
+        ]
+    }
+}

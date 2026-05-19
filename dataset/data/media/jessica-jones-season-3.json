@@ -13,7 +13,11 @@
                 "media_id": "jessica-jones-season-2"
             }
         ],
-        "optional": [],
+        "optional": [
+            {
+                "media_id": "luke-cage-season-2"
+            }
+        ],
         "references": []
     },
     "universe": "netflix"
