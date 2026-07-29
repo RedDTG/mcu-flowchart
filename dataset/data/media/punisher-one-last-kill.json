@@ -1,0 +1,19 @@
+{
+  "id": "punisher-one-last-kill",
+  "title": "The Punisher: One Last Kill",
+  "release_date": "2026-05-12",
+  "saga": "multiverse-saga",
+  "mediatype": "special",
+  "poster": "/posters/punisher-one-last-kill.jpg",
+  "summary": "The titular vigilante feels there is \"nothing left to do\" after avenging the brutal murders of his wife and children. Still haunted by ghosts from his past, Frank Castle searches for meaning beyond revenge, until Ma Gnucci comes to him for payback. (source: Marvel)",
+  "connections": {
+    "required": [
+      {
+        "media_id": "punisher-season-2"
+      }
+    ],
+    "optional": [],
+    "references": []
+  },
+  "universe": "mcu"
+}
