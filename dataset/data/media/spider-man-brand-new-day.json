@@ -10,6 +10,15 @@
     "required": [
       {
         "media_id": "spider-man-no-way-home"
+      },
+      {
+        "media_id": "she-hulk-attorney-at-law"
+      },
+      {
+        "media_id": "daredevil-born-again-season-2"
+      },
+      {
+        "media_id": "punisher-one-last-kill"
       }
     ],
     "optional": [],
