@@ -39,13 +39,14 @@
         "media_id": "doctor-strange-in-the-multiverse-of-madness"
       },
       {
-        "media_id": "spider-man-brand-new-day"
-      },
-      {
         "saga_id": "x-men-original-trilogy"
       }
     ],
-    "optional": [],
+    "optional": [
+      {
+        "media_id": "spider-man-brand-new-day"
+      }
+    ],
     "references": []
   },
   "universe": "mcu"
