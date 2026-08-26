@@ -192,8 +192,8 @@
         "y": 3700
     },
     "agatha-all-along": {
-        "x": -1350,
-        "y": 3600
+        "x": -1400,
+        "y": 3550
     },
     "what-if-season-3": {
         "x": 750,
@@ -224,7 +224,7 @@
         "y": 4200
     },
     "spider-man-brand-new-day": {
-        "x": -1500,
+        "x": -1700,
         "y": 4400
     },
     "avengers-doomsday": {
@@ -486,5 +486,25 @@
     "spider-noir": {
         "x": -1600,
         "y": 1900
+    },
+    "eyes-of-wakanda": {
+        "x": 1650,
+        "y": 3600
+    },
+    "marvel-zombies": {
+        "x": 750,
+        "y": 3300
+    },
+    "your-friendly-neighborhood-spider-man": {
+        "x": -1800,
+        "y": 3550
+    },
+    "wonder-man": {
+        "x": 1200,
+        "y": 3150
+    },
+    "visionquest": {
+        "x": -1300,
+        "y": 4200
     }
 }
