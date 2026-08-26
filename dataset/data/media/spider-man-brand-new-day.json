@@ -16,12 +16,12 @@
         "media_id": "punisher-one-last-kill"
       }
     ],
-    "optional": [
+    "optional": [],
+    "references": [
       {
-        "media_id": "x-men-original-trilogy"
+        "saga_id": "x-men-original-trilogy"
       }
-    ],
-    "references": []
+    ]
   },
   "universe": "mcu"
 }

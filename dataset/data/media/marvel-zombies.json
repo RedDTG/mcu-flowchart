@@ -1,0 +1,21 @@
+{
+    "id": "marvel-zombies",
+    "title": "Marvel Zombies",
+    "release_date": "2025-09-24",
+    "end_date": "2025-09-24",
+    "saga": "multiverse-saga",
+    "phase": 6,
+    "mediatype": "show",
+    "poster": "/posters/marvel-zombies.jpg",
+    "summary": "After the Avengers are overtaken by a zombie plague, a group of survivors discover the key to bringing an end to the super-powered undead, racing across a dystopian landscape and risking their lives to save their world. (source: IMDb)",
+    "connections": {
+        "required": [
+            {
+                "media_id": "what-if-season-1"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}

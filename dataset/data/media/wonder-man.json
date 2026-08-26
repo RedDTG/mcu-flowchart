@@ -1,0 +1,21 @@
+{
+    "id": "wonder-man",
+    "title": "Wonder Man",
+    "release_date": "2026-01-27",
+    "end_date": "2026-01-27",
+    "saga": "multiverse-saga",
+    "phase": 6,
+    "mediatype": "show",
+    "poster": "/posters/wonder-man.jpg",
+    "summary": "Small-time actor Simon Williams struggles to reckon with his personal life while hiding his super-powers as he tries to land his dream role. Meanwhile, a shady government agent leverages a new friendship in order to save his own job. (source: IMDb)",
+    "connections": {
+        "required": [],
+        "optional": [
+            {
+                "media_id": "shang-chi-and-the-legend-of-the-ten-rings"
+            }
+        ],
+        "references": []
+    },
+    "universe": "mcu"
+}
