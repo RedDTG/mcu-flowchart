@@ -1,0 +1,21 @@
+{
+    "id": "visionquest",
+    "title": "VisionQuest",
+    "release_date": "2026-10-14",
+    "end_date": "2026-10-14",
+    "saga": "multiverse-saga",
+    "phase": 6,
+    "mediatype": "show",
+    "poster": "/posters/visionquest.jpg",
+    "summary": "On the run with a mysterious teenager who may hold the key to his past, White Vision embarks on an existential journey to reclaim his lost memories and humanity while resisting Ultron's influence. (source: IMDb)",
+    "connections": {
+        "required": [
+            {
+                "media_id": "agatha-all-along"
+            }
+        ],
+        "optional": [],
+        "references": []
+    },
+    "universe": "mcu"
+}
