@@ -17,7 +17,11 @@
       }
     ],
     "optional": [],
-    "references": []
+    "references": [
+      {
+        "media_id": "hawkeye"
+      }
+    ]
   },
   "universe": "mcu"
 }
