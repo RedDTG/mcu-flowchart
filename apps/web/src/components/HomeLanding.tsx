@@ -386,7 +386,7 @@ export function HomeLanding() {
           item.mediatype === "movie" && releaseDate > today && releaseDate <= maxUpcomingDate;
 
         const isUpcomingShow =
-          item.mediatype === "show" && releaseDate > today && releaseDate <= oneMonthAhead;
+          item.mediatype === "show" && releaseDate > today && releaseDate <= maxUpcomingDate;
 
         let badge: FeaturedMedia["badge"] | null = null;
         if (isAiringShow) {

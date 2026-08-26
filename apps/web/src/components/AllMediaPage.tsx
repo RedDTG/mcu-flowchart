@@ -345,7 +345,7 @@ export function AllMediaPage() {
     <div className="min-h-screen bg-linear-to-b from-black via-zinc-950 to-black text-zinc-100">
       <AppNavbar />
 
-      <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:py-8">
+      <main className="mx-auto w-full max-w-7xl px-4 pt-6 pb-28 sm:pt-8 sm:pb-40">
         <section className="relative mb-6 overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-8 md:p-12">
           <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-red-600/20 blur-3xl" />
           <div className="pointer-events-none absolute -left-24 -bottom-24 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl" />
@@ -418,7 +418,7 @@ export function AllMediaPage() {
                     </p>
                   </div>
 
-                  <div className="space-y-5">
+                  <div className="space-y-25">
                     {groupMediaByPhase(sagaGroup.items).map((phaseGroup) => (
                       <section key={phaseGroup.phase} className="space-y-3">
                         <div className="flex items-center gap-2 text-center">
