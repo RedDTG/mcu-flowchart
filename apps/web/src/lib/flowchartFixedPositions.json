@@ -96,7 +96,7 @@
         "y": 2700
     },
     "the-falcon-and-the-winter-soldier": {
-        "x": -900,
+        "x": -600,
         "y": 2700
     },
     "loki-season-1": {
@@ -104,7 +104,7 @@
         "y": 2700
     },
     "black-widow": {
-        "x": -600,
+        "x": -300,
         "y": 2700
     },
     "what-if-season-1": {
@@ -116,11 +116,11 @@
         "y": 2700
     },
     "eternals": {
-        "x": -150,
+        "x": -100,
         "y": 2950
     },
     "hawkeye": {
-        "x": -900,
+        "x": -800,
         "y": 3200
     },
     "spider-man-no-way-home": {
@@ -144,7 +144,7 @@
         "y": 2700
     },
     "she-hulk-attorney-at-law": {
-        "x": -300,
+        "x": -900,
         "y": 2700
     },
     "black-panther-wakanda-forever": {
@@ -177,7 +177,7 @@
     },
     "the-marvels": {
         "x": -1200,
-        "y": 3000
+        "y": 3500
     },
     "what-if-season-2": {
         "x": 750,
@@ -192,7 +192,7 @@
         "y": 3700
     },
     "agatha-all-along": {
-        "x": -1800,
+        "x": -1400,
         "y": 3550
     },
     "what-if-season-3": {
@@ -204,8 +204,8 @@
         "y": 3200
     },
     "daredevil-born-again": {
-        "x": -900,
-        "y": 4000
+        "x": -800,
+        "y": 3900
     },
     "thunderbolts": {
         "x": -600,
@@ -220,16 +220,20 @@
         "y": 3300
     },
     "daredevil-born-again-season-2": {
-        "x": -900,
+        "x": -800,
         "y": 4200
     },
     "spider-man-brand-new-day": {
-        "x": -2100,
-        "y": 4000
+        "x": -1700,
+        "y": 4400
     },
     "avengers-doomsday": {
         "x": 450,
-        "y": 4400
+        "y": 4900
+    },
+    "punisher-one-last-kill": {
+        "x": -2000,
+        "y": 4100
     },
     "moon-knight": {
         "x": 800,
@@ -321,7 +325,7 @@
     },
     "punisher-season-2": {
         "x": -2900,
-        "y": 3800
+        "y": 3700
     },
     "jessica-jones-season-3": {
         "x": -4000,
@@ -482,5 +486,25 @@
     "spider-noir": {
         "x": -1600,
         "y": 1900
+    },
+    "eyes-of-wakanda": {
+        "x": 1650,
+        "y": 3600
+    },
+    "marvel-zombies": {
+        "x": 750,
+        "y": 3300
+    },
+    "your-friendly-neighborhood-spider-man": {
+        "x": -1800,
+        "y": 3550
+    },
+    "wonder-man": {
+        "x": 1200,
+        "y": 3150
+    },
+    "visionquest": {
+        "x": -1300,
+        "y": 4200
     }
 }
