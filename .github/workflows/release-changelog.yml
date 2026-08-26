@@ -65,7 +65,10 @@ jobs:
               }
             }
 
+            const integrationBranches = new Set(['main', 'stable']);
             const pullRequestsByNumber = new Map();
+            const commitsWithoutPullRequest = [];
+
             for (const commit of commits) {
               const pullRequests = await github.paginate(github.rest.repos.listPullRequestsAssociatedWithCommit, {
                 owner,
@@ -74,22 +77,31 @@ jobs:
                 per_page: 100,
               });
 
+              let hasEligiblePullRequest = false;
+
               for (const pullRequest of pullRequests) {
                 const labels = pullRequest.labels.map((label) => label.name);
-                const isMainFeaturePullRequest = pullRequest.base.ref === 'main' && pullRequest.head.ref !== 'stable';
+                // Exclude only the main<->stable sync/promotion merges, not every PR based on either branch.
+                const isSyncPullRequest = integrationBranches.has(pullRequest.head.ref) && integrationBranches.has(pullRequest.base.ref);
                 const isExcluded = pullRequest.user?.login === 'dependabot' || labels.includes('skip-changelog');
 
-                if (pullRequest.merged_at && isMainFeaturePullRequest && !isExcluded) {
+                if (pullRequest.merged_at && !isSyncPullRequest && !isExcluded) {
                   pullRequestsByNumber.set(pullRequest.number, pullRequest);
+                  hasEligiblePullRequest = true;
                 }
+              }
+
+              if (!hasEligiblePullRequest && pullRequests.length === 0 && commit.parents.length < 2) {
+                // No PR at all (e.g. pushed/merged directly with git) — keep the commit so it isn't silently dropped.
+                commitsWithoutPullRequest.push(commit);
               }
             }
 
             const pullRequests = [...pullRequestsByNumber.values()]
               .sort((left, right) => Date.parse(left.merged_at) - Date.parse(right.merged_at));
 
-            if (pullRequests.length === 0) {
-              core.notice('No merged PRs targeting main found in this release range; keeping generated release notes unchanged.');
+            if (pullRequests.length === 0 && commitsWithoutPullRequest.length === 0) {
+              core.notice('No merged PRs or direct commits found in this release range; keeping generated release notes unchanged.');
               return;
             }
 
@@ -97,7 +109,7 @@ jobs:
             const lines = [
               `## What's Changed`,
               '',
-              `Changes included from PRs merged into \`main\` between \`${previousRelease.tag_name}\` and \`${release.tag_name}\`.`,
+              `Changes included between \`${previousRelease.tag_name}\` and \`${release.tag_name}\`.`,
               '',
             ];
 
@@ -108,13 +120,21 @@ jobs:
                 return matchedCategory.title === category.title;
               });
 
-              if (matchingPullRequests.length === 0) {
+              const isFallbackCategory = category.title === fallbackCategory.title;
+              if (matchingPullRequests.length === 0 && !(isFallbackCategory && commitsWithoutPullRequest.length > 0)) {
                 continue;
               }
 
               lines.push(`### ${category.title}`, '');
               for (const pullRequest of matchingPullRequests) {
                 lines.push(`- ${pullRequest.title} by @${pullRequest.user.login} in #${pullRequest.number}`);
+              }
+              if (isFallbackCategory) {
+                for (const commit of commitsWithoutPullRequest) {
+                  const firstLine = commit.commit.message.split('\n')[0];
+                  const author = commit.author?.login ? `@${commit.author.login}` : commit.commit.author.name;
+                  lines.push(`- ${firstLine} by ${author} (${commit.sha.slice(0, 7)})`);
+                }
               }
               lines.push('');
             }
