@@ -486,5 +486,17 @@
     "spider-noir": {
         "x": -1600,
         "y": 1900
+    },
+    "eyes-of-wakanda": {
+        "x": 1650,
+        "y": 3600
+    },
+    "marvel-zombies": {
+        "x": 750,
+        "y": 3300
+    },
+    "your-friendly-neighborhood-spider-man": {
+        "x": -1650,
+        "y": 4000
     }
 }
