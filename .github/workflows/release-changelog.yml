@@ -68,6 +68,10 @@ jobs:
             const integrationBranches = new Set(['main', 'stable']);
             const pullRequestsByNumber = new Map();
             const commitsWithoutPullRequest = [];
+            // Keyed by commit author login rather than PR author, so a contribution still gets
+            // credited even when its PR was bypassed (e.g. closed unmerged, then folded into
+            // someone else's PR) — the commit author is what matters for "first contribution".
+            const contributionReferenceByLogin = new Map();
 
             for (const commit of commits) {
               const pullRequests = await github.paginate(github.rest.repos.listPullRequestsAssociatedWithCommit, {
@@ -95,6 +99,14 @@ jobs:
                 // No PR at all (e.g. pushed/merged directly with git) — keep the commit so it isn't silently dropped.
                 commitsWithoutPullRequest.push(commit);
               }
+
+              const authorLogin = commit.author?.login;
+              if (authorLogin && !contributionReferenceByLogin.has(authorLogin)) {
+                const ownPullRequest = pullRequests.find((pullRequest) => pullRequest.user?.login === authorLogin);
+                contributionReferenceByLogin.set(authorLogin, ownPullRequest
+                  ? { url: ownPullRequest.html_url, label: `#${ownPullRequest.number}` }
+                  : { url: commit.html_url, label: commit.sha.slice(0, 7) });
+              }
             }
 
             const pullRequests = [...pullRequestsByNumber.values()]
@@ -103,6 +115,31 @@ jobs:
             if (pullRequests.length === 0 && commitsWithoutPullRequest.length === 0) {
               core.notice('No merged PRs or direct commits found in this release range; keeping generated release notes unchanged.');
               return;
+            }
+
+            const previousReleaseDate = Date.parse(previousRelease.published_at || previousRelease.created_at);
+            const newContributors = [];
+
+            for (const [login, reference] of contributionReferenceByLogin) {
+              let hadEarlierContribution = true;
+
+              try {
+                const { data: searchResult } = await github.rest.search.commits({
+                  q: `repo:${owner}/${repo} author:${login}`,
+                  sort: 'author-date',
+                  order: 'asc',
+                  per_page: 1,
+                });
+                const earliestCommit = searchResult.items[0];
+                hadEarlierContribution = Boolean(earliestCommit) && Date.parse(earliestCommit.commit.author.date) < previousReleaseDate;
+              } catch (error) {
+                // Fail safe: if we can't determine history, don't falsely credit someone as new.
+                core.warning(`Could not determine contribution history for @${login}: ${error.message}`);
+              }
+
+              if (!hadEarlierContribution) {
+                newContributors.push({ login, ...reference });
+              }
             }
 
             const fallbackCategory = categories[categories.length - 1];
@@ -135,6 +172,14 @@ jobs:
                   const author = commit.author?.login ? `@${commit.author.login}` : commit.commit.author.name;
                   lines.push(`- ${firstLine} by ${author} (${commit.sha.slice(0, 7)})`);
                 }
+              }
+              lines.push('');
+            }
+
+            if (newContributors.length > 0) {
+              lines.push('## New Contributors', '');
+              for (const contributor of newContributors) {
+                lines.push(`- @${contributor.login} made their first contribution in ${contributor.url}`);
               }
               lines.push('');
             }
