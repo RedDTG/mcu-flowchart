@@ -81,10 +81,13 @@ jobs:
           API_IMAGE: ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-api:latest
           WEB_IMAGE: ghcr.io/${{ steps.vars.outputs.owner_lc }}/mcu-flowchart-web:latest
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMPOSE_PROJECT_NAME: mcu-flowchart
         run: |
           set -e
           cd "$GITHUB_WORKSPACE"
           echo "$GITHUB_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
           docker compose -f docker-compose.server.yml pull
+          docker compose -f docker-compose.server.yml down --remove-orphans || true
+          docker rm -f mcu-flowchart-api mcu-flowchart-web 2>/dev/null || true
           docker compose -f docker-compose.server.yml up -d
           docker image prune -f
