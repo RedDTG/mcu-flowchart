@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState, memo } from "react";
+import { useCallback, useEffect, useMemo, useState, memo } from "react";
 import {
   Background,
   BackgroundVariant,
@@ -23,6 +23,8 @@ import {
 } from "@xyflow/react";
 import { AppNavbar } from "./AppNavbar";
 import { apiV1Path, resolvePosterUrl } from "../lib/api";
+import { useWatched } from "../lib/useWatched";
+import { useToast } from "./Toast";
 import flowchartFixedEdgeRoutes from "@/lib/flowchartFixedEdgeRoutes.json";
 import flowchartFixedPositions from "@/lib/flowchartFixedPositions.json";
 import flowchartUniverseZones from "@/lib/flowchartUniverseZones.json";
@@ -52,6 +54,17 @@ interface GraphResponse {
   edges: GraphEdge[];
 }
 
+interface MediaDetail {
+  id: string;
+  title: string;
+  release_date: string;
+  saga?: string | null;
+  universe: string;
+  mediatype: MediaType;
+  poster: string;
+  summary: string;
+}
+
 interface UniverseMetadata {
   id: string;
   name: string;
@@ -76,6 +89,7 @@ interface MediaNodeData extends Record<string, unknown> {
   universeLabel: string;
   sagaLabel: string;
   universeColor: string;
+  watched?: boolean;
 }
 
 interface UniverseGroupNodeData extends Record<string, unknown> {
@@ -106,8 +120,16 @@ interface EdgeRouteOverride {
 }
 
 interface FlowEdgeData extends Record<string, unknown> {
+  connectionType: ConnectionType;
   routePoints?: EdgeRoutePoint[];
 }
+
+type SelectionState =
+  | { kind: "none" }
+  | { kind: "node"; nodeId: string }
+  | { kind: "edge"; edgeId: string; source: string; target: string; connectionType: ConnectionType }
+  | { kind: "highlight"; nodeId: string }
+  | { kind: "highlight-upstream"; nodeId: string };
 
 interface NodeInternalsRefreshProps {
   nodeIds: string[];
@@ -381,6 +403,81 @@ function NodeInternalsRefresh({ nodeIds, theme }: NodeInternalsRefreshProps) {
   return null;
 }
 
+function FocusController({ nodeIds }: { nodeIds: string[] }) {
+  const { fitView, setCenter, getZoom, getNode } = useReactFlow();
+  const key = nodeIds.join(",");
+
+  useEffect(() => {
+    if (nodeIds.length === 0) {
+      return;
+    }
+
+    const frameId = window.requestAnimationFrame(() => {
+      if (nodeIds.length === 1) {
+        const node = getNode(nodeIds[0]);
+        if (node) {
+          void setCenter(
+            node.position.x + NODE_WIDTH / 2,
+            node.position.y + NODE_HEIGHT / 2,
+            { zoom: Math.max(getZoom(), 0.8), duration: 600 },
+          );
+        }
+      } else {
+        void fitView({ nodes: nodeIds.map((id) => ({ id })), duration: 600, padding: 0.45 });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [key, fitView, setCenter, getZoom, getNode]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return null;
+}
+
+function getNeighbourIds(nodeId: string, edges: Edge<FlowEdgeData>[]): string[] {
+  const ids = new Set<string>();
+
+  for (const edge of edges) {
+    if (edge.source === nodeId) {
+      ids.add(edge.target);
+    }
+
+    if (edge.target === nodeId) {
+      ids.add(edge.source);
+    }
+  }
+
+  return [...ids];
+}
+
+function getUpstreamIds(
+  nodeId: string,
+  edges: Edge<FlowEdgeData>[],
+  allowedTypes: Set<ConnectionType>,
+): Set<string> {
+  const visited = new Set<string>();
+  const queue = [nodeId];
+
+  while (queue.length > 0) {
+    const current = queue.pop()!;
+
+    if (visited.has(current)) {
+      continue;
+    }
+
+    visited.add(current);
+
+    for (const edge of edges) {
+      if (edge.target === current && allowedTypes.has(edge.data?.connectionType as ConnectionType)) {
+        if (!visited.has(edge.source)) {
+          queue.push(edge.source);
+        }
+      }
+    }
+  }
+
+  return visited;
+}
+
 const MediaFlowNode = memo(function MediaFlowNode({ data, selected }: NodeProps<Node<MediaNodeData>>) {
   const zoom = useStore((state) => state.transform[2]);
   const isLowZoom = zoom < 0.3;
@@ -396,6 +493,9 @@ const MediaFlowNode = memo(function MediaFlowNode({ data, selected }: NodeProps<
       >
         <Handle type="target" position={Position.Top} className="h-2! w-2! border-0! bg-transparent! opacity-0!" />
         <Handle type="source" position={Position.Bottom} className="h-2! w-2! border-0! bg-transparent! opacity-0!" />
+        {data.watched === true && (
+          <div className="absolute right-0.5 top-0.5 h-2 w-2 rounded-full bg-emerald-500" />
+        )}
       </div>
     );
   }
@@ -408,9 +508,16 @@ const MediaFlowNode = memo(function MediaFlowNode({ data, selected }: NodeProps<
       <Handle type="target" position={Position.Top} className="h-2! w-2! border-0! bg-transparent! opacity-0!" />
       <Handle type="source" position={Position.Bottom} className="h-2! w-2! border-0! bg-transparent! opacity-0!" />
 
-      <Link href={data.href} className="flex h-full gap-3 p-3">
+      <div className="nodrag nopan flex h-full cursor-pointer gap-3 p-3">
         <div className="relative h-28 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-zinc-800">
           <Image src={resolvePosterUrl(data.poster)} alt={data.title} fill className="object-cover" sizes="80px" unoptimized />
+          {data.watched === true && (
+            <div className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500 shadow">
+              <svg viewBox="0 0 10 10" className="h-2.5 w-2.5 text-white" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M1.5 5l2.5 2.5 4.5-4" />
+              </svg>
+            </div>
+          )}
         </div>
 
         <div className="min-w-0 flex-1">
@@ -435,7 +542,7 @@ const MediaFlowNode = memo(function MediaFlowNode({ data, selected }: NodeProps<
             {data.sagaLabel}
           </p>
         </div>
-      </Link>
+      </div>
     </article>
   );
 });
@@ -807,7 +914,7 @@ function buildFlowElements(
       target,
       type: routePoints ? "fixedRoute" : "simplebezier",
       animated: false,
-      data: routePoints ? { routePoints } : undefined,
+      data: { connectionType: edge.type, ...(routePoints ? { routePoints } : {}) },
       style: {
         stroke: style.color,
         strokeWidth,
@@ -841,9 +948,17 @@ export function FlowchartPage() {
   const [graph, setGraph] = useState<GraphResponse | null>(null);
   const [universes, setUniverses] = useState<UniverseMetadata[]>([]);
   const [sagas, setSagas] = useState<SagaMetadata[]>([]);
+  const [allMedia, setAllMedia] = useState<MediaDetail[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [theme, setTheme] = useState<ThemeMode>("dark");
+  const [selection, setSelection] = useState<SelectionState>({ kind: "none" });
+  const [hideWatched, setHideWatched] = useState(false);
+  const [upstreamTypes, setUpstreamTypes] = useState<Set<ConnectionType>>(new Set(["required"]));
+  const [panelMode, setPanelMode] = useState<"normal" | "mark-upstream">("normal");
+
+  const { watchedIds, isWatched, toggle: toggleWatched } = useWatched();
+  const { showToast } = useToast();
 
   useEffect(() => {
     document.body.classList.add("flowchart-route");
@@ -851,6 +966,18 @@ export function FlowchartPage() {
     return () => {
       document.body.classList.remove("flowchart-route");
     };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelection({ kind: "none" });
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   useEffect(() => {
@@ -874,10 +1001,11 @@ export function FlowchartPage() {
   useEffect(() => {
     const loadGraph = async () => {
       try {
-        const [graphResponse, universesResponse, sagasResponse] = await Promise.all([
+        const [graphResponse, universesResponse, sagasResponse, mediaResponse] = await Promise.all([
           fetch(apiV1Path("/graph")),
           fetch(apiV1Path("/universes")),
           fetch(apiV1Path("/sagas")),
+          fetch(apiV1Path("/media")),
         ]);
 
         if (!graphResponse.ok) {
@@ -892,13 +1020,19 @@ export function FlowchartPage() {
           throw new Error(`Sagas API error: ${sagasResponse.status}`);
         }
 
+        if (!mediaResponse.ok) {
+          throw new Error(`Media API error: ${mediaResponse.status}`);
+        }
+
         const graphData = (await graphResponse.json()) as GraphResponse;
         const universeData = (await universesResponse.json()) as UniverseMetadata[];
         const sagaData = (await sagasResponse.json()) as SagaMetadata[];
+        const mediaData = (await mediaResponse.json()) as MediaDetail[];
 
         setGraph(graphData);
         setUniverses(universeData);
         setSagas(sagaData);
+        setAllMedia(mediaData);
         setError(null);
       } catch (fetchError) {
         const message =
@@ -927,6 +1061,286 @@ export function FlowchartPage() {
   }, [edgeStyles, graph, sagas, theme, universes]);
   const graphNodeIds = useMemo(() => graph?.nodes.map((node) => node.id) ?? [], [graph]);
 
+  const mediaById = useMemo(() => new Map(allMedia.map((m) => [m.id, m])), [allMedia]);
+
+  const nodeTitleById = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const node of graph?.nodes ?? []) {
+      map.set(node.id, node.title);
+    }
+    return map;
+  }, [graph]);
+
+  const displayNodes = useMemo(() => {
+    if (!flowState) {
+      return [];
+    }
+
+    const state = flowState;
+
+    function applyBase(node: (typeof state.nodes)[number]) {
+      if (node.type !== "mediaNode") {
+        return node;
+      }
+
+      const watched = watchedIds.has(node.id);
+      const dimmed = hideWatched && watched;
+
+      return {
+        ...node,
+        data: { ...node.data, watched },
+        style: dimmed ? { ...node.style, opacity: 0.15 } : node.style,
+      };
+    }
+
+    if (selection.kind === "none") {
+      return flowState.nodes.map(applyBase);
+    }
+
+    if (selection.kind === "node") {
+      return flowState.nodes.map((node) => {
+        const base = applyBase(node);
+        return node.id === selection.nodeId ? { ...base, selected: true } : base;
+      });
+    }
+
+    if (selection.kind === "edge") {
+      return flowState.nodes.map((node) => {
+        const base = applyBase(node);
+        return node.id === selection.source || node.id === selection.target
+          ? { ...base, selected: true }
+          : base;
+      });
+    }
+
+    if (selection.kind === "highlight-upstream") {
+      const upstreamIds = getUpstreamIds(selection.nodeId, flowState.edges, upstreamTypes);
+
+      return flowState.nodes.map((node) => {
+        const base = applyBase(node);
+
+        if (node.type !== "mediaNode") {
+          return base;
+        }
+
+        if (upstreamIds.has(node.id)) {
+          return { ...base, selected: true };
+        }
+
+        return { ...base, style: { ...base.style, opacity: 0.15 } };
+      });
+    }
+
+    const neighbourIds = getNeighbourIds(selection.nodeId, flowState.edges);
+    const highlightIds = new Set([selection.nodeId, ...neighbourIds]);
+
+    return flowState.nodes.map((node) => {
+      const base = applyBase(node);
+
+      if (node.type !== "mediaNode") {
+        return base;
+      }
+
+      if (highlightIds.has(node.id)) {
+        return { ...base, selected: true };
+      }
+
+      return { ...base, style: { ...base.style, opacity: 0.15 } };
+    });
+  }, [flowState, selection, watchedIds, hideWatched, upstreamTypes]);
+
+  const displayEdges = useMemo(() => {
+    if (!flowState) {
+      return [];
+    }
+
+    if (selection.kind === "none" || selection.kind === "node") {
+      return flowState.edges;
+    }
+
+    if (selection.kind === "edge") {
+      return flowState.edges.map((edge) => {
+        const baseStyle = edge.style ?? {};
+        if (edge.id === selection.edgeId) {
+          return {
+            ...edge,
+            zIndex: 1000,
+            style: {
+              ...baseStyle,
+              opacity: 1,
+              strokeWidth: ((baseStyle.strokeWidth as number) ?? 2.6) + 2,
+            },
+          };
+        }
+        return {
+          ...edge,
+          style: {
+            ...baseStyle,
+            opacity: ((baseStyle.opacity as number) ?? 1) * 0.15,
+          },
+        };
+      });
+    }
+
+    if (selection.kind === "highlight-upstream") {
+      const upstreamIds = getUpstreamIds(selection.nodeId, flowState.edges, upstreamTypes);
+      return flowState.edges.map((edge) => {
+        const baseStyle = edge.style ?? {};
+        const isInChain = upstreamIds.has(edge.source) && upstreamIds.has(edge.target);
+        if (isInChain) {
+          return {
+            ...edge,
+            zIndex: 1000,
+            style: {
+              ...baseStyle,
+              opacity: 1,
+              strokeWidth: ((baseStyle.strokeWidth as number) ?? 2.6) + 2,
+            },
+          };
+        }
+        return {
+          ...edge,
+          style: {
+            ...baseStyle,
+            opacity: ((baseStyle.opacity as number) ?? 1) * 0.15,
+          },
+        };
+      });
+    }
+
+    return flowState.edges.map((edge) => {
+      const baseStyle = edge.style ?? {};
+      const isHighlighted = edge.source === selection.nodeId || edge.target === selection.nodeId;
+
+      if (isHighlighted) {
+        return {
+          ...edge,
+          zIndex: 1000,
+          style: {
+            ...baseStyle,
+            opacity: 1,
+            strokeWidth: ((baseStyle.strokeWidth as number) ?? 2.6) + 2,
+          },
+        };
+      }
+
+      return {
+        ...edge,
+        style: {
+          ...baseStyle,
+          opacity: ((baseStyle.opacity as number) ?? 1) * 0.15,
+        },
+      };
+    });
+  }, [flowState, selection, upstreamTypes]);
+
+  const focusNodeIds = useMemo(() => {
+    if (!flowState) {
+      return [];
+    }
+
+    if (selection.kind === "node") {
+      return [selection.nodeId];
+    }
+
+    if (selection.kind === "edge") {
+      return [selection.source, selection.target];
+    }
+
+    if (selection.kind === "highlight") {
+      return [selection.nodeId, ...getNeighbourIds(selection.nodeId, flowState.edges)];
+    }
+
+    if (selection.kind === "highlight-upstream") {
+      return [...getUpstreamIds(selection.nodeId, flowState.edges, upstreamTypes)];
+    }
+
+    return [];
+  }, [selection, flowState, upstreamTypes]);
+
+  const highlightInfo = useMemo(() => {
+    if (selection.kind === "highlight" && flowState) {
+      const { nodeId } = selection;
+      const inCount = flowState.edges.filter((e) => e.target === nodeId).length;
+      const outCount = flowState.edges.filter((e) => e.source === nodeId).length;
+      return { title: nodeTitleById.get(nodeId) ?? nodeId, inCount, outCount, kind: "highlight" as const };
+    }
+
+    if (selection.kind === "highlight-upstream" && flowState) {
+      const { nodeId } = selection;
+      const upstreamIds = getUpstreamIds(nodeId, flowState.edges, upstreamTypes);
+      const count = upstreamIds.size - 1;
+      return { title: nodeTitleById.get(nodeId) ?? nodeId, count, kind: "highlight-upstream" as const };
+    }
+
+    return null;
+  }, [selection, flowState, nodeTitleById, upstreamTypes]);
+
+  const panelMedia = selection.kind === "node" ? (mediaById.get(selection.nodeId) ?? null) : null;
+
+  const upstreamMediaList = useMemo(() => {
+    if (selection.kind !== "node" || !flowState) {
+      return [];
+    }
+
+    const ids = getUpstreamIds(selection.nodeId, flowState.edges, upstreamTypes);
+    return [...ids]
+      .map((id) => mediaById.get(id))
+      .filter((m): m is NonNullable<typeof m> => m != null)
+      .sort((a, b) => a.release_date.localeCompare(b.release_date));
+  }, [selection, flowState, upstreamTypes, mediaById]);
+
+  const handleNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
+    if (node.type !== "mediaNode") {
+      return;
+    }
+
+    setSelection((prev) =>
+      prev.kind === "node" && prev.nodeId === node.id
+        ? { kind: "none" }
+        : { kind: "node", nodeId: node.id },
+    );
+    setPanelMode("normal");
+  }, []);
+
+  const handleEdgeClick = useCallback((_event: React.MouseEvent, edge: Edge<FlowEdgeData>) => {
+    setSelection({
+      kind: "edge",
+      edgeId: edge.id,
+      source: edge.source,
+      target: edge.target,
+      connectionType: edge.data?.connectionType ?? "required",
+    });
+  }, []);
+
+  const handlePaneClick = useCallback(() => {
+    setSelection({ kind: "none" });
+    setPanelMode("normal");
+  }, []);
+
+  const handleHighlight = useCallback((nodeId: string) => {
+    setSelection({ kind: "highlight", nodeId });
+  }, []);
+
+  const handleHighlightUpstream = useCallback((nodeId: string) => {
+    setSelection({ kind: "highlight-upstream", nodeId });
+  }, []);
+
+  const toggleUpstreamType = useCallback((type: ConnectionType) => {
+    setUpstreamTypes((prev) => {
+      const next = new Set(prev);
+      if (next.has(type)) {
+        if (next.size === 1) {
+          return prev;
+        }
+        next.delete(type);
+      } else {
+        next.add(type);
+      }
+      return next;
+    });
+  }, []);
+
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-linear-to-b from-zinc-800 via-zinc-800 to-zinc-800 text-white">
       <AppNavbar />
@@ -948,10 +1362,10 @@ export function FlowchartPage() {
           )}
 
           {!loading && !error && flowState && (
-            <div className="h-full w-full">
+            <div className="relative h-full w-full">
               <ReactFlow
-                 nodes={flowState.nodes}
-                 edges={flowState.edges}
+                 nodes={displayNodes}
+                 edges={displayEdges}
                  nodeTypes={FLOW_NODE_TYPES}
                  edgeTypes={FLOW_EDGE_TYPES}
                  defaultViewport={{ x: 500, y: 200, zoom: 0.5 }}
@@ -961,12 +1375,15 @@ export function FlowchartPage() {
                  proOptions={{ hideAttribution: true }}
                  nodesDraggable={false}
                  nodesConnectable={false}
-                 elementsSelectable={false}
+                 onNodeClick={handleNodeClick}
+                 onEdgeClick={handleEdgeClick}
+                 onPaneClick={handlePaneClick}
                >
                 <NodeInternalsRefresh nodeIds={graphNodeIds} theme={theme} />
+                <FocusController nodeIds={focusNodeIds} />
                 <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="rgba(255, 255, 255, 0.08)" />
                 <Controls
-                  position="bottom-right"
+                  position={selection.kind === "node" ? "bottom-left" : "bottom-right"}
                   showInteractive={false}
                   className="workflow-controls bg-white/95 shadow-xl [&_button]:border-zinc-300 [&_button]:bg-white [&_button:hover]:bg-zinc-100"
                 />
@@ -987,9 +1404,246 @@ export function FlowchartPage() {
                         </div>
                       ))}
                     </div>
+                    <div className="mt-3 border-t border-zinc-800 pt-2.5">
+                      <p className="text-zinc-400">
+                        {watchedIds.size} / {allMedia.length} watched
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setHideWatched((v) => !v)}
+                        className={`mt-1.5 w-full rounded-lg border px-2 py-1 text-left transition ${hideWatched ? "border-emerald-700 bg-emerald-900/30 text-emerald-300" : "border-zinc-700 text-zinc-400 hover:text-zinc-200"}`}
+                      >
+                        {hideWatched ? "Showing unwatched" : "Hide watched"}
+                      </button>
+                    </div>
                   </div>
                 </Panel>
+                {selection.kind === "edge" && (
+                  <Panel position="bottom-center">
+                    <div className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-950/95 px-4 py-2.5 text-xs text-zinc-200 shadow-xl">
+                      <span
+                        className="shrink-0 rounded-full border px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide"
+                        style={{
+                          borderColor: edgeStyles[selection.connectionType].color,
+                          color: edgeStyles[selection.connectionType].color,
+                        }}
+                      >
+                        {edgeStyles[selection.connectionType].label}
+                      </span>
+                      <span className="font-medium text-white">
+                        {nodeTitleById.get(selection.source) ?? selection.source}
+                      </span>
+                      <span className="text-zinc-500">→</span>
+                      <span className="font-medium text-white">
+                        {nodeTitleById.get(selection.target) ?? selection.target}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handlePaneClick}
+                        className="ml-1 shrink-0 rounded-full px-1.5 text-zinc-400 hover:text-white"
+                        aria-label="Close"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </Panel>
+                )}
+                {highlightInfo?.kind === "highlight" && (
+                  <Panel position="bottom-center">
+                    <div className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-950/95 px-4 py-2.5 text-xs text-zinc-200 shadow-xl">
+                      <span className="font-medium text-white">{highlightInfo.title}</span>
+                      <span className="text-zinc-500">·</span>
+                      <span className="text-zinc-300">↙ {highlightInfo.inCount} in</span>
+                      <span className="text-zinc-500">·</span>
+                      <span className="text-zinc-300">↗ {highlightInfo.outCount} out</span>
+                      <button
+                        type="button"
+                        onClick={handlePaneClick}
+                        className="ml-1 shrink-0 rounded-full px-1.5 text-zinc-400 hover:text-white"
+                        aria-label="Close"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </Panel>
+                )}
+                {highlightInfo?.kind === "highlight-upstream" && (
+                  <Panel position="bottom-center">
+                    <div className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-950/95 px-4 py-2.5 text-xs text-zinc-200 shadow-xl">
+                      <span className="font-medium text-white">{highlightInfo.title}</span>
+                      <span className="text-zinc-500">·</span>
+                      <span className="text-zinc-300">↑ {highlightInfo.count} upstream</span>
+                      <button
+                        type="button"
+                        onClick={handlePaneClick}
+                        className="ml-1 shrink-0 rounded-full px-1.5 text-zinc-400 hover:text-white"
+                        aria-label="Close"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </Panel>
+                )}
               </ReactFlow>
+
+              {selection.kind === "node" && panelMedia && (
+                <aside className="panel-slide-in absolute right-0 top-0 z-50 flex h-full w-[360px] flex-col overflow-y-auto border-l border-zinc-800 bg-zinc-950 shadow-2xl">
+                  <div className="flex shrink-0 items-center justify-between border-b border-zinc-800 px-4 py-3">
+                    <span className={`text-xs font-semibold uppercase tracking-[0.2em] ${getMediaTypeClass(panelMedia.mediatype)}`}>
+                      {formatMediaTypeLabel(panelMedia.mediatype)}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handlePaneClick}
+                      className="rounded-full px-1.5 text-lg text-zinc-400 hover:text-white"
+                      aria-label="Close panel"
+                    >
+                      ×
+                    </button>
+                  </div>
+
+                  <div className="relative mx-auto mt-5 aspect-[2/3] w-36 shrink-0 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
+                    <Image
+                      src={resolvePosterUrl(panelMedia.poster)}
+                      alt={panelMedia.title}
+                      fill
+                      className="object-cover"
+                      sizes="144px"
+                      unoptimized
+                    />
+                  </div>
+
+                  <div className="flex flex-1 flex-col px-4 pb-6 pt-4">
+                    {panelMode === "mark-upstream" ? (
+                      <>
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm font-semibold text-white">Mark up to this point</p>
+                          <button
+                            type="button"
+                            onClick={() => setPanelMode("normal")}
+                            className="text-xs text-zinc-500 hover:text-zinc-200"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {(["required", "optional", "references"] as ConnectionType[]).map((type) => (
+                            <button
+                              key={type}
+                              type="button"
+                              onClick={() => toggleUpstreamType(type)}
+                              className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold transition ${upstreamTypes.has(type) ? "border-transparent text-white" : "border-zinc-700 text-zinc-500"}`}
+                              style={upstreamTypes.has(type) ? { backgroundColor: edgeStyles[type].color + "33", borderColor: edgeStyles[type].color, color: edgeStyles[type].color } : undefined}
+                            >
+                              {edgeStyles[type].label}
+                            </button>
+                          ))}
+                        </div>
+
+                        <div className="mt-3 flex-1 overflow-y-auto">
+                          {upstreamMediaList.map((item) => (
+                            <div
+                              key={item.id}
+                              className={`flex items-center gap-2 border-b border-zinc-800/60 py-1.5 text-xs ${isWatched(item.id) ? "text-zinc-600" : "text-zinc-300"}`}
+                            >
+                              {isWatched(item.id) && <span className="text-emerald-600">✓</span>}
+                              <span className="truncate">{item.title}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {(() => {
+                          const unwatchedCount = upstreamMediaList.filter((m) => !isWatched(m.id)).length;
+                          return unwatchedCount > 0 ? (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                for (const item of upstreamMediaList) {
+                                  if (!isWatched(item.id)) {
+                                    toggleWatched(item.id);
+                                  }
+                                }
+                                showToast(`✓ Marked ${unwatchedCount} as watched`);
+                                setPanelMode("normal");
+                              }}
+                              className="mt-4 flex items-center justify-center rounded-xl border border-emerald-700 bg-emerald-900/30 px-4 py-2.5 text-sm font-medium text-emerald-300 transition hover:bg-emerald-900/50"
+                            >
+                              Mark {unwatchedCount} as watched
+                            </button>
+                          ) : (
+                            <p className="mt-4 text-center text-xs text-zinc-500">All already watched</p>
+                          );
+                        })()}
+                      </>
+                    ) : (
+                      <>
+                        <h2 className="text-base font-bold leading-tight text-white">{panelMedia.title}</h2>
+                        <p className="mt-1 text-xs text-zinc-400">{formatDateLabel(panelMedia.release_date)}</p>
+                        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-zinc-300">{panelMedia.summary}</p>
+
+                        <div className="mt-4 flex flex-wrap gap-1.5">
+                          <p className="w-full text-[10px] font-semibold uppercase tracking-widest text-zinc-500">Upstream types</p>
+                          {(["required", "optional", "references"] as ConnectionType[]).map((type) => (
+                            <button
+                              key={type}
+                              type="button"
+                              onClick={() => toggleUpstreamType(type)}
+                              className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold transition ${upstreamTypes.has(type) ? "border-transparent text-white" : "border-zinc-700 text-zinc-500"}`}
+                              style={upstreamTypes.has(type) ? { backgroundColor: edgeStyles[type].color + "33", borderColor: edgeStyles[type].color, color: edgeStyles[type].color } : undefined}
+                            >
+                              {edgeStyles[type].label}
+                            </button>
+                          ))}
+                        </div>
+
+                        <div className="mt-5 flex flex-col gap-2">
+                          <Link
+                            href={`/media/${panelMedia.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800"
+                          >
+                            View full page ↗
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => handleHighlight(panelMedia.id)}
+                            className="flex items-center justify-center rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-zinc-800 hover:text-white"
+                          >
+                            Highlight connections
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleHighlightUpstream(panelMedia.id)}
+                            className="flex items-center justify-center rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-zinc-800 hover:text-white"
+                          >
+                            Highlight up to this point
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const wasWatched = isWatched(panelMedia.id);
+                              toggleWatched(panelMedia.id);
+                              showToast(wasWatched ? "Removed from watched" : "✓ Marked as watched");
+                            }}
+                            className={`flex items-center justify-center gap-1.5 rounded-xl border px-4 py-2.5 text-sm font-medium transition ${isWatched(panelMedia.id) ? "border-emerald-700 bg-emerald-900/30 text-emerald-300 hover:bg-emerald-900/50" : "border-zinc-700 bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-white"}`}
+                          >
+                            {isWatched(panelMedia.id) ? "✓ Watched" : "Mark as watched"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPanelMode("mark-upstream")}
+                            className="flex items-center justify-center rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-zinc-800 hover:text-white"
+                          >
+                            Mark up to this point
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </aside>
+              )}
             </div>
           )}
         </section>

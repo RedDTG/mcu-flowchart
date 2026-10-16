@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppNavbar } from "./AppNavbar";
+import { useWatched } from "../lib/useWatched";
+import { useToast } from "./Toast";
 import { apiV1Path, resolvePosterUrl } from "../lib/api";
 
 interface Media {
@@ -96,51 +98,73 @@ function MediaCard({
   index,
   showIndex,
   sagaMetadata,
+  isWatched,
+  onToggle,
 }: {
   item: Media;
   index: number;
   showIndex: boolean;
   sagaMetadata: Record<string, SagaMetadata>;
+  isWatched: boolean;
+  onToggle: () => void;
 }) {
   const mediaTypeStyles = getMediaTypeStyles(item.mediatype);
 
   return (
-    <Link
-      key={item.id}
-      href={`/media/${item.id}`}
-      className="group mx-auto w-full max-w-36 sm:max-w-32"
-    >
+    <div className="group mx-auto w-full max-w-36 sm:max-w-32">
       <article className={`relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/70 transition-transform duration-200 group-hover:-translate-y-0.5 ${mediaTypeStyles.hoverBorderClass}`}>
-        <div className="relative aspect-2/3 bg-zinc-800">
-          <Image
-            src={resolvePosterUrl(item.poster)}
-            alt={item.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 24vw, 120px"
-            unoptimized
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent" />
-          <span className={`absolute left-1.5 top-1.5 rounded-full px-1.5 py-0.5 text-[9px] font-semibold tracking-wide transition-opacity duration-300 group-hover:opacity-0 ${mediaTypeStyles.badgeClass}`}>
-            {formatMediaTypeLabel(item.mediatype)}
-          </span>
-        </div>
+        <Link href={`/media/${item.id}`} className="block">
+          <div className="relative aspect-2/3 bg-zinc-800">
+            <Image
+              src={resolvePosterUrl(item.poster)}
+              alt={item.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 45vw, (max-width: 1024px) 24vw, 120px"
+              unoptimized
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent" />
+            <span className={`absolute left-1.5 top-1.5 rounded-full px-1.5 py-0.5 text-[9px] font-semibold tracking-wide transition-opacity duration-300 group-hover:opacity-0 ${mediaTypeStyles.badgeClass}`}>
+              {formatMediaTypeLabel(item.mediatype)}
+            </span>
+          </div>
+        </Link>
 
-        <div className="absolute inset-x-0 bottom-0 p-2 pt-7">
-          <div className={`border-b border-zinc-600/90 pb-1 transition-colors duration-300 ${mediaTypeStyles.hoverDividerClass}`}>
-            <h3 className="line-clamp-2 text-[11px] font-semibold leading-tight text-white">
-              {showIndex ? `${index + 1}. ${item.title}` : item.title}
-            </h3>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-label={isWatched ? "Unmark as watched" : "Mark as watched"}
+          className={`absolute right-1.5 top-1.5 z-10 flex h-6 w-6 items-center justify-center rounded-full transition-opacity ${isWatched ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+          style={{ background: isWatched ? "rgb(16,185,129)" : "rgba(255,255,255,0.25)" }}
+        >
+          {isWatched ? (
+            <svg viewBox="0 0 10 10" className="h-2.5 w-2.5" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1.5 5l2.5 2.5 4.5-4" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 10 10" className="h-2.5 w-2.5" fill="white">
+              <polygon points="2,1 9,5 2,9" />
+            </svg>
+          )}
+        </button>
+
+        <Link href={`/media/${item.id}`} className="block">
+          <div className="absolute inset-x-0 bottom-0 p-2 pt-7">
+            <div className={`border-b border-zinc-600/90 pb-1 transition-colors duration-300 ${mediaTypeStyles.hoverDividerClass}`}>
+              <h3 className="line-clamp-2 text-[11px] font-semibold leading-tight text-white">
+                {showIndex ? `${index + 1}. ${item.title}` : item.title}
+              </h3>
+            </div>
+            <div className="mt-1 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-14 group-hover:opacity-100">
+              <p className="text-[10px] text-zinc-300">
+                {new Date(item.release_date).getFullYear()}
+                {item.saga && sagaMetadata[item.saga]?.short_name ? ` • ${sagaMetadata[item.saga].short_name}` : ""}
+              </p>
+            </div>
           </div>
-          <div className="mt-1 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-14 group-hover:opacity-100">
-            <p className="text-[10px] text-zinc-300">
-              {new Date(item.release_date).getFullYear()}
-              {item.saga && sagaMetadata[item.saga]?.short_name ? ` • ${sagaMetadata[item.saga].short_name}` : ""}
-            </p>
-          </div>
-        </div>
+        </Link>
       </article>
-    </Link>
+    </div>
   );
 }
 
@@ -174,7 +198,37 @@ export function AllMediaPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedUniverse, setSelectedUniverse] = useState<string | null>(null);
+  const [hideWatched, setHideWatched] = useState(false);
   const pendingScrollTargetRef = useRef<string | null>(null);
+
+  const { watchedIds, isWatched, toggle: toggleWatched, reset: resetWatched } = useWatched();
+  const { showToast } = useToast();
+
+  const handleToggle = useCallback((item: Media) => {
+    const wasWatched = isWatched(item.id);
+    toggleWatched(item.id);
+    showToast(wasWatched ? "Removed from watched" : "✓ Marked as watched");
+  }, [isWatched, toggleWatched, showToast]);
+
+  const handleGroupToggle = useCallback((items: Media[]) => {
+    const allWatched = items.every((item) => isWatched(item.id));
+
+    if (allWatched) {
+      for (const item of items) {
+        toggleWatched(item.id);
+      }
+      showToast(`Removed ${items.length} from watched`);
+    } else {
+      let count = 0;
+      for (const item of items) {
+        if (!isWatched(item.id)) {
+          toggleWatched(item.id);
+          count++;
+        }
+      }
+      showToast(`✓ Marked ${count} as watched`);
+    }
+  }, [isWatched, toggleWatched, showToast]);
 
   useEffect(() => {
     const fetchMedia = async () => {
@@ -358,7 +412,32 @@ export function AllMediaPage() {
             <p className="text-zinc-300">Explore every Marvel sagas across worlds and universes</p>
           </div>
 
-          <div className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+            <span className="rounded-full border border-zinc-700 bg-zinc-900/60 px-3 py-1.5 text-xs font-semibold text-zinc-400">
+              {watchedIds.size} / {media.length} watched
+            </span>
+            <button
+              type="button"
+              onClick={() => setHideWatched((v) => !v)}
+              className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${hideWatched ? "border-emerald-600 bg-emerald-900/40 text-emerald-300" : "border-zinc-700 bg-zinc-900/60 text-zinc-400 hover:text-zinc-200"}`}
+            >
+              {hideWatched ? "Showing unwatched" : "Hide watched"}
+            </button>
+            {watchedIds.size > 0 && (
+              <button
+                type="button"
+                onClick={() => {
+                  resetWatched();
+                  showToast("Watched list cleared");
+                }}
+                className="rounded-full border border-zinc-700 bg-zinc-900/60 px-3 py-1.5 text-xs font-semibold text-zinc-500 transition hover:border-red-700 hover:text-red-400"
+              >
+                Reset progress
+              </button>
+            )}
+          </div>
+
+          <div className="mt-3 flex flex-wrap justify-center gap-2 sm:justify-start">
             {universeOptions.map((option) => {
               const isActive = selectedUniverse === option.key;
               return (
@@ -412,7 +491,21 @@ export function AllMediaPage() {
                   className="space-y-5 scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32"
                 >
                   <div className="flex flex-col flex-wrap items-center justify-center gap-3 py-4 sm:gap-4 sm:py-5">
-                    <h2 className="text-center text-2xl font-bold text-white sm:text-3xl">{sagaGroup.title}</h2>
+                    <div className="flex items-center gap-3">
+                      <h2 className="text-center text-2xl font-bold text-white sm:text-3xl">{sagaGroup.title}</h2>
+                      {(() => {
+                        const allWatched = sagaGroup.items.every((item) => isWatched(item.id));
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => handleGroupToggle(sagaGroup.items)}
+                            className={`shrink-0 rounded-full border px-3 py-1 text-xs font-semibold transition hover:-translate-y-0.5 ${allWatched ? "border-emerald-700 bg-emerald-900/30 text-emerald-300" : "border-zinc-700 bg-zinc-900/60 text-zinc-400 hover:text-zinc-200"}`}
+                          >
+                            {allWatched ? "✓ All watched" : "Mark all"}
+                          </button>
+                        );
+                      })()}
+                    </div>
                     <p className="text-center text-sm text-zinc-400 sm:text-base">
                       {sagaGroup.description}
                     </p>
@@ -426,19 +519,32 @@ export function AllMediaPage() {
                           <h3 className="shrink-0 rounded-full border border-zinc-800 bg-zinc-950/70 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
                             Phase {phaseGroup.phase}
                           </h3>
+                          <button
+                            type="button"
+                            onClick={() => handleGroupToggle(phaseGroup.items)}
+                            className={`shrink-0 rounded-full border px-2 py-0.5 text-[9px] font-semibold transition ${phaseGroup.items.every((item) => isWatched(item.id)) ? "border-emerald-800 text-emerald-500" : "border-zinc-700 text-zinc-500 hover:text-zinc-300"}`}
+                          >
+                            {phaseGroup.items.every((item) => isWatched(item.id)) ? "✓ All" : "Mark all"}
+                          </button>
                           <div className="h-px flex-1 bg-zinc-800/80" />
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
-                          {phaseGroup.items.map((item, index) => (
-                            <MediaCard
-                              key={item.id}
-                              item={item}
-                              index={index}
-                              showIndex
-                              sagaMetadata={sagaMetadata}
-                            />
-                          ))}
+                          {phaseGroup.items.map((item, index) => {
+                            const itemWatched = isWatched(item.id);
+                            return (
+                              <div key={item.id} style={hideWatched && itemWatched ? { opacity: 0.2 } : undefined}>
+                                <MediaCard
+                                  item={item}
+                                  index={index}
+                                  showIndex
+                                  sagaMetadata={sagaMetadata}
+                                  isWatched={itemWatched}
+                                  onToggle={() => handleToggle(item)}
+                                />
+                              </div>
+                            );
+                          })}
                         </div>
                       </section>
                     ))}
@@ -455,22 +561,42 @@ export function AllMediaPage() {
                   className="space-y-3 scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32"
                 >
                   <div className="flex flex-col flex-wrap items-center justify-center gap-3 py-4 sm:gap-4 sm:py-5">
-                    <h2 className="text-center text-2xl font-bold text-white sm:text-3xl">{group.title}</h2>
+                    <div className="flex items-center gap-3">
+                      <h2 className="text-center text-2xl font-bold text-white sm:text-3xl">{group.title}</h2>
+                      {(() => {
+                        const allWatched = group.items.every((item) => isWatched(item.id));
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => handleGroupToggle(group.items)}
+                            className={`shrink-0 rounded-full border px-3 py-1 text-xs font-semibold transition hover:-translate-y-0.5 ${allWatched ? "border-emerald-700 bg-emerald-900/30 text-emerald-300" : "border-zinc-700 bg-zinc-900/60 text-zinc-400 hover:text-zinc-200"}`}
+                          >
+                            {allWatched ? "✓ All watched" : "Mark all"}
+                          </button>
+                        );
+                      })()}
+                    </div>
                     <p className="text-center text-sm text-zinc-400 sm:text-base">
                       {group.description}
                     </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
-                    {group.items.map((item, index) => (
-                      <MediaCard
-                        key={item.id}
-                        item={item}
-                        index={index}
-                        showIndex={group.key !== "unassigned-saga"}
-                        sagaMetadata={sagaMetadata}
-                      />
-                    ))}
+                    {group.items.map((item, index) => {
+                      const itemWatched = isWatched(item.id);
+                      return (
+                        <div key={item.id} style={hideWatched && itemWatched ? { opacity: 0.2 } : undefined}>
+                          <MediaCard
+                            item={item}
+                            index={index}
+                            showIndex={group.key !== "unassigned-saga"}
+                            sagaMetadata={sagaMetadata}
+                            isWatched={itemWatched}
+                            onToggle={() => handleToggle(item)}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 </section>
               ))}

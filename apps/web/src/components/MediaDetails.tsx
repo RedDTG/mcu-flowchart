@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AppNavbar } from "./AppNavbar";
+import { useWatched } from "../lib/useWatched";
+import { useToast } from "./Toast";
 import { apiV1Path, resolvePosterUrl } from "../lib/api";
 
 type ConnectionType = "required" | "optional" | "references";
@@ -305,6 +307,9 @@ export function MediaDetails({ mediaId }: { mediaId: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const { isWatched, toggle: toggleWatched } = useWatched();
+  const { showToast } = useToast();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -528,6 +533,20 @@ export function MediaDetails({ mediaId }: { mediaId: string }) {
                       ? sagaMetadata[media.saga]?.name ?? formatBadgeLabel(media.saga)
                       : universeMetadata[media.universe]?.name ?? formatBadgeLabel(media.universe)}
                   </Link>
+                </div>
+
+                <div className="flex justify-center sm:justify-start">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const wasWatched = isWatched(media.id);
+                      toggleWatched(media.id);
+                      showToast(wasWatched ? "Removed from watched" : "✓ Marked as watched");
+                    }}
+                    className={`rounded-full border px-5 py-2 text-sm font-semibold transition hover:-translate-y-0.5 ${isWatched(media.id) ? "border-emerald-700 bg-emerald-900/30 text-emerald-300 hover:bg-emerald-900/50" : "border-zinc-700 bg-zinc-900/80 text-zinc-200 hover:brightness-110"}`}
+                  >
+                    {isWatched(media.id) ? "✓ Watched" : "Mark as watched"}
+                  </button>
                 </div>
 
                 <p className="mx-auto max-w-3xl leading-relaxed whitespace-pre-line text-zinc-300 sm:mx-0">{media.summary}</p>

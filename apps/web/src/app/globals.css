@@ -71,6 +71,30 @@ body.flowchart-route .site-footer nav {
   pointer-events: auto !important;
 }
 
+body.flowchart-route .react-flow__edge,
+body.flowchart-route .react-flow__edge-path,
+body.flowchart-route .react-flow__edge-interaction {
+  cursor: pointer !important;
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.panel-slide-in {
+  animation: slide-in-right 0.2s ease-out;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.15s ease-out;
+}
+
 html[data-theme="dark"] {
   color-scheme: dark;
   --themed-icon-color: #ffffff;
